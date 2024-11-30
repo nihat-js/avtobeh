@@ -1,5 +1,6 @@
 // pages/api/getUser.js
-import { parseCookies } from 'cookie';
+import { parseCookies } from 'nookies';
+
 import jwt from 'jsonwebtoken';
 import db from '@/db/drizzle'; // Your DB setup file
 import { usersTable } from '@/db/schema';
