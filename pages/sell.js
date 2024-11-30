@@ -2,11 +2,14 @@
 import Layout from '../components/Layout';
 
 const Sell = () => {
+
+  
+
   return (
     <Layout>
       <div className="max-w-4xl mx-auto bg-white p-6 shadow-md rounded-md">
         <h1 className="text-2xl font-bold text-gray-800 mb-6">Sell Your Car</h1>
-        <form className="space-y-6">
+        <form className="space-y-6" action={submitForm}>
           {/* Car Details */}
           <div>
             <label htmlFor="make" className="block text-sm font-medium text-gray-600">
