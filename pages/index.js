@@ -12,8 +12,5 @@ export default function Home() {
         Find the best deals on second-hand cars.
       </p>
     </Layout>
-    export default Home;
-
-
   </main>
 }
