@@ -30,10 +30,8 @@ export default async function handler(req, res) {
 
       // Insert the user into the database
       await db.insert(usersTable).values({
-        id: crypto.randomUUID(),
         email,
         password: hashedPassword,
-        createdAt: new Date(),
       });
 
       res.status(201).json({ message: "User registered successfully." });
