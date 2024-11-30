@@ -22,16 +22,22 @@ const Header = () => {
         {/* Navigation (Desktop) */}
         <nav className="hidden md:flex space-x-8">
           <Link href="/" className="text-gray-600 hover:text-blue-500 transition">
-            Home
+            Ana səhifə
           </Link>
-          <Link href="/browse" className="text-gray-600 hover:text-blue-500 transition">
-            Browse Cars
+          <Link href="/axtar" className="text-gray-600 hover:text-blue-500 transition">
+            Axtar
           </Link>
           <Link href="/sell" className="text-gray-600 hover:text-blue-500 transition">
-            Sell a Car
+            Sat
           </Link>
-          <Link href="/contact" className="text-gray-600 hover:text-blue-500 transition">
-            Contact Us
+          <Link href="/elaqe" className="text-gray-600 hover:text-blue-500 transition">
+            Əlaqə
+          </Link>
+          <Link href="/faq" className="text-gray-600 hover:text-blue-500 transition">
+            FAQ
+          </Link>
+          <Link href="/recommendations" className="text-gray-600 hover:text-blue-500 transition">
+            Tövsiyələr
           </Link>
         </nav>
 
@@ -91,6 +97,9 @@ const Header = () => {
           </Link>
           <Link href="/contact" className="text-gray-600 hover:text-blue-500 transition">
             Contact Us
+          </Link>
+          <Link href="/faq" className="text-gray-600 hover:text-blue-500 transition">
+            FAQ
           </Link>
 
           {/* Actions (Mobile) - Only visible when the mobile menu is open */}
