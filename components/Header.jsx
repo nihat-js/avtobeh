@@ -2,8 +2,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-const Header = () => {
-  // State to manage mobile menu visibility
+const Header = ({ user }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Toggle mobile menu visibility
@@ -21,103 +20,49 @@ const Header = () => {
 
         {/* Navigation (Desktop) */}
         <nav className="hidden md:flex space-x-8">
-          <Link href="/" className="text-gray-600 hover:text-blue-500 transition">
-            Ana səhifə
-          </Link>
-          <Link href="/axtar" className="text-gray-600 hover:text-blue-500 transition">
-            Axtar
-          </Link>
-          <Link href="/sell" className="text-gray-600 hover:text-blue-500 transition">
-            Sat
-          </Link>
-          <Link href="/elaqe" className="text-gray-600 hover:text-blue-500 transition">
-            Əlaqə
-          </Link>
-          <Link href="/faq" className="text-gray-600 hover:text-blue-500 transition">
-            FAQ
-          </Link>
-          <Link href="/recommendations" className="text-gray-600 hover:text-blue-500 transition">
-            Tövsiyələr
-          </Link>
+          <Link href="/" className="text-gray-600 hover:text-blue-500 transition">Ana səhifə</Link>
+          <Link href="/axtar" className="text-gray-600 hover:text-blue-500 transition">Axtar</Link>
+          <Link href="/sell" className="text-gray-600 hover:text-blue-500 transition">Sat</Link>
+          <Link href="/elaqe" className="text-gray-600 hover:text-blue-500 transition">Əlaqə</Link>
+          <Link href="/faq" className="text-gray-600 hover:text-blue-500 transition">FAQ</Link>
+          <Link href="/recommendations" className="text-gray-600 hover:text-blue-500 transition">Tövsiyələr</Link>
         </nav>
 
         {/* Actions (Desktop) */}
         <div className="hidden md:flex space-x-4">
-          <Link
-            href="/login"
-            className="py-2 px-4 text-sm font-medium text-gray-600 border border-gray-300 rounded-md hover:bg-gray-100 transition"
-          >
-            Login
-          </Link>
-          <Link
-            href="/register"
-            className="py-2 px-4 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 transition"
-          >
-            Register
-          </Link>
+          {!user ? (
+            <>
+              <Link
+                href="/login"
+                className="py-2 px-4 text-sm font-medium text-gray-600 border border-gray-300 rounded-md hover:bg-gray-100 transition"
+              >
+                Daxil ol
+              </Link>
+              <Link
+                href="/register"
+                className="py-2 px-4 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 transition"
+              >
+                Qeydiyyat
+              </Link>
+            </>
+          ) : (
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center">
+                <img
+                  src={user.avatar || '/default-avatar.png'} // Replace with user avatar URL
+                  alt="Avatar"
+                  className="w-10 h-10 rounded-full"
+                />
+                <span className="ml-2 text-sm text-gray-600">{user.email}</span>
+              </div>
+              <div className="flex items-center text-sm text-gray-600">
+                <span>Bonus: {user.bonus} </span>
+                <span className="mx-2">|</span>
+                <span>Balance: {user.balance}₼</span>
+              </div>
+            </div>
+          )}
         </div>
-
-        {/* Mobile Menu Button */}
-        <div className="md:hidden flex items-center">
-          <button
-            onClick={toggleMobileMenu}
-            className="text-gray-600 focus:outline-none"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3.75 5.25h16.5M3.75 12h16.5m-16.5 6.75h16.5"
-              />
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu (Hidden by default) */}
-      <div
-        className={`md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'} bg-white shadow-md absolute w-full top-16 left-0 py-4`}
-      >
-        <nav className="flex flex-col items-center space-y-4">
-          <Link href="/" className="text-gray-600 hover:text-blue-500 transition">
-            Home
-          </Link>
-          <Link href="/browse" className="text-gray-600 hover:text-blue-500 transition">
-            Browse Cars
-          </Link>
-          <Link href="/sell" className="text-gray-600 hover:text-blue-500 transition">
-            Sell a Car
-          </Link>
-          <Link href="/contact" className="text-gray-600 hover:text-blue-500 transition">
-            Contact Us
-          </Link>
-          <Link href="/faq" className="text-gray-600 hover:text-blue-500 transition">
-            FAQ
-          </Link>
-
-          {/* Actions (Mobile) - Only visible when the mobile menu is open */}
-          <div className="space-x-4 mt-4">
-            <Link
-              href="/login"
-              className="py-2 px-4 text-sm font-medium text-gray-600 border border-gray-300 rounded-md hover:bg-gray-100 transition"
-            >
-              Login
-            </Link>
-            <Link
-              href="/register"
-              className="py-2 px-4 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 transition"
-            >
-              Register
-            </Link>
-          </div>
-        </nav>
       </div>
     </header>
   );

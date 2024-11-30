@@ -2,27 +2,30 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import db from "@/db/drizzle"; // Adjust based on your DB setup
-import { users } from "@/db/schema";
-import { serialize } from "v8";
+import { serialize } from "cookie";
+import db from "@/db/drizzle"; // Your Drizzle DB instance
+import { usersTable } from "@/db/schema"; // Adjust based on your schema
+import { eq } from "drizzle-orm";
 
 const secret = process.env.JWT_SECRET || "your-secret-key";
 
-export default async function handler(req, res) {
+export default async function handler(req , res) {
   if (req.method === "POST") {
     const { email, password } = req.body;
 
+    // Check if email and password are provided
     if (!email || !password) {
       return res.status(400).json({ error: "Email and password are required." });
     }
 
     try {
-      // Find the user by email
+      // Find the user by email using Drizzle ORM
       const user = await db
         .select()
-        .from(users)
-        .where(users.email.eq(email))
-        .limit(1);
+        .from(usersTable)
+        .where( eq(usersTable.email,email))
+        .limit(1)
+        .execute();
 
       if (user.length === 0) {
         return res.status(401).json({ error: "Invalid credentials." });
@@ -38,9 +41,10 @@ export default async function handler(req, res) {
       const token = jwt.sign(
         { userId: user[0].id, email: user[0].email },
         secret,
-        { expiresIn: "2h" } // Token expiration
+        { expiresIn: "2h" }
       );
 
+      // Set the JWT token in a secure, HttpOnly cookie
       res.setHeader(
         "Set-Cookie",
         serialize("token", token, {
@@ -52,9 +56,11 @@ export default async function handler(req, res) {
         })
       );
 
+      // Return a success response
+      return res.status(200).json({ message: "Login successful." });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: "Internal server error." });
+      return res.status(500).json({ error: "Internal server error." });
     }
   } else {
     res.status(405).json({ error: "Method not allowed." });
