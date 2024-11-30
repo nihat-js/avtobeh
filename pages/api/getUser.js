@@ -8,7 +8,7 @@ import { eq } from 'drizzle-orm';
 export default async function handler(req, res) {
   const cookies = parseCookies({ req });
   const token = cookies.token;
-
+  console.log({token})
   if (!token) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
