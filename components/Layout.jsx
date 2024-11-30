@@ -6,7 +6,6 @@ const Layout = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Fetch user data from the server-side API
     const fetchUser = async () => {
       const res = await fetch('/api/getUser');
       if (res.ok) {

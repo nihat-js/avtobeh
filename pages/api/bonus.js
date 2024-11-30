@@ -1,20 +1,20 @@
 // pages/api/bonus.ts
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getSession } from 'next-auth/react'; // Assuming you use NextAuth.js
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req, res) {
   const session = await getSession({ req });
-  
+
   if (!session) {
     return res.status(401).json({ message: 'Unauthorized' });
   }
 
   const userId = session.user.id;
 
+  let user
   switch (req.method) {
     case 'GET':
       // Fetch user stars and last collected date
-      const user = await getUserStars(userId); // Implement this to fetch from your DB
+      user = await getUserStars(userId); // Implement this to fetch from your DB
       return res.status(200).json(user);
 
     case 'POST':
@@ -47,11 +47,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 }
 
 // Helper functions to interact with the database (implement these based on your DB setup)
-async function getUserStars(userId: string) {
+async function getUserStars(userId) {
   // Fetch the user’s stars and last collected date from your database
   return { stars: 230, lastCollected: '2024-11-30' }; // Example response
 }
 
-async function updateUserStars(userId: string, stars: number, lastCollected?: string) {
+async function updateUserStars(userId, stars, lastCollected) {
   // Update the user's stars and last collected date in your database
 }

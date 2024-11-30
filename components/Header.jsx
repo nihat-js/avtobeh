@@ -15,7 +15,7 @@ const Header = ({ user }) => {
       <div className="container mx-auto flex items-center justify-between py-4 px-6">
         {/* Logo */}
         <div className="text-2xl font-bold text-gray-800">
-          <Link href="/">AvtoX</Link>
+          <Link href="/">AvtoBeh</Link>
         </div>
 
         {/* Navigation (Desktop) */}
@@ -26,6 +26,7 @@ const Header = ({ user }) => {
           <Link href="/elaqe" className="text-gray-600 hover:text-blue-500 transition">Əlaqə</Link>
           <Link href="/faq" className="text-gray-600 hover:text-blue-500 transition">FAQ</Link>
           <Link href="/recommendations" className="text-gray-600 hover:text-blue-500 transition">Tövsiyələr</Link>
+          <Link href="/bonus" className="text-gray-600 hover:text-blue-500 transition">Bonus</Link>
         </nav>
 
         {/* Actions (Desktop) */}
