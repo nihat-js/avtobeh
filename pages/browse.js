@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Layout from '../components/Layout';
 
 const Browse = () => {
@@ -92,11 +93,11 @@ const Browse = () => {
                   <h3 className="text-lg font-semibold text-gray-800">Toyota Corolla</h3>
                   <p className="text-gray-600 text-sm">2020 • 50,000 miles</p>
                   <p className="text-blue-500 font-bold text-lg mt-2">$15,000</p>
-                  <button
+                  <Link href="/cars/1" passHref
                     className="mt-4 w-full py-2 px-4 bg-blue-500 text-white text-sm font-medium rounded-md hover:bg-blue-600 transition"
                   >
                     View Details
-                  </button>
+                  </Link>
                 </div>
               </div>
             ))}
