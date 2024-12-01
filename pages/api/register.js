@@ -12,7 +12,6 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Email and password are required.' });
     }
 
-    console.log({name,email,password})
 
     const existingUser = await prisma.user.findUnique({
       where: {
@@ -26,7 +25,6 @@ export default async function handler(req, res) {
 
     // // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
-    console.log({ hashedPassword });
 
     await prisma.user.create({
       data: {

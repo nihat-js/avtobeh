@@ -17,7 +17,6 @@ const Layout = ({ children }) => {
     };
 
     fetchUser();
-    console.log({user})
   }, []);
 
   return (
