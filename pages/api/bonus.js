@@ -1,57 +1,51 @@
-// pages/api/bonus.ts
-import { NextApiRequest, NextApiResponse } from 'next';
+// pages/bonus.tsx
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
-export default async function handler(req, res) {
-  const session = await getSession({ req });
+const BonusPage = () => {
+  const [hasCollected, setHasCollected] = useState<boolean | null>(null);
+  const [message, setMessage] = useState('');
+  const router = useRouter();
 
-  if (!session) {
-    return res.status(401).json({ message: 'Unauthorized' });
-  }
-
-  const userId = session.user.id;
-
-  let user
-  switch (req.method) {
-    case 'GET':
-      // Fetch user stars and last collected date
-      user = await getUserStars(userId); // Implement this to fetch from your DB
-      return res.status(200).json(user);
-
-    case 'POST':
-      // Handle collecting stars
-      const today = new Date().toISOString().split('T')[0];
-      const user = await getUserStars(userId);
-
-      if (user.lastCollected === today) {
-        return res.status(400).json({ message: 'Bonus already collected today.' });
+  useEffect(() => {
+    const checkBonusStatus = async () => {
+      try {
+        const response = await axios.get('/api/checkBonusStatus');
+        setHasCollected(response.data.hasCollected);
+      } catch (error) {
+        setMessage('Error fetching bonus status');
       }
+    };
 
-      // Add 25 stars and update last collected date
-      await updateUserStars(userId, user.stars + 25, today); // Implement this in your DB
-      return res.status(200).json({ message: 'Bonus collected successfully.' });
+    checkBonusStatus();
+  }, []);
 
-    case 'PUT':
-      // Handle promoting listing (deduct 280 stars)
-      const { stars } = req.body;
-      if (stars < 280) {
-        return res.status(400).json({ message: 'Not enough stars to promote listing.' });
-      }
+  const handleCollectBonus = async () => {
+    try {
+      const response = await axios.post('/api/collectBonus');
+      setMessage(response.data.message);
+      setHasCollected(true); // Bonus collected successfully
+    } catch (error) {
+      setMessage(error.response?.data?.error || 'An error occurred');
+    }
+  };
 
-      // Deduct 280 stars and promote the listing
-      await updateUserStars(userId, stars - 280); // Implement this in your DB
-      return res.status(200).json({ message: 'Listing promoted successfully.' });
+  return (
+    <div>
+      <h1>Daily Bonus</h1>
+      {hasCollected === null ? (
+        <p>Loading...</p>
+      ) : hasCollected ? (
+        <p>You have already collected your bonus today!</p>
+      ) : (
+        <div>
+          <button onClick={handleCollectBonus}>Collect 20 Stars</button>
+        </div>
+      )}
+      {message && <p>{message}</p>}
+    </div>
+  );
+};
 
-    default:
-      res.status(405).json({ message: 'Method Not Allowed' });
-  }
-}
-
-// Helper functions to interact with the database (implement these based on your DB setup)
-async function getUserStars(userId) {
-  // Fetch the user’s stars and last collected date from your database
-  return { stars: 230, lastCollected: '2024-11-30' }; // Example response
-}
-
-async function updateUserStars(userId, stars, lastCollected) {
-  // Update the user's stars and last collected date in your database
-}
+export default BonusPage;

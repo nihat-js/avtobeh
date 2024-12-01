@@ -8,13 +8,57 @@ generator client {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String?
-  email     String   @unique
-  password  String
-  role      String? 
-  isActive  Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         Int          @id @default(autoincrement())
+  name       String?
+  email      String       @unique
+  password   String
+  role       String?
+  isActive   Boolean      @default(true)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  dailyBonus DailyBonus[]
+  balance    Decimal      @default(0)
+  stars      Decimal      @default(0)
+
+  Post Post[]
 }
 
+model DailyBonus {
+  id     Int      @id @default(autoincrement())
+  userId Int
+  bonus  Int      @default(20) // Fixed bonus of 20 stars
+  date   DateTime @default(now()) // Date of bonus collection
+  user   User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, date]) // Ensure that a user can only collect the bonus once per day
+}
+
+model CarBrand {
+  id          Int        @id @default(autoincrement()) // Primary key
+  name        String     @unique // Brand name, e.g., "Toyota"
+  country     String? // Country where the brand is based, e.g., "Japan"
+  established DateTime? // Year the brand was established
+  models      CarModel[] // One-to-many relationship with CarModel
+}
+
+model CarModel {
+  id          Int      @id @default(autoincrement()) 
+  name        String // Model name, e.g., "Corolla"
+  brandId     Int // Foreign key to CarBrand
+  brand       CarBrand @relation(fields: [brandId], references: [id]) // Relation to CarBrand
+  years       String?
+  isVisible   String?
+  information String? // Additional information about the car
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String
+  published Boolean  @default(false)
+  user      User?    @relation(fields: [authorId], references: [id])
+  authorId  Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // categories Category[]
+}

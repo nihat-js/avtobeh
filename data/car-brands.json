@@ -1,0 +1,326 @@
+[
+  {
+    "name": "Tesla",
+    "logoSrc": "https://www.carlogos.org/car-logos/tesla-logo.png",
+    "description": "Luxury Electric Vehicles",
+    "years": "2003-Present"
+  },
+  {
+    "name": "Toyota",
+    "logoSrc": "https://www.carlogos.org/car-logos/toyota-logo.png",
+    "description": "Mass-Market Cars",
+    "years": "1937-Present"
+  },
+  {
+    "name": "Ford",
+    "logoSrc": "https://www.carlogos.org/car-logos/ford-logo.png",
+    "description": "Mass-Market Cars",
+    "years": "1903-Present"
+  },
+  {
+    "name": "Honda",
+    "logoSrc": "https://www.carlogos.org/car-logos/honda-logo.png",
+    "description": "Mass-Market Cars",
+    "years": "1948-Present"
+  },
+  {
+    "name": "BMW",
+    "logoSrc": "https://www.carlogos.org/car-logos/bmw-logo.png",
+    "description": "Luxury Vehicles",
+    "years": "1916-Present"
+  },
+  {
+    "name": "Subaru",
+    "logoSrc": "https://www.carlogos.org/car-logos/subaru-logo.png",
+    "description": "Mass-Market Cars",
+    "years": "1953-Present"
+  },
+  {
+    "name": "Hyundai",
+    "logoSrc": "https://www.carlogos.org/car-logos/hyundai-logo.png",
+    "description": "Mass-Market Cars",
+    "years": "1967-Present"
+  },
+  {
+    "name": "Audi",
+    "logoSrc": "https://www.carlogos.org/car-logos/audi-logo.png",
+    "description": "Luxury Vehicles",
+    "years": "1909-Present"
+  },
+  {
+    "name": "Jeep",
+    "logoSrc": "https://www.carlogos.org/car-logos/jeep-logo.png",
+    "description": "Sport Utility Vehicles",
+    "years": "1941-Present"
+  },
+  {
+    "name": "Porsche",
+    "logoSrc": "https://www.carlogos.org/car-logos/porsche-logo.png",
+    "description": "Luxury Sports Cars",
+    "years": "1931-Present"
+  },
+  {
+    "name": "Dodge",
+    "logoSrc": "https://www.carlogos.org/car-logos/dodge-logo.png",
+    "description": "Performance Cars",
+    "years": "1900-Present"
+  },
+  {
+    "name": "Ferrari",
+    "logoSrc": "https://www.carlogos.org/car-logos/ferrari-logo.png",
+    "description": "Luxury Sports Cars",
+    "years": "1947-present"
+  },
+  {
+    "name": "Jaguar",
+    "logoSrc": "https://www.carlogos.org/car-logos/jaguar-logo.png",
+    "description": "Luxury Vehicles",
+    "years": "1922-Present"
+  },
+  {
+    "name": "Lamborghini",
+    "logoSrc": "https://www.carlogos.org/car-logos/lamborghini-logo.png",
+    "description": "Luxury Sports Cars",
+    "years": "1963-Present"
+  },
+  {
+    "name": "Maserati",
+    "logoSrc": "https://www.carlogos.org/car-logos/maserati-logo.png",
+    "description": "Luxury Vehicles",
+    "years": "1914-Present"
+  },
+  {
+    "name": "Bentley",
+    "logoSrc": "https://www.carlogos.org/car-logos/bentley-logo.png",
+    "description": "Ultra-luxury Cars",
+    "years": "1919-Present"
+  },
+  {
+    "name": "Chrysler",
+    "logoSrc": "https://www.carlogos.org/car-logos/chrysler-logo.png",
+    "description": "Entry-Level Luxury Cars",
+    "years": "1925-Present"
+  },
+  {
+    "name": "Chevrolet Corvette",
+    "logoSrc": "https://www.carlogos.org/car-logos/corvette-logo.png",
+    "description": "Sports Cars",
+    "years": "1953-Present"
+  },
+  {
+    "name": "Cadillac",
+    "logoSrc": "https://www.carlogos.org/car-logos/cadillac-logo.png",
+    "description": "Luxury Vehicles",
+    "years": "1902-Present"
+  },
+  {
+    "name": "Mazda",
+    "logoSrc": "https://www.carlogos.org/car-logos/mazda-logo.png",
+    "description": "Mass-Market Cars",
+    "years": "1920-Present"
+  },
+  {
+    "name": "Ford Mustang",
+    "logoSrc": "https://www.carlogos.org/car-logos/ford-mustang-logo.png",
+    "description": "Sports Cars",
+    "years": "1964-Present"
+  },
+  {
+    "name": "Nissan",
+    "logoSrc": "https://www.carlogos.org/car-logos/nissan-logo.png",
+    "description": "Mass-Market Cars",
+    "years": "1933-Present"
+  },
+  {
+    "name": "Alfa Romeo",
+    "logoSrc": "https://www.carlogos.org/car-logos/alfa-romeo-logo.png",
+    "description": "Luxury Vehicles",
+    "years": "1910-Present"
+  },
+  {
+    "name": "Bugatti",
+    "logoSrc": "https://www.carlogos.org/car-logos/bugatti-logo.png",
+    "description": "Luxury Supercars",
+    "years": "1909-Present"
+  },
+  {
+    "name": "Buick",
+    "logoSrc": "https://www.carlogos.org/car-logos/buick-logo.png",
+    "description": "Mass-Market Cars",
+    "years": "1903-Present"
+  },
+  {
+    "name": "Lexus",
+    "logoSrc": "https://www.carlogos.org/car-logos/lexus-logo.png",
+    "description": "Luxury Vehicles",
+    "years": "1983-Present"
+  },
+  {
+    "name": "Rolls-Royce",
+    "logoSrc": "https://www.carlogos.org/car-logos/rolls-royce-logo.png",
+    "description": "Ultra-luxury Cars",
+    "years": "1906-Present"
+  },
+  {
+    "name": "Acura",
+    "logoSrc": "https://www.carlogos.org/car-logos/acura-logo.png",
+    "description": "Luxury Vehicles",
+    "years": "1986-Present"
+  },
+  {
+    "name": "Aston Martin",
+    "logoSrc": "https://www.carlogos.org/car-logos/aston-martin-logo.png",
+    "description": "Luxury Sports Cars",
+    "years": "1913-Present"
+  },
+  {
+    "name": "Chevrolet",
+    "logoSrc": "https://www.carlogos.org/car-logos/chevrolet-logo.png",
+    "description": "Mass-Market Cars",
+    "years": "1911-Present"
+  },
+  {
+    "name": "Kia",
+    "logoSrc": "https://www.carlogos.org/car-logos/kia-logo.png",
+    "description": "Mass-Market Cars",
+    "years": "1944-Present"
+  },
+  {
+    "name": "Mercedes-Benz",
+    "logoSrc": "https://www.carlogos.org/car-logos/mercedes-benz-logo.png",
+    "description": "Luxury Vehicles",
+    "years": "1926-Present"
+  },
+  {
+    "name": "Volkswagen",
+    "logoSrc": "https://www.carlogos.org/car-logos/volkswagen-logo.png",
+    "description": "Mass-Market Cars",
+    "years": "1937-Present"
+  },
+  {
+    "name": "Volvo",
+    "logoSrc": "https://www.carlogos.org/car-logos/volvo-logo.png",
+    "description": "Luxury Vehicles",
+    "years": "1927-Present"
+  },
+  {
+    "name": "McLaren",
+    "logoSrc": "https://www.carlogos.org/car-logos/mclaren-logo.png",
+    "description": "Luxury Sports Cars",
+    "years": "1963-Present"
+  },
+  {
+    "name": "Mitsubishi",
+    "logoSrc": "https://www.carlogos.org/car-logos/mitsubishi-logo.png",
+    "description": "Mass-Market Cars",
+    "years": "1970-Present"
+  },
+  {
+    "name": "GMC",
+    "logoSrc": "https://www.carlogos.org/car-logos/gmc-logo.png",
+    "description": "Pickup Trucks, Other",
+    "years": "1911-Present"
+  },
+  {
+    "name": "Infiniti",
+    "logoSrc": "https://www.carlogos.org/car-logos/infiniti-logo.png",
+    "description": "Luxury Vehicles",
+    "years": "1989-Present"
+  },
+  {
+    "name": "Lincoln",
+    "logoSrc": "https://www.carlogos.org/car-logos/lincoln-logo.png",
+    "description": "Luxury Vehicles",
+    "years": "1917-Present"
+  },
+  {
+    "name": "Peugeot",
+    "logoSrc": "https://www.carlogos.org/car-logos/peugeot-logo.png",
+    "description": "Mass-Market Cars",
+    "years": "1896-Present"
+  },
+  {
+    "name": "Pontiac",
+    "logoSrc": "https://www.carlogos.org/car-logos/pontiac-logo.png",
+    "description": "Luxury Vehicles",
+    "years": "1926-2010"
+  },
+  {
+    "name": "Saab",
+    "logoSrc": "https://www.carlogos.org/car-logos/saab-logo.png",
+    "description": "Manufacturer",
+    "years": "1937-Present"
+  },
+  {
+    "name": "Genesis",
+    "logoSrc": "https://www.carlogos.org/car-logos/genesis-logo.png",
+    "description": "Luxury Vehicles",
+    "years": "2015-Present"
+  },
+  {
+    "name": "Suzuki",
+    "logoSrc": "https://www.carlogos.org/car-logos/suzuki-logo.png",
+    "description": "Economy Cars",
+    "years": "1909-Present"
+  },
+  {
+    "name": "Citroën",
+    "logoSrc": "https://www.carlogos.org/car-logos/citroen-logo.png",
+    "description": "Mass-Market Cars",
+    "years": "1919-Present"
+  },
+  {
+    "name": "Fiat",
+    "logoSrc": "https://www.carlogos.org/car-logos/fiat-logo.png",
+    "description": "Small Cars",
+    "years": "1899-Present"
+  },
+  {
+    "name": "Lotus",
+    "logoSrc": "https://www.carlogos.org/car-logos/lotus-logo.png",
+    "description": "Sports Cars, Racing Cars",
+    "years": "1952-Present"
+  },
+  {
+    "name": "Mini",
+    "logoSrc": "https://www.carlogos.org/car-logos/mini-logo.png",
+    "description": "Luxury Small Cars",
+    "years": "1959-Present"
+  },
+  {
+    "name": "Peterbilt",
+    "logoSrc": "https://www.carlogos.org/car-logos/peterbilt-logo.png",
+    "description": "Medium and Heavy-duty Trucks",
+    "years": "1939-Present"
+  },
+  {
+    "name": "Saturn",
+    "logoSrc": "https://www.carlogos.org/car-logos/saturn-logo.png",
+    "description": "Compact Cars",
+    "years": "1985-2010"
+  },
+  {
+    "name": "BMW M",
+    "logoSrc": "https://www.carlogos.org/car-logos/bmw-m-logo.png",
+    "description": "High Performance",
+    "years": "1972-Present"
+  },
+  {
+    "name": "General Motors",
+    "logoSrc": "https://www.carlogos.org/car-logos/general-motors-logo.png",
+    "description": "Manufacturer",
+    "years": "1908-Present"
+  },
+  {
+    "name": "Kenworth",
+    "logoSrc": "https://www.carlogos.org/car-logos/kenworth-logo.png",
+    "description": "Medium and Heavy-duty Trucks",
+    "years": "1912-Present"
+  },
+  {
+    "name": "KTM",
+    "logoSrc": "https://www.carlogos.org/car-logos/ktm-logo.png",
+    "description": "Sports Cars",
+    "years": "1934-Present"
+  }
+]

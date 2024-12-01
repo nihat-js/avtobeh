@@ -10,10 +10,10 @@ const Header = ({ user }) => {
   const toggleProfileDropdown = () => setIsProfileDropdownOpen(!isProfileDropdownOpen);
 
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50">
+    <header className="bg-red-500 shadow-md sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between py-4 px-6">
         {/* Logo */}
-        <div className="text-2xl font-bold text-gray-800">
+        <div className="text-2xl font-bold text-white">
           <Link href="/">AvtoBeh</Link>
         </div>
 
@@ -27,11 +27,12 @@ const Header = ({ user }) => {
             { href: "/faq", label: "FAQ" },
             { href: "/recommendations", label: "Tövsiyələr" },
             { href: "/bonus", label: "Bonus" },
+            { href: "/brendler-haqqinda", label: "Brendlər" },
           ].map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="text-gray-600 hover:text-blue-500 transition"
+              className="text-white py-2 px-4 rounded-md hover:bg-red-600 hover:text-white transition-all"
             >
               {item.label}
             </Link>
@@ -44,13 +45,13 @@ const Header = ({ user }) => {
             <>
               <Link
                 href="/login"
-                className="py-2 px-4 text-sm font-medium text-gray-600 border border-gray-300 rounded-md hover:bg-gray-100 transition"
+                className="py-2 px-4 text-sm font-medium text-white border border-white rounded-md hover:bg-white hover:text-red-500 transition"
               >
                 Daxil ol
               </Link>
               <Link
                 href="/register"
-                className="py-2 px-4 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 transition"
+                className="py-2 px-4 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 transition"
               >
                 Qeydiyyat
               </Link>
@@ -66,7 +67,7 @@ const Header = ({ user }) => {
                   alt="Avatar"
                   className="w-10 h-10 rounded-full"
                 />
-                <span className="text-sm text-gray-600">{user.name}</span>
+                <span className="text-sm text-white">{user.name}</span>
               </div>
 
               {/* Profile Dropdown */}
@@ -74,19 +75,19 @@ const Header = ({ user }) => {
                 <div className="absolute right-0 mt-2 bg-white shadow-lg rounded-md w-48 py-2">
                   <Link
                     href="/bonus"
-                    className="block px-4 py-2 text-gray-600 hover:text-blue-500 transition"
+                    className="block px-4 py-2 text-gray-600 hover:text-red-500 transition"
                   >
                     Bonus: {user.bonus}₼
                   </Link>
                   <Link
                     href="/wallet"
-                    className="block px-4 py-2 text-gray-600 hover:text-blue-500 transition"
+                    className="block px-4 py-2 text-gray-600 hover:text-red-500 transition"
                   >
                     Balance: {user.balance}₼
                   </Link>
                   <Link
                     href="/profile"
-                    className="block px-4 py-2 text-gray-600 hover:text-blue-500 transition"
+                    className="block px-4 py-2 text-gray-600 hover:text-red-500 transition"
                   >
                     Profil
                   </Link>
@@ -104,7 +105,7 @@ const Header = ({ user }) => {
 
         {/* Mobile Menu Button */}
         <div className="md:hidden">
-          <button onClick={toggleMobileMenu} className="text-gray-600 focus:outline-none">
+          <button onClick={toggleMobileMenu} className="text-white focus:outline-none">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -125,7 +126,7 @@ const Header = ({ user }) => {
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden ${isMobileMenuOpen ? "block" : "hidden"} bg-white shadow-md`}
+        className={`md:hidden ${isMobileMenuOpen ? "block" : "hidden"} bg-red-500 shadow-md`}
       >
         <nav className="flex flex-col px-4 py-4 space-y-2">
           {[
@@ -138,7 +139,7 @@ const Header = ({ user }) => {
             <Link
               key={item.href}
               href={item.href}
-              className="text-gray-600 hover:text-blue-500 transition"
+              className="text-white py-2 px-4 rounded-md hover:bg-red-600 hover:text-white transition-all"
             >
               {item.label}
             </Link>
@@ -148,13 +149,13 @@ const Header = ({ user }) => {
               <>
                 <Link
                   href="/login"
-                  className="block py-2 px-4 text-sm text-gray-600 border border-gray-300 rounded-md hover:bg-gray-100 transition"
+                  className="block py-2 px-4 text-sm text-white border border-white rounded-md hover:bg-white hover:text-red-500 transition"
                 >
                   Daxil ol
                 </Link>
                 <Link
                   href="/register"
-                  className="block py-2 px-4 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 transition"
+                  className="block py-2 px-4 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 transition"
                 >
                   Qeydiyyat
                 </Link>
@@ -163,13 +164,13 @@ const Header = ({ user }) => {
               <>
                 <Link
                   href="/bonus"
-                  className="block text-gray-600 hover:text-blue-500 transition"
+                  className="block text-white py-2 px-4 rounded-md hover:bg-red-600 hover:text-white transition-all"
                 >
                   Bonus: {user.bonus}₼
                 </Link>
                 <Link
                   href="/wallet"
-                  className="block text-gray-600 hover:text-blue-500 transition"
+                  className="block text-white py-2 px-4 rounded-md hover:bg-red-600 hover:text-white transition-all"
                 >
                   Balance: {user.balance}₼
                 </Link>
