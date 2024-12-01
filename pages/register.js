@@ -28,7 +28,6 @@ const Register = () => {
     setError("");
     setLoading(true);
 
-    // Validation for password confirmation
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match.");
       setLoading(false);
@@ -43,6 +42,7 @@ const Register = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          name: formData.name,
           email: formData.email,
           password: formData.password,
         }),

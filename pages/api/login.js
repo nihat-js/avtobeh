@@ -3,13 +3,11 @@ import { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { serialize } from "cookie";
-import db from "@/db/drizzle"; // Your Drizzle DB instance
-import { usersTable } from "@/db/schema"; // Adjust based on your schema
-import { eq } from "drizzle-orm";
+import prisma from "@/prisma";
 
 const secret = process.env.JWT_SECRET || "your-secret-key";
 
-export default async function handler(req , res) {
+export default async function handler(req, res) {
   if (req.method === "POST") {
     const { email, password } = req.body;
 
@@ -19,27 +17,24 @@ export default async function handler(req , res) {
     }
 
     try {
-      // Find the user by email using Drizzle ORM
-      const user = await db
-        .select()
-        .from(usersTable)
-        .where( eq(usersTable.email,email))
-        .limit(1)
-        .execute();
+      // Find the user by email using Prisma
+      const user = await prisma.user.findUnique({
+        where: { email },
+      });
 
-      if (user.length === 0) {
+      if (!user) {
         return res.status(401).json({ error: "Invalid credentials." });
       }
 
       // Validate the password
-      const isPasswordValid = await bcrypt.compare(password, user[0].password);
+      const isPasswordValid = await bcrypt.compare(password, user.password);
       if (!isPasswordValid) {
         return res.status(401).json({ error: "Invalid credentials." });
       }
 
       // Generate a JWT
       const token = jwt.sign(
-        { userId: user[0].id, email: user[0].email },
+        { userId: user.id, email: user.email },
         secret,
         { expiresIn: "2h" }
       );

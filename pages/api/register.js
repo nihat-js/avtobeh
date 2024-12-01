@@ -1,45 +1,42 @@
 // pages/api/register.ts
-import { NextApiRequest, NextApiResponse } from "next";
-import bcrypt from "bcryptjs";
-import db from "@/db/drizzle"; // Adjust based on your DB setup
-import { usersTable } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { NextApiRequest, NextApiResponse } from 'next';
+import bcrypt from 'bcryptjs';
+import prisma from '@/prisma';
+
 
 export default async function handler(req, res) {
-  if (req.method === "POST") {
-    const { email, password } = req.body;
+  if (req.method === 'POST') {
+    const { name, email, password } = req.body;
 
     if (!email || !password) {
-      return res.status(400).json({ error: "Email and password are required." });
+      return res.status(400).json({ error: 'Email and password are required.' });
     }
 
-    try {
-      // Check if user exists
-      const existingUser = await db
-        .select()
-        .from(usersTable)
-        .where( eq(usersTable.email,email)) 
-        .limit(1);
+    console.log({name,email,password})
 
-      if (existingUser.length > 0) {
-        return res.status(400).json({ error: "User already exists." });
+    const existingUser = await prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+    });
+
+    if (existingUser) {
+      return res.status(400).json({ error: 'User already exists.' });
+    }
+
+    // // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+    console.log({ hashedPassword });
+
+    await prisma.user.create({
+      data: {
+        name: name,
+        email: email,
+        password: hashedPassword
       }
-
-      // Hash the password
-      const hashedPassword = await bcrypt.hash(password, 10);
-
-      // Insert the user into the database
-      await db.insert(usersTable).values({
-        email,
-        password: hashedPassword,
-      });
-
-      res.status(201).json({ message: "User registered successfully." });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Internal server error." });
-    }
+    })
+    res.status(201).json({ message: 'User registered successfully.' });
   } else {
-    res.status(405).json({ error: "Method not allowed." });
+    res.status(405).json({ error: 'Method not allowed.' });
   }
 }

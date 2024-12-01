@@ -66,7 +66,7 @@ const Header = ({ user }) => {
                   alt="Avatar"
                   className="w-10 h-10 rounded-full"
                 />
-                <span className="text-sm text-gray-600">{user.name || "N"}</span>
+                <span className="text-sm text-gray-600">{user.name}</span>
               </div>
 
               {/* Profile Dropdown */}

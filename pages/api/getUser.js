@@ -1,15 +1,12 @@
-// pages/api/getUser.js
+// pages/api/getUser.ts
 import { parseCookies } from 'nookies';
-
 import jwt from 'jsonwebtoken';
-import db from '@/db/drizzle'; // Your DB setup file
-import { usersTable } from '@/db/schema';
-import { eq } from 'drizzle-orm';
+import prisma from '@/prisma';  // Assuming Prisma Client is initialized in `lib/prisma.ts`
 
 export default async function handler(req, res) {
   const cookies = parseCookies({ req });
   const token = cookies.token;
-  console.log({token})
+  
   if (!token) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
@@ -18,23 +15,24 @@ export default async function handler(req, res) {
     // Decode the token
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key');
 
-    // Fetch the user data from the database
-    const userData = await db
-      .select()
-      .from(usersTable)
-      .where(eq(usersTable.id,decoded.userId))
-      .limit(1);
+    const user = await prisma.user.findUnique({
+      where: {
+        id: decoded.userId,
+      },
+    });
 
-    if (userData.length > 0) {
-      const user = {
-        id: userData[0].id,
-        email: userData[0].email,
-        avatar: userData[0].avatar || '/default-avatar.png',
-        bonus: userData[0].bonus || 0,
-        balance: userData[0].balance || 0,
+    if (user) {
+      // Prepare the response data with the user fields
+      const responseUser = {
+        id: user.id,
+        name : user.name,
+        email: user.email,
+        avatar: user.avatar || '/default-avatar.png',
+        bonus: user.bonus || 0,
+        balance: user.balance || 0,
       };
 
-      return res.status(200).json(user);
+      return res.status(200).json(responseUser);
     } else {
       return res.status(404).json({ error: 'User not found' });
     }
