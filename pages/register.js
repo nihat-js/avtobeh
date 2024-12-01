@@ -75,7 +75,7 @@ const Register = () => {
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-600">
-              Name
+              Ad
             </label>
             <input
               id="name"
@@ -103,7 +103,7 @@ const Register = () => {
           </div>
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-600">
-              Password
+              Şifrə
             </label>
             <input
               id="password"
@@ -117,7 +117,7 @@ const Register = () => {
           </div>
           <div>
             <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-600">
-              Confirm Password
+              Şifrə təkrarı
             </label>
             <input
               id="confirm-password"
@@ -134,14 +134,14 @@ const Register = () => {
             disabled={loading}
             className="w-full py-3 px-4 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 transition disabled:bg-gray-400"
           >
-            {loading ? "Registering..." : "Register"}
+            {loading ? "Qeydiyyat olunur..." : "Qeydiyyat ol"}
           </button>
         </form>
 
         <p className="text-sm text-gray-600 mt-4 text-center">
-          Already have an account?{" "}
+          Hesabınız var?{" "}
           <Link href="/login" className="text-blue-500 hover:underline">
-            Login here
+            Daxil olun
           </Link>
         </p>
       </div>

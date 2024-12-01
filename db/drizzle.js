@@ -1,5 +1,6 @@
 import 'dotenv/config';
-import { drizzle } from "drizzle-orm/mysql2";
-const db = drizzle(process.env.DATABASE_URL);
+import { drizzle } from 'drizzle-orm/libsql';
+import { createClient } from '@libsql/client';
 
-export default db;
+const client = createClient({ url: process.env.DATABASE_URL });
+const db = drizzle({ client });
