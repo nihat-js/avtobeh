@@ -4,7 +4,7 @@ import prisma from '@/prisma';
 import { parseCookies } from 'nookies';
 import jwt from 'jsonwebtoken';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req, res) {
   const cookies = parseCookies({ req });
   const token = cookies.token;
 

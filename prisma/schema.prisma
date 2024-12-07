@@ -1,54 +1,58 @@
-datasource db {
-  provider = "mysql" // or "mysql" or "postgresql"
-  url      = env("DATABASE_URL")
-}
-
 generator client {
   provider = "prisma-client-js"
 }
 
-model User {
-  id         Int          @id @default(autoincrement())
-  name       String?
-  email      String       @unique
-  password   String
-  role       String?
-  isActive   Boolean      @default(true)
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
-  dailyBonus DailyBonus[]
-  balance    Decimal      @default(0)
-  stars      Decimal      @default(0)
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
 
-  Post Post[]
+model User {
+  id                 Int          @id @default(autoincrement())
+  name               String?
+  email              String       @unique
+  password           String
+  role               String?
+  isActive           Boolean      @default(true)
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+  balance            Decimal      @default(0.000000000000000000000000000000)
+  stars              Decimal      @default(0.000000000000000000000000000000)
+  lastLoginTime      DateTime?    @db.DateTime(0)
+  lastLoginIpAddress String?      @db.VarChar(50)
+  listingCount       Int?
+  dailyBonus         DailyBonus[]
+  Post               Post[]
 }
 
 model DailyBonus {
   id     Int      @id @default(autoincrement())
   userId Int
-  bonus  Int      @default(20) // Fixed bonus of 20 stars
-  date   DateTime @default(now()) // Date of bonus collection
+  bonus  Int      @default(20)
+  date   DateTime @default(now())
   user   User     @relation(fields: [userId], references: [id])
 
-  @@unique([userId, date]) // Ensure that a user can only collect the bonus once per day
+  @@unique([userId, date])
 }
 
 model CarBrand {
-  id          Int        @id @default(autoincrement()) // Primary key
-  name        String     @unique // Brand name, e.g., "Toyota"
-  country     String? // Country where the brand is based, e.g., "Japan"
-  established DateTime? // Year the brand was established
-  models      CarModel[] // One-to-many relationship with CarModel
+  id          Int        @id @default(autoincrement())
+  name        String     @unique
+  country     String?
+  established DateTime?
+  models      CarModel[]
 }
 
 model CarModel {
-  id          Int      @id @default(autoincrement()) 
-  name        String // Model name, e.g., "Corolla"
-  brandId     Int // Foreign key to CarBrand
-  brand       CarBrand @relation(fields: [brandId], references: [id]) // Relation to CarBrand
+  id          Int      @id @default(autoincrement())
+  name        String
+  brandId     Int
   years       String?
   isVisible   String?
-  information String? // Additional information about the car
+  information String?
+  brand       CarBrand @relation(fields: [brandId], references: [id])
+
+  @@index([brandId], map: "CarModel_brandId_fkey")
 }
 
 model Post {
@@ -56,9 +60,10 @@ model Post {
   title     String
   content   String
   published Boolean  @default(false)
-  user      User?    @relation(fields: [authorId], references: [id])
   authorId  Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  // categories Category[]
+  user      User?    @relation(fields: [authorId], references: [id])
+
+  @@index([authorId], map: "Post_authorId_fkey")
 }
