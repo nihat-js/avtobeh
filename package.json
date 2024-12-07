@@ -7,7 +7,8 @@
     "build": "next build && npx prisma generate",
     "start": "next start",
     "lint": "next lint",
-    "dbpull" : "npx prisma db pull && npx prisma generate"
+    "dbpull" : "npx prisma db pull && npx prisma generate",
+    "deploy" :"git pull origin main && next build && npx prisma generate && pm2 restart avtobeh"
   },
   "dependencies": {
     "@chakra-ui/react": "^3.2.2",
