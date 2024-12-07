@@ -10,7 +10,7 @@ const Header = ({ user }) => {
   const toggleProfileDropdown = () => setIsProfileDropdownOpen(!isProfileDropdownOpen);
 
   return (
-    <header className="bg-red-500 shadow-md sticky top-0 z-50">
+    <header className="bg-amber-600 shadow-md sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between py-4 px-6">
         {/* Logo */}
         <div className="text-2xl font-bold text-white">
