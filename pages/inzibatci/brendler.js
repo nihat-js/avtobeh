@@ -2,11 +2,35 @@ import Layout from '@/components/admin/Layout'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import prisma from '@/prisma'
+import BoringInput from '@/components/atoms/BoringInput'
+import PrimaryButton from '@/components/atoms/PrimaryButton'
+import Modal from '@/components/common/Modal'
+
+
+// Fetch car brands data using Prisma in getServerSideProps
+export async function getServerSideProps() {
+  // Fetch car brands from the database
+  const carBrands = await prisma.vehicleBrand.findMany()
+
+  return {
+    props: {
+      carBrands, // Passing car brands data to the component
+    }
+  }
+}
 
 const CarBrands = ({ carBrands }) => {
   const router = useRouter()
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [newBrand, setNewBrand] = useState('')
+
+  const [addFormData, setAddFormData] = useState({
+
+    name: "",
+    logo: "",
+    is_visible: true
+
+  })
 
   // Toggle modal visibility
   const toggleModal = () => {
@@ -59,42 +83,45 @@ const CarBrands = ({ carBrands }) => {
 
   return (
     <Layout>
-      <div className="p-6 bg-gray-50">
-        <h2 className="text-3xl font-bold mb-6 text-gray-800">Manage Car Brands</h2>
-        <div className="flex justify-between items-center mb-4">
-          <button
-            className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none"
-            onClick={toggleModal}
-          >
-            <span className="text-xl">+</span> Add Car Brand
-          </button>
+      <div className="p-5 bg-gray-50">
+        <h2 className="text-3xl font-bold  text-gray-800">Brendləri idarə et</h2>
+        <div className="flex justify-end mb-4 mr-10">
+          <PrimaryButton onClick={toggleModal}> + </PrimaryButton>
         </div>
 
         {/* Car Brands Table */}
         <div className="overflow-x-auto mt-4 bg-white shadow rounded-lg">
           <table className="min-w-full table-auto">
-            <thead className="bg-indigo-600 text-white">
+            <thead className="bg-amber-600 text-white">
               <tr>
-                <th className="px-6 py-3 text-left font-semibold">Brand Name</th>
-                <th className="px-6 py-3 text-left font-semibold">Actions</th>
+                <th className="px-6 py-3 text-left font-semibold">Id</th>
+                <th className="px-6 py-3 text-left font-semibold">Ad</th>
+                <th className="px-6 py-3 text-left font-semibold">Logo</th>
+                <th className="px-6 py-3 text-left font-semibold">Aktivdir ?</th>
+
+                <th className="px-6 py-3 text-left font-semibold">Əməliyyatlar</th>
               </tr>
             </thead>
             <tbody>
               {carBrands.map((brand) => (
                 <tr key={brand.id} className="border-b hover:bg-gray-50">
+                  <td className="px-6 py-4 text-gray-800">{brand.id}</td>
                   <td className="px-6 py-4 text-gray-800">{brand.name}</td>
+                  <td className="px-6 py-4 text-gray-800">{brand.logo}</td>
+                  <td className="px-6 py-4 text-gray-800">{brand.is_visible}</td>
+
                   <td className="px-6 py-4">
                     <button
                       className="text-blue-500 hover:text-blue-700 mx-2"
                       onClick={() => router.push(`/admin/car-brands/edit/${brand.id}`)}
                     >
-                      Edit
+                      Redaktə
                     </button>
                     <button
                       className="text-red-500 hover:text-red-700"
                       onClick={() => deleteCarBrand(brand.id)}
                     >
-                      Delete
+                      Sil
                     </button>
                   </td>
                 </tr>
@@ -106,47 +133,48 @@ const CarBrands = ({ carBrands }) => {
 
       {/* Modal for Adding Car Brand */}
       {isModalVisible && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+
+        <Modal isOpen={isModalVisible} onClose={ ()=>toggleModal() }>
           <div className="bg-white rounded-lg p-6 w-96">
             <h3 className="text-xl font-bold mb-4">Add New Car Brand</h3>
-            <input
+
+            <BoringInput
+              type="text"
+              value={newBrand}
+              onChange={handleBrandChange}
+              placeholder="Marka adını daxil edin"
+            />
+
+            <BoringInput
               type="text"
               value={newBrand}
               onChange={handleBrandChange}
               className="border p-2 rounded-md w-full mb-4"
-              placeholder="Enter new car brand name"
+              placeholder="Logo URL"
             />
+
             <div className="flex justify-between">
-              <button
-                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-                onClick={addCarBrand}
-              >
-                Add Brand
-              </button>
               <button
                 className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
                 onClick={toggleModal}
               >
-                Cancel
+                Ləğv
+              </button>
+              <button
+                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                onClick={addCarBrand}
+              >
+                Əlavə et
               </button>
             </div>
           </div>
-        </div>
+        </Modal>
+
       )}
     </Layout>
   )
 }
 
-// Fetch car brands data using Prisma in getServerSideProps
-export async function getServerSideProps() {
-  // Fetch car brands from the database
-  const carBrands = await prisma.carBrand.findMany()
 
-  return {
-    props: {
-      carBrands, // Passing car brands data to the component
-    }
-  }
-}
 
 export default CarBrands

@@ -8,142 +8,21 @@ datasource db {
 }
 
 model User {
-  id   Int     @id @default(autoincrement())
-  name String?
-
-  phoneNumber           String?   @db.VarChar(15)
-  phoneNumberVerifiedAt DateTime?
-
-  email           String    @unique
-  emailVerifiedAt DateTime?
-  password        String
-
-  profilePicture String? @db.VarChar(255)
-
-  passwordResetToken        String?   @db.VarChar(255)
-  passwordResetTokenExpires DateTime?
-
-  status String @default("active")
-
-  listingCount Int?    @default(0)
-  balance      Decimal @default(0)
-  stars        Decimal @default(0)
-
-  // referralCode       String?   @db.VarChar(50)
-  // referredBy         Int?         @relation("UserReferrals", fields: [referredById], references: [id])
-
-  // theme             String? @default("light") // e.g., light, dark
-  // preferredLanguage String? @default("en") // e.g., "en", "es"
-  // timezone          String? @default("UTC")
-
-  // emailNotifications Boolean @default(true)
-  // smsNotifications   Boolean @default(false)
-
-  // subscriptionPlan   String?   @db.VarChar(100)
-  // subscriptionExpiry DateTime?
-  // isTwoFactorEnabled Boolean      @default(false)
-  // twoFactorSecret    String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  dailyBonus DailyBonus[]
-  Post       Post[]
-}
-
-model Device {
-  id     Int @id @default(autoincrement())
-  userId Int
-
-  deviceType String   @db.VarChar(100)
-  osVersion  String   @db.VarChar(100)
-  browser    String   @db.VarChar(100)
-  createdAt  DateTime @default(now())
-
-  // user       User      @relation(fields: [userId], references: [id])
-}
-
-model SubscriptionHistory {
-  id        Int       @id @default(autoincrement())
-  plan      String    @db.VarChar(100)
-  startDate DateTime  @default(now())
-  endDate   DateTime?
-  userId    Int
-  // user            User      @relation(fields: [userId], references: [id])
-}
-
-model LoginAttempt {
-  id         Int      @id @default(autoincrement())
-  ipAddress  String   @db.VarChar(50)
-  userAgent  String   @db.VarChar(255)
-  createdAt  DateTime @default(now())
-  userId     Int
-  // user        User      @relation(fields: [userId], references: [id])
-  successful Boolean  @default(false)
-}
-
-model Vehicle {
-  id       Int     @id @default(autoincrement())
-  userId   Int
-  price    Int
-  brandId  Int
-  modelId  String
-  carYear  String
-  VIN      String?
-  fuelType String
-  country  String
-  city     String
-  mileage  Int
-
-  horsePower         Int
-  engineDisplacement Float
-  description        String
-
-  // user      User     @relation(fields: [userId], references: [id])
-
-  @@index([userId], map: "UserCar_userId_fkey")
-}
-
-model CarBrand {
-  id          Int        @id @default(autoincrement())
-  name        String
-  country     String
-  established DateTime
-  models      CarModel[]
-}
-
-model CarModel {
-  id          Int      @id @default(autoincrement())
-  name        String
-  brandId     Int
-  years       String
-  isVisible   String
-  information String
-  brand       CarBrand @relation(fields: [brandId], references: [id])
-}
-
-model UserCarImage {
-  id        Int    @id @default(autoincrement())
-  userCarId Int
-  imageUrl  String
-  // userCar   UserCar @relation(fields: [userCarId], references: [id])
-
-  @@index([userCarId], map: "UserCarImage_userCarId_fkey")
-}
-
-model CarPriceOffer {
-  id            Int     @id @default(autoincrement())
-  carModelId    Int
-  price         Decimal
-  currency      String
-  isNegotiable  Boolean
-  isLease       Boolean
-  isTrade       Boolean
-  isInstallment Boolean
-  installment   String?
-  // carModel    CarModel @relation(fields: [carModelId], references: [id])
-
-  @@index([carModelId], map: "CarPriceOffer_carModelId_fkey")
+  id                 Int          @id @default(autoincrement())
+  name               String?
+  email              String       @unique
+  password           String
+  role               String?
+  isActive           Boolean      @default(true)
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+  balance            Decimal      @default(0.000000000000000000000000000000)
+  stars              Decimal      @default(0.000000000000000000000000000000)
+  lastLoginTime      DateTime?    @db.DateTime(0)
+  lastLoginIpAddress String?      @db.VarChar(50)
+  listingCount       Int?
+  dailyBonus         DailyBonus[]
+  Post               Post[]
 }
 
 model DailyBonus {
@@ -155,26 +34,6 @@ model DailyBonus {
 
   @@unique([userId, date])
 }
-
-// model CarBrand {
-//   id          Int        @id @default(autoincrement())
-//   name        String     @unique
-//   country     String?
-//   established DateTime?
-//   models      CarModel[]
-// }
-
-// model CarModel {
-//   id          Int      @id @default(autoincrement())
-//   name        String
-//   brandId     Int
-//   years       String?
-//   isVisible   String?
-//   information String?
-//   brand       CarBrand @relation(fields: [brandId], references: [id])
-
-//   @@index([brandId], map: "CarModel_brandId_fkey")
-// }
 
 model Post {
   id        Int      @id @default(autoincrement())
@@ -189,76 +48,24 @@ model Post {
   @@index([authorId], map: "Post_authorId_fkey")
 }
 
-model Role {
-  id          Int     @id @default(autoincrement())
-  name        String  @db.VarChar(100)
-  description String? @db.VarChar(255)
-  // permissions Permission[]
+model VehicleBrand {
+  id           Int            @id @default(autoincrement())
+  name         String         @unique(map: "CarBrand_name_key") @db.VarChar(255)
+  country      String?        @db.VarChar(255)
+  logo         String?        @db.VarChar(255)
+  established  DateTime?
+  rank         Int?
+  VehicleModel VehicleModel[]
 }
 
-model Permission {
-  id          Int     @id @default(autoincrement())
-  name        String  @db.VarChar(100)
-  description String? @db.VarChar(255)
-  // roles       Role[]    @relation("RolePermissions")
-}
+model VehicleModel {
+  id           Int          @id @default(autoincrement())
+  name         String
+  brandId      Int
+  years        String?
+  isVisible    String?
+  information  String?
+  VehicleBrand VehicleBrand @relation(fields: [brandId], references: [id], map: "CarModel_brandId_fkey")
 
-model ApiKey {
-  id        Int       @id @default(autoincrement())
-  key       String    @unique
-  createdAt DateTime  @default(now())
-  expiresAt DateTime?
-  userId    Int
-  // user        User      @relation(fields: [userId], references: [id])
-}
-
-model BlockedUser {
-  id        Int      @id @default(autoincrement())
-  reason    String   @db.VarChar(255)
-  blockedAt DateTime @default(now())
-  blockedBy Int
-  userId    Int
-  // user        User      @relation(fields: [userId], references: [id])
-  // blocker     User      @relation("UserBlocker", fields: [blockedBy], references: [id])
-}
-
-model Feedback {
-  id        Int      @id @default(autoincrement())
-  rating    Int // Rating between 1-5
-  comment   String   @db.VarChar(1000)
-  createdAt DateTime @default(now())
-  userId    Int
-  // user        User      @relation(fields: [userId], references: [id])
-}
-
-model UserMessage {
-  id       Int      @id @default(autoincrement())
-  subject  String   @db.VarChar(255)
-  message  String   @db.VarChar(1000)
-  sentAt   DateTime @default(now())
-  userId   Int
-  // user        User      @relation(fields: [userId], references: [id])
-  senderId Int
-  // sender      User      @relation("Sender", fields: [senderId], references: [id])
-}
-
-// model UserRole {
-//   userId   Int
-//   roleId   Int
-//   user     User  @relation(fields: [userId], references: [id])
-//   role     Role  @relation(fields: [roleId], references: [id])
-//   @id([userId, roleId])
-// }
-
-model Transaction {
-  id              Int      @id @default(autoincrement())
-  listingId       Int
-  buyerId         Int
-  sellerId        Int
-  price           Decimal  @db.Decimal(10, 2)
-  paymentStatus   String   @default("pending") // "pending", "completed", "failed"
-  transactionDate DateTime @default(now())
-  // listing       Listing   @relation(fields: [listingId], references: [id])
-  // buyer         User      @relation("Buyer", fields: [buyerId], references: [id])
-  // seller        User      @relation("Seller", fields: [sellerId], references: [id])
+  @@index([brandId], map: "CarModel_brandId_fkey")
 }
