@@ -20,9 +20,17 @@ const Layout = ({ children }) => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col"
+      style={{
+        backgroundImage: "url('/icons/bg-squares.svg')",
+        backgroundSize: '100%',
+        backgroundAttachment: 'fixed',
+      }}
+    >
       <Header user={user} />
-      <main className="flex-1 container mx-auto py-6 px-4">{children}</main>
+      <div className='bg-slate-100'>
+        <main className="flex-1 container mx-auto py-6 px-4 ">{children}</main>
+      </div>
       <Footer />
     </div>
   );

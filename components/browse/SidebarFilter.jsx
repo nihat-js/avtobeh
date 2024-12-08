@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import CustomInput from '../atoms/OutlinedInput';
+import PrimaryInput from '../atoms/BoringInput';
+import Image from 'next/image';
 
 const SidebarFilter = () => {
   const [priceRange, setPriceRange] = useState([5000, 50000]);
@@ -50,8 +53,12 @@ const SidebarFilter = () => {
       <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '20px' }}>Filter Cars</h2>
 
       {/* Price Range */}
-      <div style={{ marginBottom: '20px' }}>
+      <div style={{ marginBottom: '20px' }} >
+        <Image src="/icons/bg-squares.svg" width={100} height={100} alt="Background Squares" />
         <h3 style={{ fontSize: '16px', marginBottom: '8px' }}>Price Range</h3>
+        {/* <CustomInput/>
+        <CustomInput/> */}
+        <PrimaryInput/>
         <input
           type="range"
           min="1000"

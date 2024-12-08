@@ -1,5 +1,5 @@
-import CustomInput from "@/components/atomic/CustomInput";
-import CustomSelect from "@/components/atomic/CustomSelect";
+import CustomInput from "@/components/atoms/OutlinedInput";
+import CustomSelect from "@/components/atoms/CustomSelect";
 import Layout from "@/components/Layout";
 import UploadImages from "@/components/sell/UploadImages";
 import React, { useState } from "react";
@@ -47,6 +47,12 @@ const CarForm = () => {
       <div className=" mx-auto p-6">
         <h1 className="text-3xl font-bold text-center mb-6">Sell Your Car</h1>
         <form>
+
+        <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded-full leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+          <option>New Mexico</option>
+          <option>Missouri</option>
+          <option>Texas</option>
+        </select>
 
           <div className="grid grid-cols-2 gap-4">
             <CustomSelect

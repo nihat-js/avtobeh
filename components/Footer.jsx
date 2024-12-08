@@ -32,6 +32,16 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
+                <Link href="/sell" className="text-gray-400 hover:text-blue-400 transition">
+                  Mexfilik Şərtləri
+                </Link>
+              </li>
+              {/* <li>
+                <Link href="/sell" className="text-gray-400 hover:text-blue-400 transition">
+                  Mexfilik Şərtləri
+                </Link>
+              </li> */}
+              <li>
                 <Link href="/contact" className="text-gray-400 hover:text-blue-400 transition">
                   Bizimlə Əlaqə
                 </Link>

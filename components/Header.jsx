@@ -101,7 +101,7 @@ const Header = ({ user }) => {
                     href="/logout"
                     className="block px-4 py-2 text-gray-600 hover:text-red-500 transition"
                   >
-                    Çıxış
+                    <Image href="/icons/logout.svg" width={20} height={20} alt="Logout" />
                   </Link>
                 </div>
               )}
