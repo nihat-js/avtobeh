@@ -156,25 +156,25 @@ model DailyBonus {
   @@unique([userId, date])
 }
 
-model CarBrand {
-  id          Int        @id @default(autoincrement())
-  name        String     @unique
-  country     String?
-  established DateTime?
-  models      CarModel[]
-}
+// model CarBrand {
+//   id          Int        @id @default(autoincrement())
+//   name        String     @unique
+//   country     String?
+//   established DateTime?
+//   models      CarModel[]
+// }
 
-model CarModel {
-  id          Int      @id @default(autoincrement())
-  name        String
-  brandId     Int
-  years       String?
-  isVisible   String?
-  information String?
-  brand       CarBrand @relation(fields: [brandId], references: [id])
+// model CarModel {
+//   id          Int      @id @default(autoincrement())
+//   name        String
+//   brandId     Int
+//   years       String?
+//   isVisible   String?
+//   information String?
+//   brand       CarBrand @relation(fields: [brandId], references: [id])
 
-  @@index([brandId], map: "CarModel_brandId_fkey")
-}
+//   @@index([brandId], map: "CarModel_brandId_fkey")
+// }
 
 model Post {
   id        Int      @id @default(autoincrement())
