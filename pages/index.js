@@ -1,13 +1,33 @@
 import Announcement from "@/components/Announcement";
 import Layout from "@/components/Layout";
+import FeaturedBrands from "@/components/welcome/FeaturedBrands";
+import BeCareful from "@/components/welcome/BeCareful";
+import Image from "next/image";
 import Link from "next/link";
+import UsedCarList from "@/components/welcome/UsedCarsList";
 
 export default function Home() {
+
+
+  const featuredBrands = [
+    { name: 'BMW', src: 'https://www.carlogos.org/car-logos/bmw-logo.png' },
+    { name: 'Mercedes', src: 'https://www.carlogos.org/car-logos/mercedes-benz-logo.png' },
+    { name: 'Toyota', src: 'https://www.carlogos.org/car-logos/toyota-logo.png' }
+    // { name: 'Tesla', src: 'https://www.carlogos.org/car-logos/tesla-logo.png' },
+    // { name: 'Audi', src: 'https://www.carlogos.org/car-logos/audi-logo.png' },
+    // { name: 'Ford', src: 'https://www.carlogos.org/car-logos/ford-logo.png' },
+  ]
+
   return (
     <main>
       <Layout>
         {/* Announcement */}
         <Announcement />
+
+        <section>
+          <UsedCarList />
+
+        </section>
 
         {/* Hero Section */}
         <section className="bg-cover bg-center h-96 text-white flex flex-col justify-center items-center text-center bg-[url('/hero-bg.jpg')]">
@@ -19,6 +39,14 @@ export default function Home() {
           >
             Start Browsing
           </Link>
+        </section>
+
+        <section>
+          <FeaturedBrands brands={featuredBrands} />
+        </section>
+
+        <section>
+          <BeCareful />
         </section>
 
         {/* Featured Cars Section */}

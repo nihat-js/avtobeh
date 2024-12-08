@@ -1,4 +1,5 @@
 // components/Header.tsx
+import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -14,20 +15,20 @@ const Header = ({ user }) => {
       <div className="container mx-auto flex items-center justify-between py-4 px-6">
         {/* Logo */}
         <div className="text-2xl font-bold text-white">
-          <Link href="/">AvtoBeh</Link>
+          <Image src="/icons/logo.jpg" width={150} height={80} alt="Logo" />
+          {/* <Link href="/">AvtoBeh</Link> */}
         </div>
 
         {/* Navigation (Desktop) */}
-        <nav className="hidden md:flex space-x-8">
+        <nav className="hidden md:flex ">
           {[
-            { href: "/", label: "Ana səhifə" },
             { href: "/axtar", label: "Axtar" },
-            { href: "/sell", label: "Sat" },
-            { href: "/elaqe", label: "Əlaqə" },
-            { href: "/faq", label: "FAQ" },
-            { href: "/recommendations", label: "Tövsiyələr" },
-            { href: "/bonus", label: "Bonus" },
-            { href: "/brendler-haqqinda", label: "Brendlər" },
+            { href: "/", label: "Elektromobillər" },
+            { href: "/", label: "İcarə" },
+            // { href: "/kataloq", label: "Kataloq" },
+            // { href: "/elaqe", label: "Əlaqə" },
+            // { href: "/faq", label: "FAQ" },
+            // { href: "/bonus", label: "Bonus" },
           ].map((item) => (
             <Link
               key={item.href}
@@ -43,6 +44,11 @@ const Header = ({ user }) => {
         <div className="hidden md:flex items-center space-x-4">
           {!user ? (
             <>
+              
+              <div className="flex justify-center items-center w-12 h-12 bg-amber-500 rounded-full shadow-lg hover:bg-amber-600 cursor-pointer transition-all duration-300 ease-in-out">
+                <Link href="/sell" className="text-white text-2xl font-bold">+</Link>
+              </div>
+
               <Link
                 href="/login"
                 className="py-2 px-4 text-sm font-medium text-white border border-white rounded-md hover:bg-white hover:text-red-500 transition"
