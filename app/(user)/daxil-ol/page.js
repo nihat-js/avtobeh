@@ -1,14 +1,16 @@
+"use client"
 // pages/login.tsx
 import { useState } from "react";
-import { useRouter } from "next/router"; // To handle redirection
-import Layout from '../components/Layout';
+// import { useRouter } from "next/router"; // To handle redirection
+// import Layout from '../components/Layout';
 import Link from 'next/link';
+import { useRouter } from "next/router";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null); // For handling error messages
-  const router = useRouter(); // For redirecting to the home page after successful login
+  // const router = useRouter(); // For redirecting to the home page after successful login
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
@@ -45,7 +47,6 @@ const Login = () => {
   };
 
   return (
-    <Layout>
       <div className="max-w-md mx-auto bg-white p-6 shadow-md rounded-md">
         <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">Login</h1>
         
@@ -93,7 +94,6 @@ const Login = () => {
           </Link>
         </p>
       </div>
-    </Layout>
   );
 };
 

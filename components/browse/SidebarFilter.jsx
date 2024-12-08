@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react';
 import CustomInput from '../atoms/OutlinedInput';
 import PrimaryInput from '../atoms/BoringInput';

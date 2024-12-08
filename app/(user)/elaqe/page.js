@@ -1,9 +1,8 @@
 // pages/contact.tsx
-import Layout from '../components/Layout';
-
+'use client'
 const ContactUs = () => {
   return (
-    <Layout>
+    <main>
       <div className="max-w-4xl mx-auto bg-white p-6 shadow-md rounded-md">
         <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">Contact Us</h1>
 
@@ -59,7 +58,7 @@ const ContactUs = () => {
           <p className="text-gray-600">Address: 1234 Car St, New York, NY</p>
         </div>
       </div>
-    </Layout>
+    </main>
   );
 };
 

@@ -1,5 +1,5 @@
 // pages/faq.tsx
-import Layout from '@/components/Layout';
+'use client'
 import { useState } from 'react';
 
 const FAQ = () => {
@@ -33,7 +33,7 @@ const FAQ = () => {
   ];
 
   return (
-    <Layout>
+    <main>
       <div className="container mx-auto px-6 py-12">
         <h1 className="text-3xl font-semibold text-center text-gray-800 mb-8">Frequently Asked Questions</h1>
 
@@ -62,7 +62,7 @@ const FAQ = () => {
           ))}
         </div>
       </div>
-    </Layout>
+    </main>
 
   );
 };

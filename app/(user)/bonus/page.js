@@ -1,4 +1,5 @@
 // pages/bonus.tsx
+"use client"
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -6,7 +7,7 @@ import { useRouter } from 'next/router';
 const BonusPage = () => {
   const [hasCollected, setHasCollected] = useState(null);
   const [message, setMessage] = useState('');
-  const router = useRouter();
+  // const router = useRouter();
 
   useEffect(() => {
     const checkBonusStatus = async () => {

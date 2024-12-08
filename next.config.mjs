@@ -4,6 +4,7 @@ const nextConfig = {
     domains : ["*","www.carlogos.org","demo.themesberg.com"]
   },
   reactStrictMode: true,
+  
   // middleware: {
   //   '/': [
   //     // Run this middleware on the home page and other paths that require authentication

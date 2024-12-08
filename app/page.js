@@ -1,10 +1,14 @@
+"use client"
+
 import Announcement from "@/components/Announcement";
-import Layout from "@/components/Layout";
+// import Layout from "@/components/Layout";
 import FeaturedBrands from "@/components/welcome/FeaturedBrands";
 import BeCareful from "@/components/welcome/BeCareful";
 import Image from "next/image";
 import Link from "next/link";
 import UsedCarList from "@/components/welcome/UsedCarsList";
+
+
 
 export default function Home() {
 
@@ -20,7 +24,7 @@ export default function Home() {
 
   return (
     <main>
-      <Layout>
+      {/* <Layout> */}
         {/* Announcement */}
         <Announcement />
 
@@ -190,7 +194,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-      </Layout>
+      {/* </Layout> */}
     </main>
   );
 }

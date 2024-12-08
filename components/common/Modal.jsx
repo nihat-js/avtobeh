@@ -1,29 +1,44 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
-const Modal = ({ isOpen, onClose }) => {
+const Modal = ({ state,setState,children }) => {
   const [isMinimized, setIsMinimized] = useState(false);
   const [isMaximized, setIsMaximized] = useState(false);
+  const modalRef = useRef(null);
 
-  // Handle "Esc" key press
+  const handleClickOutside = (event) => {
+    // console.log("gel gorek")
+    if (modalRef.current && !modalRef.current.contains(event.target)) {
+      setState(false)
+      // onClose(); 
+    }
+  };
+
+  const handleEsc = (event) => {
+    // console.log(event.key)
+    if (event.key === 'Escape') {
+      setState(false)
+      // onClose();
+    }
+  };
+
   useEffect(() => {
-    const handleEsc = (event) => {
-      console.log(event.key)
-      // console.log('ESC KEY PRESSED');
-      if (event.key === 'Escape') {
-        onClose();
-      }
-    };
+   
 
-    // Add event listener on mount
-    window.addEventListener('keydown', handleEsc);
+    if (state) {
+      // window.addEventListener('click', handleClickOutside);
+      window.addEventListener('keydown', handleEsc);
+    } else {
+      // window.removeEventListener('click', handleClickOutside);
+      window.removeEventListener('keydown', handleEsc);
+    }
 
-    // Clean up the event listener on unmount
     return () => {
       window.removeEventListener('keydown', handleEsc);
+      // window.removeEventListener('click', handleClickOutside);
     };
-  }, [onClose]);
+  }, [state]);
 
-  if (!isOpen) return null;
+  if (!state) return null;
 
   const handleMinimize = () => {
     setIsMinimized(!isMinimized);
@@ -36,6 +51,7 @@ const Modal = ({ isOpen, onClose }) => {
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
       <div
+      ref={modalRef}
         className={`bg-white p-2 rounded-lg transition-all ${
           isMaximized ? 'h-full w-full' : isMinimized ? 'h-16 w-40' : 'h-[300px] w-[400px]'
         }`}
@@ -53,16 +69,17 @@ const Modal = ({ isOpen, onClose }) => {
             />
             <button
               className="w-3 h-3 rounded-full bg-red-500 hover:bg-red-600 focus:outline-none"
-              onClick={onClose}
+              onClick={() => setState(false)}
             />
           </div>
         </div>
 
-        {!isMinimized && (
-          <div className="p-4">
-            <h2 className="text-xl">Modal Title</h2>
-            <p>Some content goes here...</p>
-          </div>
+        {!isMinimized && ( children
+
+          // <div className="p-4">
+          //   <h2 className="text-xl">Modal Title</h2>
+          //   <p>Some content goes here...</p>
+          // </div>
         )}
       </div>
     </div>

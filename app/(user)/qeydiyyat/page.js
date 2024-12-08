@@ -1,7 +1,7 @@
-// pages/register.tsx
+"use client"
 import { useState } from "react";
-import Layout from "../components/Layout";
 import Link from "next/link";
+
 
 const Register = () => {
   // State to handle form data and errors
@@ -65,7 +65,7 @@ const Register = () => {
   };
 
   return (
-    <Layout>
+    <main>
       <div className="max-w-md mx-auto bg-white p-6 shadow-md rounded-md">
         <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">Register</h1>
 
@@ -145,7 +145,7 @@ const Register = () => {
           </Link>
         </p>
       </div>
-    </Layout>
+    </main>
   );
 };
 
