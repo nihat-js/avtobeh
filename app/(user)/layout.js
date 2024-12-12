@@ -1,8 +1,4 @@
-import "../styles/globals.css"
-export const metadata = {
-  title: 'AvtoBeh',
-  description: 'AvtoBeh - yeni ve işlənmiş avtomobillər, avtomobil aksesuarları, avtomobil xidmətləri və s.',
-}
+import "../../styles/globals.css"
 
 import Footer from '@/components/Footer';
 import Header from '@/components/Header.jsx';
@@ -12,6 +8,11 @@ import Header from '@/components/Header.jsx';
 // "use client"
 
 
+
+export const metadata = {
+  title: 'AvtoBeh',
+  description: 'AvtoBeh - yeni ve işlənmiş avtomobillər, avtomobil aksesuarları, avtomobil xidmətləri və s.',
+}
 
 
 const Layout = ({ children }) => {

@@ -3,21 +3,21 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 const LogoutPage = () => {
-  const router = useRouter();
+  // const router = useRouter();
 
-  useEffect(() => {
-    // Trigger the logout API route
-    const logout = async () => {
-      await fetch('/api/logout', {
-        method: 'POST',
-      });
+  // useEffect(() => {
+  //   // Trigger the logout API route
+  //   const logout = async () => {
+  //     await fetch('/api/logout', {
+  //       method: 'POST',
+  //     });
 
-      // Redirect user after logging out
-      router.push('/login'); // Redirect to the login page or homepage
-    };
+  //     // Redirect user after logging out
+  //     router.push('/login'); // Redirect to the login page or homepage
+  //   };
 
-    logout();
-  }, [router]);
+  //   logout();
+  // }, [router]);
 
   return (
     <div>

@@ -1,8 +1,11 @@
 import prisma from "@/prisma";
 import Index from ".";
 
-// import Index from "./index";
 
+export const metadata = {
+  title: 'Sat',
+  description: 'Sat - yeni və işlənmiş avtomobillər, avtomobil aksesuarları, avtomobil xidmətləri və s.'
+}
 
 
 

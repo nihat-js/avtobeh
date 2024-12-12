@@ -47,7 +47,7 @@ const Header = ({ user }) => {
             <>
               
               <div className="flex justify-center items-center w-12 h-12 bg-amber-500 rounded-full shadow-lg hover:bg-amber-600 cursor-pointer transition-all duration-300 ease-in-out">
-                <Link href="/sell" className="text-white text-2xl font-bold">+</Link>
+                <Link href="/sat" className="text-white text-2xl font-bold">+</Link>
               </div>
 
               <Link
