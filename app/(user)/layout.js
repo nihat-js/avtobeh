@@ -1,7 +1,7 @@
 import "../styles/globals.css"
 export const metadata = {
   title: 'AvtoBeh',
-  description: 'AvtoBeh is a car dealership that sells new and used cars.',
+  description: 'AvtoBeh - yeni ve işlənmiş avtomobillər, avtomobil aksesuarları, avtomobil xidmətləri və s.',
 }
 
 import Footer from '@/components/Footer';
@@ -10,6 +10,9 @@ import Header from '@/components/Header.jsx';
 // import Footer from './Footer.jsx';
 // import { useEffect, useState } from 'react';
 // "use client"
+
+
+
 
 const Layout = ({ children }) => {
   const user = null
@@ -30,23 +33,17 @@ const Layout = ({ children }) => {
   // }, []);
 
   return (
-    <html lang="en">
-      <div className="min-h-screen flex flex-col"
-        style={{
-          // backgroundImage: "url('/icons/bg-squares.svg')",
-          // backgroundSize: '100%',
-          // backgroundAttachment: 'fixed',
-        }}
-      >
-        <body>
+    <html>
+      <body>
+
+        <div>
           <Header user={user} />
           <div className='bg-slate-100'>
             <main className="flex-1 container mx-auto py-6 px-4 ">{children}</main>
           </div>
           <Footer />
-        </body>
-      </div>
-
+        </div>
+      </body>
     </html>
   );
 };

@@ -24,7 +24,7 @@ const Header = ({ user }) => {
         <nav className="hidden md:flex ">
           {[
             { href: "/axtar", label: "Axtar" },
-            { href: "/", label: "Elektromobillər" },
+            { href: "/elek", label: "Elektromobillər" },
             { href: "/", label: "İcarə" },
             // { href: "/kataloq", label: "Kataloq" },
             // { href: "/elaqe", label: "Əlaqə" },

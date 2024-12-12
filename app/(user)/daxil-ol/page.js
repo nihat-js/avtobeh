@@ -5,6 +5,7 @@ import { useState } from "react";
 // import Layout from '../components/Layout';
 import Link from 'next/link';
 import { useRouter } from "next/router";
+import { create, loginAction } from "./actions";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -12,48 +13,17 @@ const Login = () => {
   const [error, setError] = useState(null); // For handling error messages
   // const router = useRouter(); // For redirecting to the home page after successful login
 
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
-
-    // Validate form
-    if (!email || !password) {
-      setError("Both email and password are required.");
-      return;
-    }
-
-    try {
-      // Send POST request to the login API
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        // If login is successful, redirect to home page
-        router.push("/"); // Redirect to home page
-      } else {
-        // Handle error response
-        setError(data.error || "Something went wrong, please try again.");
-      }
-    } catch (error) {
-      console.error(error);
-      setError("An error occurred while logging in.");
-    }
-  };
+ 
 
   return (
       <div className="max-w-md mx-auto bg-white p-6 shadow-md rounded-md">
         <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">Login</h1>
+        {/* <button onClick={create}>Create</button> */}
         
         {/* Display error if any */}
         {error && <div className="text-red-500 text-center mb-4">{error}</div>}
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={() => loginAction({email,password})} className="space-y-6">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-600">
               Email

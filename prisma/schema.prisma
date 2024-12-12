@@ -48,24 +48,64 @@ model Post {
   @@index([authorId], map: "Post_authorId_fkey")
 }
 
-model VehicleBrand {
-  id           Int            @id @default(autoincrement())
-  name         String         @unique(map: "CarBrand_name_key") @db.VarChar(255)
-  country      String?        @db.VarChar(255)
-  logo         String?        @db.VarChar(255)
-  established  DateTime?
-  rank         Int?
-  VehicleModel VehicleModel[]
+model Car {
+  id               Int       @id @default(autoincrement())
+  userId           String?   @db.VarChar(50)
+  brandId          Int?
+  brandName        String?   @db.VarChar(50)
+  modelId          String?   @db.VarChar(50)
+  modelName        Int
+  VIN              String?   @db.VarChar(50)
+  fuelType         String?   @db.VarChar(50)
+  createdAt        DateTime? @db.Timestamp(0)
+  updatedAt        DateTime? @db.Timestamp(0)
+  seatCount        Int?
+  mileage          Int?
+  gearbox          String?   @db.VarChar(50)
+  isUrgent         Int?
+  isWhatsappActive Int?
 }
 
-model VehicleModel {
-  id           Int          @id @default(autoincrement())
-  name         String
-  brandId      Int
-  years        String?
-  isVisible    String?
-  information  String?
-  VehicleBrand VehicleBrand @relation(fields: [brandId], references: [id], map: "CarModel_brandId_fkey")
+model CarBrand {
+  id          Int        @id @default(autoincrement())
+  name        String     @unique @db.VarChar(255)
+  country     String?    @db.VarChar(255)
+  logo        String?    @db.VarChar(255)
+  established DateTime?
+  rank        Int?
+  isVisible   Int?       @default(dbgenerated("(true)")) @db.TinyInt
+  CarModel    CarModel[]
+}
+
+model CarImages {
+  id        Int       @id @default(autoincrement())
+  car_id    Int       @default(0)
+  path      Int?      @default(0)
+  storage   String?   @default("local") @db.VarChar(50)
+  createdAt DateTime? @default(dbgenerated("(now())")) @db.Timestamp(0)
+  updatedAt DateTime? @db.Timestamp(0)
+}
+
+model CarModel {
+  id          Int      @id @default(autoincrement())
+  name        String
+  brandId     Int
+  years       String?
+  isVisible   String?
+  information String?
+  CarBrand    CarBrand @relation(fields: [brandId], references: [id])
 
   @@index([brandId], map: "CarModel_brandId_fkey")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model Catalog {
+  id          Int?
+  title       String? @db.VarChar(50)
+  brandId     Int?
+  description Int?
+  text        String? @db.Text
+  modelId     String? @db.VarChar(50)
+
+  @@ignore
 }
