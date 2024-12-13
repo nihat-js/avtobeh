@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "dbpull": "npx prisma db pull && npx prisma generate",
-    "deploy": "git pull origin main && npm install && next build && npx prisma generate && next-sitemap && pm2 restart avtobeh"
+    "deploy": "git pull origin main && npm install --force && next build && npx prisma generate && next-sitemap && pm2 restart avtobeh"
   },
   "dependencies": {
     "@emotion/react": "^11.13.5",
