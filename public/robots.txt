@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://avtobeh.com
+
+# Sitemaps
+Sitemap: https://avtobeh.com/sitemap.xml
