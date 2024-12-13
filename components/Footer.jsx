@@ -8,14 +8,14 @@ const Footer = () => {
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-lg font-semibold mb-4">About Us</h3>
+            <h3 className="text-lg font-semibold mb-4">Haqqımızda</h3>
             <p className="text-sm text-gray-400">
               AvtoBeh, alıcılarla satıcıları birləşdirən bir platformadır. İkinci əl avtomobillər üçün ən yaxşı təklifləri tapın və ya avtomobilinizi etibarlı bir icmaya satmağa təklif edin.
             </p>
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-4">Tez Bağlantılar</h3>
+            <h3 className="text-lg font-semibold mb-4">Əsas Bağlantılar</h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/" className="text-gray-400 hover:text-blue-400 transition">
@@ -48,6 +48,44 @@ const Footer = () => {
                 </Link>
               </li>
             </ul>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Brendlər üzrə axtarış</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/search?make=Toyota" className="text-gray-400 hover:text-blue-400 transition">
+                  Toyota
+                </Link>
+              </li>
+              <li>
+                <Link href="/search?make=Ford" className="text-gray-400 hover:text-blue-400 transition">
+                  Ford
+                </Link>
+              </li>
+              <li>
+                <Link href="/search?make=Chevrolet" className="text-gray-400 hover:text-blue-400 transition">
+                  Chevrolet
+                </Link>
+              </li>
+              <li>
+                <Link href="/search?make=Honda" className="text-gray-400 hover:text-blue-400 transition">
+                  Honda
+                </Link>
+              </li>
+              <li>
+                <Link href="/search?make=Nissan" className="text-gray-400 hover:text-blue-400 transition">
+                  Nissan
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+
+
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Şəhərlər üzrə axtarış</h3>
+            
           </div>
 
 
