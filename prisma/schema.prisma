@@ -49,53 +49,53 @@ model Post {
 }
 
 model Car {
-  id               Int       @id @default(autoincrement())
-  userId           String?   @db.VarChar(50)
-  brandId          Int?
-  brandName        String?   @db.VarChar(50)
-  modelId          String?   @db.VarChar(50)
-  modelName        Int
-  VIN              String?   @db.VarChar(50)
-  fuelType         String?   @db.VarChar(50)
-  createdAt        DateTime? @db.Timestamp(0)
-  updatedAt        DateTime? @db.Timestamp(0)
-  seatCount        Int?
-  mileage          Int?
-  gearbox          String?   @db.VarChar(50)
-  isUrgent         Int?
-  isWhatsappActive Int?
+  id                  Int        @id @default(autoincrement())
+  userId              String?    @db.VarChar(50)
+  brandId             Int?
+  brandName           String?    @db.VarChar(50)
+  modelId             Int?
+  price               Int?
+  modelName           String     @default("") @db.VarChar(50)
+  description         String?    @db.VarChar(50)
+  year                Int?
+  mileage             Int?
+  VIN                 String?    @db.VarChar(50)
+  fuelType            String?    @db.VarChar(50)
+  seatCount           Int?
+  color               String?    @db.VarChar(50)
+  gearbox             String?    @db.VarChar(50)
+  isUrgent            Int?
+  isWhatsappActive    Int?
+  is_original_mileage Int?       @db.TinyInt
+  createdAt           DateTime   @default(dbgenerated("(now())")) @db.Timestamp(0)
+  updatedAt           DateTime?  @db.Timestamp(0)
+  deletedAt           DateTime?  @db.Timestamp(0)
+  country             String?    @db.VarChar(50)
+  city                String?    @db.VarChar(50)
+  engineDisplacement  Int?
+  images            CarImage[]
 }
 
 model CarBrand {
-  id          Int        @id @default(autoincrement())
-  name        String     @unique @db.VarChar(255)
-  country     String?    @db.VarChar(255)
-  logo        String?    @db.VarChar(255)
+  id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(255)
+  country     String?   @db.VarChar(255)
+  logo        String?   @db.VarChar(255)
   established DateTime?
   rank        Int?
-  isVisible   Int?       @default(dbgenerated("(true)")) @db.TinyInt
-  CarModel    CarModel[]
-}
-
-model CarImages {
-  id        Int       @id @default(autoincrement())
-  car_id    Int       @default(0)
-  path      Int?      @default(0)
-  storage   String?   @default("local") @db.VarChar(50)
-  createdAt DateTime? @default(dbgenerated("(now())")) @db.Timestamp(0)
-  updatedAt DateTime? @db.Timestamp(0)
+  isVisible   Int?      @default(dbgenerated("(true)")) @db.TinyInt
+  count       Int?      @default(0)
 }
 
 model CarModel {
-  id          Int      @id @default(autoincrement())
-  name        String
-  brandId     Int
-  years       String?
-  isVisible   String?
-  information String?
-  CarBrand    CarBrand @relation(fields: [brandId], references: [id])
-
-  @@index([brandId], map: "CarModel_brandId_fkey")
+  id        Int     @id @default(autoincrement())
+  name      String
+  brandId   Int
+  brandName String  @default("") @db.VarChar(50)
+  years     String?
+  isVisible String?
+  count     Int     @default(0)
+  groupName String? @db.VarChar(50)
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
@@ -108,4 +108,17 @@ model Catalog {
   modelId     String? @db.VarChar(50)
 
   @@ignore
+}
+
+model CarImage {
+  id        Int       @id @default(autoincrement())
+  carId     Int       @default(0)
+  rank      Int?
+  path      String?   @db.VarChar(250)
+  storage   String?   @db.VarChar(50)
+  createdAt DateTime? @default(dbgenerated("(now())")) @db.Timestamp(0)
+  updatedAt DateTime? @db.Timestamp(0)
+  Car       Car       @relation(fields: [carId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_CarImage_Car")
+
+  @@index([carId], map: "carId")
 }

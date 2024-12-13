@@ -51,13 +51,13 @@ const Header = ({ user }) => {
               </div>
 
               <Link
-                href="/login"
+                href="/daxil-ol"
                 className="py-2 px-4 text-sm font-medium text-white border border-white rounded-md hover:bg-white hover:text-red-500 transition"
               >
                 Daxil ol
               </Link>
               <Link
-                href="/register"
+                href="/qeydiyyat"
                 className="py-2 px-4 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 transition"
               >
                 Qeydiyyat

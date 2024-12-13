@@ -1,30 +1,14 @@
+"use client"
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { Tooltip } from "@nextui-org/tooltip";
+import formatDate from '@/lib/formateDate';
 
-export default function UsedCarList() {
-  // Array of cars (you can fetch this data from an API or a database)
-  const cars = [
-    {
-      id: 1,
-      brand: 'BMW',
-      model: '320i',
-      price: '30,000',
-      currency : "₼",
-      isFavorite: false,
-      images: ['https://media.istockphoto.com/id/1435226078/photo/front-of-a-white-bmw-m4-parked-on-a-street-with-trees-in-the-background.jpg?s=612x612&w=0&k=20&c=l1IupUrh-_Zbcse-hDkaUAh-qMD82hJspXjnN0IBZlg=',
-        'https://t4.ftcdn.net/jpg/05/37/32/57/360_F_537325726_GtgjRiyc37BLPn9OmisBVVZec9frLaL0.jpg',
-      ]
-    },
-    {
-      id: 1,
-      brand: 'BMW',
-      model: '320i',
-      price: '₼30,000',
-      images: ['https://media.istockphoto.com/id/1435226078/photo/front-of-a-white-bmw-m4-parked-on-a-street-with-trees-in-the-background.jpg?s=612x612&w=0&k=20&c=l1IupUrh-_Zbcse-hDkaUAh-qMD82hJspXjnN0IBZlg=',], // Example images
-    },
 
-  ];
+
+
+export default function UsedCarList({ cars }) {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
@@ -40,6 +24,7 @@ function Card({ car }) {
 
   const [activeImageIndex, setActiveImageIndex] = useState(0)
   const [isFavorite, setIsFavorite] = useState(car.isFavorite)
+
   function nextImage() {
     setActiveImageIndex((prev) => (prev + 1) % car.images.length)
   }
@@ -47,81 +32,102 @@ function Card({ car }) {
     setActiveImageIndex((prev) => (prev - 1 + car.images.length) % car.images.length)
   }
 
-  function toggleFavorite() {
+  function handleVINClick() {
+    window.open(`https://vindecoder.eu/check-vin/${car.vin}`, '_blank')
+  }
 
+  function toggleFavorite() {
+    setIsFavorite((prev) => !prev)
   }
 
   return (
-    <div key={car.id} className="max-w-sm bg-white rounded-lg shadow-xl overflow-hidden">
-      {/* Car images carousel */}
+    <div key={car.id} className="max-w-sm bg-white rounded-lg shadow-xl overflow-hidden cursor-pointer ">
+      <Tooltip place="top" type="dark" effect="solid" />
+
       <div className="relative">
         <div className="h-64">
           <img
-            src={car.images[activeImageIndex]}
+            src={car?.images && car.images[activeImageIndex]?.path}
             alt={`${car.brand} ${car.model}`}
             className="w-full h-full object-cover"
           />
         </div>
 
+        <Tooltip content="Təcili" placement="top">
+          <div className="absolute top-2 left-2   p-2 w-10 h-10 rounded-full hover:bg-slate-100  text-white text-xs font-bold">
+            <Image src="/icons/urgent.svg" alt="Urgent" width={24} height={24} />
+          </div>
+        </Tooltip>
+
+
         {/* Favorite  */}
-        <div className="absolute right-2 top-2  rounded-full bg-white pointer py-2 px-4
-        cursor-pointer hover:bg-slate-100 ">
+        <div className={`absolute right-2 top-2  rounded-full  pointer p-2 ${isFavorite ? 'bg-orange-600' : 'bg-white'}
+        cursor-pointer 4  hover:opacity-60  `} onClick={toggleFavorite} >
           <p className="text-sm">
-            <Image src={"/icons/save.svg"} alt="View" width={16} height={16} onClick={toggleFavorite} />
+            <Image src={"/icons/save.svg"} alt="View" width={16} height={16} />
           </p>
         </div>
 
         {/* Navigation Icons */}
         <div className="absolute bottom-4 right-4 flex space-x-2">
-          {/* Left Icon */}
-          <button className="text-white bg-black p-1 rounded-full hover:bg-gray-700">
-            <FaChevronLeft onClick={nextImage} />
-          </button>
 
-          {/* Right Icon */}
-          <button className="text-white bg-black p-1 rounded-full hover:bg-gray-700">
-            <FaChevronRight onClick={previousImage} />
+          <button className="text-white bg-black p-1 rounded-sm hover:bg-gray-700">
+            <FaChevronLeft size={12} onClick={previousImage} />
+          </button>
+          <p className="text-white font-bold text-md">
+            <span className="text-indigo-400"> {activeImageIndex + 1} </span> / {car.images?.length}
+          </p>
+
+
+          <button className="text-white bg-black p-1 rounded-sm hover:bg-gray-700">
+            <FaChevronRight size={12} onClick={nextImage} />
           </button>
         </div>
       </div>
 
       {/* Car Details */}
       <div className="p-6">
-        <h2 className="text-2xl font-bold text-gray-800">{car.brand} {car.model}</h2>
-        <p className="text-gray-600 text-xl mt-2"><span className="text-orange-500">{car.price} {car.currency} </span></p>
+        <h2 className="text-2xl font-bold text-gray-800 flex gap-2">
+          {car.brandName} {car.modelName} - {car.year}
+          {/* <Image src="/icons/verified.svg" alt="Verified" width={16} height={16} /> */}
+          <Tooltip content="VIN kod" placement="top">
+            <Image className='hover:bg-slate-100 p-2 cursor-pointer' src="/icons/search-colored.svg" alt="VIN kod"
+              data-tooltip="VIN kod"
+              onClick={handleVINClick}
+              width={32} height={32} />
+          </Tooltip>
+        </h2>
+        <p className="text-gray-600 text-xl mt-2"><span className="text-orange-400">{car.price} {car.currency} </span></p>
         <div className="mt-4 grid grid-cols-2 gap-2">
-          <div className="flex items-center gap-2 px-3 py-1 bg-gray-200 rounded-full text-sm font-medium text-gray-700">
-            <Image src="/icons/fuel.svg" alt="Mileage" width={16} height={16} />
-            Benzin
-          </div>
-          <div className="flex items-center gap-2 px-3 py-1 bg-gray-200 rounded-full text-sm font-medium text-gray-700">
-            <Image src="/icons/fuel.svg" alt="Mileage" width={16} height={16} />
-            Sedan
-          </div>
-          <div className="flex items-center gap-2 px-3 py-1 bg-gray-200 rounded-full text-sm font-medium text-gray-700">
-            <Image src="/icons/road.svg" alt="Mileage" width={16} height={16} />
-            200,000 km
-          </div>
-          <div className="flex items-center gap-2 px-3 py-1 bg-gray-200 rounded-full text-sm font-medium text-gray-700">
-            <Image src="/icons/engine.svg" alt="Mileage" width={16} height={16} />
-            4.4 L
-          </div>
+          <Tag src="/icons/engine.svg" text={` ${car.engineDisplacement} L`} />
+          <Tag src="/icons/fuel.svg" text="Benzin" />
+          <Tag src="/icons/road.svg" text={` ${car.mileage} km`} />
+          <Tag src="/icons/calendar.svg" text="2018" />
+          <Tag src="/icons/gearbox.svg" text={` ${car.gearbox}`} />
+          {/* <Tag src="/icons/seat.svg" text="4" /> */}
+          <Tag src="/icons/color.svg" text={` ${car.color}`} />
+
         </div>
-        <div className="flex items-center gap-2 px-3 py-1 mt-3 bg-gray-200 rounded-full text-sm font-medium text-gray-700">
-          VIN: 428981232189
-          <Image src="/icons/search-colored.svg" alt="Mileage" width={16} height={16} />
+        <div className="mt-4">
+          <Tag src="/icons/city.svg" text={`Baku, ${formatDate(car.createdAt)} `} />
         </div>
+
+
       </div>
     </div>
 
   )
 }
 
-function Tags() {
+function Tag({ src, text }) {
+
   return (
-    <div className="flex items-center gap-2 px-3 py-1 bg-gray-200 rounded-full text-sm font-medium text-gray-700">
-      <Image src="/icons/fuel.svg" alt="Mileage" width={16} height={16} />
-      Benzin
+    <div className="flex items-center gap-2 px-3 py-1 bg-gray-200 
+    rounded-full text-sm font-medium text-gray-700
+    hover:bg-gray-300 cursor-pointer
+    ">
+      <Image src={src} alt="Mileage" width={16} height={16} />
+      {text}
     </div>
   )
 }
