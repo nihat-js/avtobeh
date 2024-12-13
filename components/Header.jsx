@@ -15,10 +15,12 @@ const Header = ({ user }) => {
     <header className="bg-amber-600 shadow-md sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between py-4 px-6">
         {/* Logo */}
-        <div className="text-2xl font-bold text-white">
-          <Image src="/icons/logo.jpg" width={150} height={80} alt="Logo" />
-          {/* <Link href="/">AvtoBeh</Link> */}
-        </div>
+        <Link href="/" className="text-2xl font-bold text-white">
+          <div className="text-2xl font-bold text-white">
+            <Image src="/icons/logo.jpg" width={150} height={80} alt="Logo" />
+            {/* <Link href="/">AvtoBeh</Link> */}
+          </div>
+        </Link>
 
         {/* Navigation (Desktop) */}
         <nav className="hidden md:flex ">

@@ -54,27 +54,27 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Brendlər üzrə axtarış</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/search?make=Toyota" className="text-gray-400 hover:text-blue-400 transition">
+                <Link href="/axtar?brand=Toyota" className="text-gray-400 hover:text-blue-400 transition">
                   Toyota
                 </Link>
               </li>
               <li>
-                <Link href="/search?make=Ford" className="text-gray-400 hover:text-blue-400 transition">
+                <Link href="/axtar?brand=Ford" className="text-gray-400 hover:text-blue-400 transition">
                   Ford
                 </Link>
               </li>
               <li>
-                <Link href="/search?make=Chevrolet" className="text-gray-400 hover:text-blue-400 transition">
+                <Link href="/axtar?brand=Chevrolet" className="text-gray-400 hover:text-blue-400 transition">
                   Chevrolet
                 </Link>
               </li>
               <li>
-                <Link href="/search?make=Honda" className="text-gray-400 hover:text-blue-400 transition">
+                <Link href="/axtar?brand=Honda" className="text-gray-400 hover:text-blue-400 transition">
                   Honda
                 </Link>
               </li>
               <li>
-                <Link href="/search?make=Nissan" className="text-gray-400 hover:text-blue-400 transition">
+                <Link href="/axtar?brand=Nissan" className="text-gray-400 hover:text-blue-400 transition">
                   Nissan
                 </Link>
               </li>
