@@ -6,8 +6,8 @@ import FeaturedBrands from "@/components/welcome/FeaturedBrands";
 import BeCareful from "@/components/welcome/BeCareful";
 import Image from "next/image";
 import Link from "next/link";
-import UsedCarList from "@/components/welcome/UsedCarsList";
 import prisma from "@/prisma";
+import CarCard from "@/components/common/CarCard";
 
 
 
@@ -41,8 +41,11 @@ export default async function Home() {
       <Announcement />
 
       <section>
-        <UsedCarList cars={cars} />
-
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
+          {cars.map((car) => (
+            <CarCard key={car.id} car={car} />
+          ))}
+        </div>
       </section>
 
       {/* Hero Section */}
