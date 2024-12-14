@@ -12,12 +12,12 @@ const Header = ({ user }) => {
   const toggleProfileDropdown = () => setIsProfileDropdownOpen(!isProfileDropdownOpen);
 
   return (
-    <header className="bg-amber-600 shadow-md sticky top-0 z-50">
-      <div className="container mx-auto flex items-center justify-between py-4 px-6">
+    <header className="bg-orange-600 shadow-md sticky top-0 z-50">
+      <div className="mx-auto flex items-center justify-between py-4 px-6" style={{maxWidth : "1000px"}}>
         {/* Logo */}
         <Link href="/" className="text-2xl font-bold text-white">
           <div className="text-2xl font-bold text-white">
-            <Image src="/icons/logo.jpg" width={150} height={80} alt="Logo" />
+            <Image src="/icons/logo.png" width={150} height={120} alt="Logo" />
             {/* <Link href="/">AvtoBeh</Link> */}
           </div>
         </Link>
@@ -25,9 +25,11 @@ const Header = ({ user }) => {
         {/* Navigation (Desktop) */}
         <nav className="hidden md:flex ">
           {[
-            { href: "/axtar", label: "Axtar" },
+            { href: "/axtar", label: "Maşın Axtar" },
             { href: "/elek", label: "Elektromobillər" },
             { href: "/", label: "İcarə" },
+            { href : "/qeydiyyat-nisanlari", label : "Qeydiyyat nişanları"  }
+
             // { href: "/kataloq", label: "Kataloq" },
             // { href: "/elaqe", label: "Əlaqə" },
             // { href: "/faq", label: "FAQ" },
@@ -56,9 +58,9 @@ const Header = ({ user }) => {
 
               <Link
                 href="/daxil-ol"
-                className="py-2 px-4 text-sm font-medium text-white border border-white rounded-md hover:bg-white hover:text-red-500 transition"
+                className="py-2 px-4 text-sm font-medium border-2 text-white rounded-md  hover:border-2 hover:border-orange-500 transition"
               >
-                Daxil ol
+                <Image src="/icons/login.svg" width={20} height={20} alt="Login" />
               </Link>
               <Link
                 href="/qeydiyyat"

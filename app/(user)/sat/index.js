@@ -84,7 +84,7 @@ export default function Index({ brands }) {
 
   return (
     <div className="max-w-4xl mx-auto p-8 bg-gray-50 shadow-lg rounded-xl">
-      <h1 className="text-4xl font-extrabold text-center text-indigo-600 mb-6">Maşınınızı Satın</h1>
+      <h1 className="text-4xl font-extrabold text-center text-orange-600 mb-6">Maşınınızı Satın</h1>
 
       <form onSubmit={handleSubmit} className="space-y-6">
 
@@ -195,7 +195,7 @@ export default function Index({ brands }) {
 
           {
             previewImages.map((image, index) => (
-              <ImagePreview key={index} image={image} handleRemoveImage={handleRemoveImage} />
+              <ImagePreview key={index} image={image} handleRemoveImage={(index) => handleRemoveImage(index)} />
             ))
           }
           <div className="w-40 h-40 border-2 border-dashed flex justify-center items-center cursor-pointer rounded-full hover:bg-slate-200 " onClick={handleAddImage}  >

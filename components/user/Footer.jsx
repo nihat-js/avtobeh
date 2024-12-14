@@ -3,16 +3,37 @@
 import Link from 'next/link';
 
 const Footer = () => {
+
+  const cities = [
+    "Bakı",
+    "Gəncə",
+    "Sumqayıt",
+    "Mingəçevir",
+    "Lənkəran",
+    "Şəki",
+    "Yevlax",
+    "Şirvan",
+    "Naxçıvan",
+    "Bakıxanov"
+
+  ]
+
+  const brands = [
+    "Toyota",
+    "Ford",
+    "Chevrolet",
+    "Honda",
+    "Nissan",
+    "Mercedes",
+    "BMW",
+    "Audi",
+  ]
+
+
   return (
     <footer className="bg-gray-800 text-white py-12">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Haqqımızda</h3>
-            <p className="text-sm text-gray-400">
-              AvtoBeh, alıcılarla satıcıları birləşdirən bir platformadır. İkinci əl avtomobillər üçün ən yaxşı təklifləri tapın və ya avtomobilinizi etibarlı bir icmaya satmağa təklif edin.
-            </p>
-          </div>
 
           <div>
             <h3 className="text-lg font-semibold mb-4">Əsas Bağlantılar</h3>
@@ -53,31 +74,15 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Brendlər üzrə axtarış</h3>
             <ul className="space-y-2">
-              <li>
-                <Link href="/axtar?brand=Toyota" className="text-gray-400 hover:text-blue-400 transition">
-                  Toyota
-                </Link>
-              </li>
-              <li>
-                <Link href="/axtar?brand=Ford" className="text-gray-400 hover:text-blue-400 transition">
-                  Ford
-                </Link>
-              </li>
-              <li>
-                <Link href="/axtar?brand=Chevrolet" className="text-gray-400 hover:text-blue-400 transition">
-                  Chevrolet
-                </Link>
-              </li>
-              <li>
-                <Link href="/axtar?brand=Honda" className="text-gray-400 hover:text-blue-400 transition">
-                  Honda
-                </Link>
-              </li>
-              <li>
-                <Link href="/axtar?brand=Nissan" className="text-gray-400 hover:text-blue-400 transition">
-                  Nissan
-                </Link>
-              </li>
+              {
+                brands.map((brand, index) => (
+                  <li key={index}>
+                    <Link href={`/search?brand=${brand}`} className="text-gray-400 hover:text-blue-400 transition">
+                      {brand}
+                    </Link>
+                  </li>
+                ))
+              }
             </ul>
           </div>
 
@@ -85,8 +90,26 @@ const Footer = () => {
 
           <div>
             <h3 className="text-lg font-semibold mb-4">Şəhərlər üzrə axtarış</h3>
-            
+            <ul className="space-y-2">
+              {
+                cities.map((city, index) => (
+                  <li key={index}>
+                    <Link href={`/search?city=${city}`} className="text-gray-400 hover:text-blue-400 transition">
+                      {city}
+                    </Link>
+                  </li>
+                ))
+              }
+            </ul>
           </div>
+
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Haqqımızda</h3>
+            <p className="text-sm text-gray-400">
+              AvtoBeh yeni platform kimi  alıcılarla satıcıları birləşdirən bir platformadır. İkinci əl avtomobillər üçün ən yaxşı təklifləri tapın və ya avtomobilinizi satmağı təklif edin.
+            </p>
+          </div>
+
 
 
           <div>

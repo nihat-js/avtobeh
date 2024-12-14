@@ -1,7 +1,7 @@
 import "../../styles/globals.css"
 
-import Footer from '@/components/Footer';
-import Header from '@/components/Header.jsx';
+import Footer from '@/components/user/Footer';
+import Header from '@/components/user/Header.jsx';
 // import Header from './Header.jsx';
 // import Footer from './Footer.jsx';
 // import { useEffect, useState } from 'react';

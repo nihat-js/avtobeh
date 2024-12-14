@@ -1,9 +1,9 @@
 "use server"
 
-import Announcement from "@/components/Announcement";
+import Announcement from "@/components/user/Announcement";
 // import Layout from "@/components/Layout";
-import FeaturedBrands from "@/components/welcome/FeaturedBrands";
-import BeCareful from "@/components/welcome/BeCareful";
+import FeaturedBrands from "@/components/user/welcome/FeaturedBrands";
+import BeCareful from "@/components/user/welcome/BeCareful";
 import Image from "next/image";
 import Link from "next/link";
 import prisma from "@/prisma";
