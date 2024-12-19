@@ -1,7 +1,4 @@
-export function Home(){
-
-    const 
-
+export default  function Home(){
 
     return(
         <div>
