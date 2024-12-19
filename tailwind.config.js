@@ -1,17 +1,34 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
+    darkMode: ["class"],
+    content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-      },
-    },
+  	extend: {
+  		colors : {
+			accent: '#333333', // Primary Accent (Red-Orange)
+			accentLight: '#FF7F51', // Light Accent (Soft Coral)
+			accentDark: '#D1481E', // Dark Accent (Deep Red-Orange)
+	
+			// Neutral Colors
+			neutral: {
+			  light: '#FFE4D1', // Light Neutral (Soft Peach)
+			  medium: '#F2C6A1', // Medium Neutral (Warm Beige)
+			  dark: '#333333', // Dark Neutral (Rich Charcoal)
+			},
+	
+			// Additional Support Colors
+			mutedAccent: '#F2A29B', // Muted Red-Orange
+			lightOrange: '#FFB87C', // Light Orange (for hover)
+			offWhite: '#FAF4EC', // Off-White (general backgrounds)
+		}
+  	}
   },
-  plugins: [],
+  plugins: [
+    require('daisyui'),
+      require("tailwindcss-animate")
+],
 };

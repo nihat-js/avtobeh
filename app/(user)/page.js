@@ -8,6 +8,8 @@ import Image from "next/image";
 import Link from "next/link";
 import prisma from "@/prisma";
 import CarCard from "@/components/common/CarCard";
+import Banner from "@/components/common/Banner";
+import CarFilter from "@/components/user/CarFilter";
 
 
 
@@ -40,8 +42,12 @@ export default async function Home() {
       {/* Announcement */}
       <Announcement />
 
+      <section className="mb-6">
+        <CarFilter/>
+      </section>
+
       <section>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
           {cars.map((car) => (
             <CarCard key={car.id} car={car} />
           ))}
@@ -49,7 +55,7 @@ export default async function Home() {
       </section>
 
       {/* Hero Section */}
-      <section className="bg-cover bg-center h-96 text-white flex flex-col justify-center items-center text-center bg-[url('/hero-bg.jpg')]">
+      <section className=" bg-cover bg-center h-96 text-white flex flex-col justify-center items-center text-center bg-[url('/hero-bg.jpg')]">
         <h1 className="text-5xl font-extrabold mb-4">Find Your Dream Car</h1>
         <p className="text-lg mb-6">Browse through the best second-hand cars in town.</p>
         <Link
@@ -209,7 +215,10 @@ export default async function Home() {
           </div>
         </div>
       </section>
-      {/* </Layout> */}
+
+      <Banner text="Artıq saytda maşın qeydiyyat nişanlarını da sata bilərsiniz " href="/car/add-license-plate" />
+
+
     </main>
   );
 }

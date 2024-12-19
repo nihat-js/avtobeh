@@ -2,6 +2,8 @@ import Aside from '@/components/admin/Aside'
 import Header from '@/components/admin/Header'
 import Image from 'next/image'
 import React from 'react'
+// import "../../styles/global.css"
+import "../../styles/globals.css"
 
 export default function Layout({children}) {
   return (

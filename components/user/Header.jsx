@@ -3,6 +3,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import Banner from '../common/Banner';
+import { HoverDropdown } from '../common/HoverDropdown';
 
 const Header = ({ user }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -11,10 +13,22 @@ const Header = ({ user }) => {
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const toggleProfileDropdown = () => setIsProfileDropdownOpen(!isProfileDropdownOpen);
 
+
+  const links = [
+    { href: "/axtar", label: "Maşın Axtar" },
+    { href: "/elek", label: "Elektromobillər" },
+    { href: "/", label: "İcarəea" },
+    { href: "/qeydiyyat-nisanlariii", label: "Qeydiyyat nişanlarıa" }
+
+    // { href: "/kataloq", label: "Kataloq" },
+    // { href: "/elaqe", label: "Əlaqə" },
+    // { href: "/faq", label: "FAQ" },
+    // { href: "/bonus", label: "Bonus" },
+  ]
+
   return (
-    <header className="bg-orange-600 shadow-md sticky top-0 z-50">
-      <div className="mx-auto flex items-center justify-between py-4 px-6" style={{maxWidth : "1000px"}}>
-        {/* Logo */}
+    <header className="bg-accent shadow-md sticky top-0 z-50">
+      <div className="mx-auto flex items-center justify-between py-2" style={{ maxWidth: "1000px" }}>
         <Link href="/" className="text-2xl font-bold text-white">
           <div className="text-2xl font-bold text-white">
             <Image src="/icons/logo.png" width={150} height={120} alt="Logo" />
@@ -24,17 +38,16 @@ const Header = ({ user }) => {
 
         {/* Navigation (Desktop) */}
         <nav className="hidden md:flex ">
-          {[
-            { href: "/axtar", label: "Maşın Axtar" },
-            { href: "/elek", label: "Elektromobillər" },
-            { href: "/", label: "İcarə" },
-            { href : "/qeydiyyat-nisanlari", label : "Qeydiyyat nişanları"  }
 
-            // { href: "/kataloq", label: "Kataloq" },
-            // { href: "/elaqe", label: "Əlaqə" },
-            // { href: "/faq", label: "FAQ" },
-            // { href: "/bonus", label: "Bonus" },
-          ].map((item) => (
+
+          <HoverDropdown content={"Oyyy"}>
+            <div className="text-white py-2 px-4 rounded-md hover:bg-red-600 hover:text-white transition-all relative" >   Maşın Axtar </div>
+            <div className="text-white py-2 px-4 rounded-md hover:bg-red-600 hover:text-white transition-all relative" >   Maşın Axtar </div>
+            <div className="text-white py-2 px-4 rounded-md hover:bg-red-600 hover:text-white transition-all relative" >   Maşın Axtar </div>
+          </HoverDropdown>
+
+
+          {links.map((item) => (
             <Link
               key={item.href}
               href={item.href}
@@ -50,24 +63,39 @@ const Header = ({ user }) => {
           {!user ? (
             <>
 
-              <Link href="/sat" className="text-white text-2xl font-bold">
-                <div className="flex justify-center items-center w-12 h-12 bg-amber-500 rounded-full shadow-lg hover:bg-amber-600 cursor-pointer transition-all duration-300 ease-in-out">
-                  +
-                </div>
-              </Link>
+              {
+                <HoverDropdown mainChildren={
+                  <div className="flex justify-center items-center w-8 h-8 bg-accent-500 rounded-full shadow-lg hover:bg-amber-600 cursor-pointer transition-all duration-300 ease-in-out">
+                    +
+                  </div>
+                }>
+                  <Link href="/masin-sat" className="text-white text-sm py-2 px-2  font-bold"> Maşın Sat </Link>
+                  <Link href="/qeydiyyat-nisani-sat" className="text-white text-sm font-bold"> Qeydiyyat Nişanı Sat </Link>
+                </HoverDropdown>
+              }
 
-              <Link
-                href="/daxil-ol"
-                className="py-2 px-4 text-sm font-medium border-2 text-white rounded-md  hover:border-2 hover:border-orange-500 transition"
-              >
-                <Image src="/icons/login.svg" width={20} height={20} alt="Login" />
-              </Link>
-              <Link
-                href="/qeydiyyat"
-                className="py-2 px-4 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 transition"
-              >
-                Qeydiyyat
-              </Link>
+
+
+              <div className="flex space-x-4">
+                {/* Login Button */}
+                <Link
+                  href="/daxil-ol"
+                  className="flex items-center justify-center py-2 px-6 text-sm font-medium text-white bg-red-600 shadow-md rounded-lg hover:bg-red-700 transition transform hover:scale-105"
+                >
+                  <Image src="/icons/login.svg" width={20} height={20} alt="Login" className="mr-2" />
+                  Daxil ol
+                </Link>
+
+                {/* Register Button */}
+                {/* <Link
+                  href="/qeydiyyat"
+                  className="flex items-center justify-center py-2 px-6 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 transition transform hover:scale-105"
+                >
+                  <Image src="/icons/register.svg" width={20} height={20} alt="Register" className="mr-2" />
+                  Register
+                </Link> */}
+              </div>
+
             </>
           ) : (
             <div className="relative">

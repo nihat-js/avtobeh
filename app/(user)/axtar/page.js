@@ -1,7 +1,7 @@
 import Link from 'next/link';
 // import Layout from '../components/Layout';
 // import CustomSelect from '@/components/atoms/CustomSelect';
-import SidebarFilter from '@/components/browse/SidebarFilter';
+// import SidebarFilter from '@/components/browse/SidebarFilter';
 import CustomButton from '@/components/atoms/PrimaryButton';
 import Image from 'next/image';
 import CarCard from '@/components/common/CarCard';
@@ -15,7 +15,7 @@ const Browse = async () => {
     <div className="flex flex-col md:flex-row gap-6">
       {/* Sidebar Filters */}
       <aside className="w-full md:w-1/4 bg-white p-4 shadow-md rounded-md">
-        <SidebarFilter />
+        {/* <SidebarFilter /> */}
       </aside>
 
       {/* Car Listings */}

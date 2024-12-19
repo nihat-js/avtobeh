@@ -1,9 +1,24 @@
-// pages/car/[id].tsx
+"use server"
+import prisma from "@/prisma";
+import Link from "next/link";
 
-const CarDetails = () => {
+
+export default async function CarDetails() {
+
+  const car = await prisma.car.findUnique({ where: { id: 1 } });
+  console.log(car)
+
+  function goBack(){
+    return window.history.back();
+  }
+
   return (
     <div className="max-w-5xl mx-auto bg-white p-6 shadow-md rounded-md">
       {/* Car Image and Info */}
+
+      <button>
+        Geri
+      </button>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Car Image */}
         <div>
@@ -16,12 +31,11 @@ const CarDetails = () => {
 
         {/* Car Info */}
         <div className="space-y-4">
-          <h1 className="text-3xl font-bold text-gray-800">Toyota Corolla 2020</h1>
-          <p className="text-lg text-gray-600">Mileage: 50,000 miles</p>
-          <p className="text-lg text-gray-600">Price: $15,000</p>
-          <p className="text-lg text-gray-600">Location: New York, NY</p>
+          <h1 className="text-3xl font-bold text-gray-800">{car.brandName} {car.modelName} </h1>
+          <p className="text-lg text-gray-600"> Konum: {car.country} {car.city}  </p>
+          <p className="text-lg text-gray-600">Qiymət:  {car.price}  {car.currency} </p>
           <p className="text-gray-700">
-            A well-maintained car with regular servicing. No major accidents or damage.
+            {car.description}
           </p>
 
           <button
@@ -36,7 +50,11 @@ const CarDetails = () => {
       <div className="mt-8">
         <h2 className="text-2xl font-semibold text-gray-800 mb-4">Car Specifications</h2>
         <ul className="space-y-2">
-          <li className="text-gray-600">Engine: 1.8L I4</li>
+          <li className="text-gray-600">Mühərriki: 1.8L I4</li>
+          <li className="text-gray-600">Vəziyyəti: Yeni</li>
+
+
+
           <li className="text-gray-600">Transmission: Automatic</li>
           <li className="text-gray-600">Fuel Type: Gasoline</li>
           <li className="text-gray-600">Seats: 5</li>
@@ -47,4 +65,3 @@ const CarDetails = () => {
   );
 };
 
-export default CarDetails;

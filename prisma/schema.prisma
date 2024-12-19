@@ -51,6 +51,7 @@ model Post {
 model Car {
   id                  Int        @id @default(autoincrement())
   userId              String?    @db.VarChar(50)
+  slug                String     @db.VarChar(100)
   brandId             Int?
   brandName           String?    @db.VarChar(50)
   modelId             Int?
@@ -73,7 +74,8 @@ model Car {
   country             String?    @db.VarChar(50)
   city                String?    @db.VarChar(50)
   engineDisplacement  Int?
-  images            CarImage[]
+  currency            String?    @db.VarChar(50)
+  images              CarImage[]
 }
 
 model CarBrand {
