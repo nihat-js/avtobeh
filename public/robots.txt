@@ -7,3 +7,5 @@ Host: https://avtobeh.com
 
 # Sitemaps
 Sitemap: https://avtobeh.com/sitemap.xml
+Sitemap: https://avtobeh.com/sitemap-0.xml
+
