@@ -1,6 +1,6 @@
 "use client"
 import Announcement from '@/components/user/Announcement';
-import { useState,useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import FilterHeader from './FilterHeader';
 import Banner from '@/components/common/Banner';
 import CarFilter from '@/components/user/CarFilter';
@@ -8,60 +8,70 @@ import CarCard from '@/components/common/CarCard';
 import LicensePlateFilter from './LicensePlateFilter';
 export function Client({ cars: cars_ }) {
 
-    const [cars, setCars] = useState(cars_)
+  const [cars, setCars] = useState(cars_)
 
-    useEffect(()=>{
-      setCars([
-        ...cars,
-        ...cars_,
-        ...cars,
-        ...cars,
-        ...cars,
-        ...cars,  
-      ])
-    },[])
+  useEffect(() => {
+    setCars([
+      ...cars,
+      ...cars_,
+      ...cars,
+      ...cars,
+      ...cars,
+      ...cars,
+    ])
+  }, [])
 
-    const [filterType, setFilterType] = useState('car'); // Default active button
-
-
-    return (
+  const [filterType, setFilterType] = useState('car'); // Default active button
 
 
-        <main>
-            <div className="container mx-auto" style={{ maxWidth: "1000px" }}>
-                {/* <Announcement /> */}
-
-                <section>
-                    <FilterHeader filterType={filterType} setFilterType={setFilterType} />
-                </section>
-
-                <section className="mb-6 mx-auto" style={{ maxWidth: "1000px" }}>
-                    {
-                      filterType === 'car' ? (
-                        <CarFilter />
-                      ) : (
-                        <LicensePlateFilter />
-                      )
-                    }
-                </section>
-
-                <section className="container mx-auto px-4" >
-                    <div className="grid grid-cols-4 gap-5 ">
-                        {cars.map((car) => (
-                            <CarCard key={car.id} car={car} />
-                        ))}
-                    </div>
-                </section>
+  return (
 
 
-            </div>
+    <main>
+      <div className="container mx-auto" style={{ maxWidth: "1000px" }}>
+        {/* <Announcement /> */}
+
+        <div className="flex flex-row space-x-4 items-center">
+          <p className="text-sm text-gray-600 hover:text-gray-800 transition duration-200 cursor-pointer">
+            Elektrik
+          </p>
+          <p className="text-sm text-gray-600 hover:text-gray-800 transition duration-200 cursor-pointer">
+            Antikvar
+          </p>
+        </div>
+
+
+        <section>
+          <FilterHeader filterType={filterType} setFilterType={setFilterType} />
+        </section>
+
+        <section className="mb-6 mx-auto" style={{ maxWidth: "1000px" }}>
+          {
+            filterType === 'car' ? (
+              <CarFilter />
+            ) : (
+              <LicensePlateFilter />
+            )
+          }
+        </section>
+
+        <section className="container mx-auto px-4" >
+          <div className="grid grid-cols-4 gap-5 ">
+            {cars.map((car) => (
+              <CarCard key={car.id} car={car} />
+            ))}
+          </div>
+        </section>
+
+
+      </div>
 
 
 
 
 
-            {/* Hero Section */}
-            {/* <section className=" bg-cover bg-center h-96 text-white flex flex-col justify-center items-center text-center bg-[url('/hero-bg.jpg')]">
+      {/* Hero Section */}
+      {/* <section className=" bg-cover bg-center h-96 text-white flex flex-col justify-center items-center text-center bg-[url('/hero-bg.jpg')]">
       <h1 className="text-5xl font-extrabold mb-4">Find Your Dream Car</h1>
       <p className="text-lg mb-6">Browse through the best second-hand cars in town.</p>
       <Link
@@ -72,22 +82,22 @@ export function Client({ cars: cars_ }) {
       </Link>
     </section> */}
 
-            {/* <section>
+      {/* <section>
       <FeaturedBrands brands={featuredBrands} />
     </section> */}
 
-            {/* <section>
+      {/* <section>
       <BeCareful />
     </section> */}
 
-            {/* Featured Cars Section */}
-            <section className="py-16 bg-gray-50">
-                <h2 className="text-3xl font-semibold text-center text-gray-800 mb-8">
-                    Featured Cars
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 container mx-auto">
-                    {/* Example Car Card */}
-                    {/* {[1, 2, 3].map((item) => (
+      {/* Featured Cars Section */}
+      <section className="py-16 bg-gray-50">
+        <h2 className="text-3xl font-semibold text-center text-gray-800 mb-8">
+          Featured Cars
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 container mx-auto">
+          {/* Example Car Card */}
+          {/* {[1, 2, 3].map((item) => (
           <div
             key={item}
             className="bg-white shadow-lg rounded-lg overflow-hidden transform transition-all hover:scale-105"
@@ -111,11 +121,11 @@ export function Client({ cars: cars_ }) {
             </div>
           </div>
         ))} */}
-                </div>
-            </section>
+        </div>
+      </section>
 
-            {/* Why Choose Us Section */}
-            {/* <section className="py-16 bg-red-100">
+      {/* Why Choose Us Section */}
+      {/* <section className="py-16 bg-red-100">
       <div className="container mx-auto text-center">
         <h2 className="text-3xl font-semibold text-gray-800 mb-6">
           Why Choose AvtoX?
@@ -197,8 +207,8 @@ export function Client({ cars: cars_ }) {
       </div>
     </section> */}
 
-            {/* Testimonials Section */}
-            {/* <section className="py-16">
+      {/* Testimonials Section */}
+      {/* <section className="py-16">
       <div className="container mx-auto text-center">
         <h2 className="text-3xl font-semibold text-gray-800 mb-8">
           What Our Customers Say
@@ -222,9 +232,9 @@ export function Client({ cars: cars_ }) {
       </div>
     </section> */}
 
-            <Banner text="Artıq saytda maşın qeydiyyat nişanlarını da sata bilərsiniz " href="/car/add-license-plate" />
+      <Banner text="Artıq saytda maşın qeydiyyat nişanlarını da sata bilərsiniz " href="/car/add-license-plate" />
 
 
-        </main>
-    )
+    </main>
+  )
 }
