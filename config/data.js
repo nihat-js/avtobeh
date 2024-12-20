@@ -16,6 +16,16 @@ export const cylindersCount = [1,2,3,4,5,6,8,10,12,16,24,32,48,64]
 
 
 
+const featuredBrands = [
+    { name: 'BMW', src: 'https://www.carlogos.org/car-logos/bmw-logo.png' },
+    { name: 'Mercedes', src: 'https://www.carlogos.org/car-logos/mercedes-benz-logo.png' },
+    { name: 'Toyota', src: 'https://www.carlogos.org/car-logos/toyota-logo.png' }
+    // { name: 'Tesla', src: 'https://www.carlogos.org/car-logos/tesla-logo.png' },
+    // { name: 'Audi', src: 'https://www.carlogos.org/car-logos/audi-logo.png' },
+    // { name: 'Ford', src: 'https://www.carlogos.org/car-logos/ford-logo.png' },
+  ]
+
+
 export  const transmissionType = [
     {
         key: "automatic",

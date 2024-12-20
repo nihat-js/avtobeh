@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useRef, useState } from "react";
-import "../../../styles/globals.css";
+// import "../../../styles/globals.css";
 
 const Menu = (props) => {
   const { children, items } = props

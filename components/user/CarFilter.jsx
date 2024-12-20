@@ -4,6 +4,10 @@ import { useState } from "react";
 import { FiFilter } from "react-icons/fi"; // Importing filter icon from react-icons
 import CustomSelect from "../atoms/CustomSelect";
 import { engineSize, years } from "@/config/data";
+import { cities } from "@/config/cities";
+import Colors from "./CarFilter/Colors";
+import Price from "./CarFilter/Price";
+import Condition from "./CarFilter/Condition";
 
 const CarFilter = () => {
     const [filters, setFilters] = useState({
@@ -20,16 +24,7 @@ const CarFilter = () => {
         model: "",
 
     });
-    const cities = [
-        {
-            "id": 1,
-            "name": "Baku"
-        },
-        {
-            "id": 2,
-            "name": "Gence"
-        }
-    ]
+
 
     const features = [
         "Kasko"
@@ -50,7 +45,7 @@ const CarFilter = () => {
     ]
     const [isCollapsed, setIsCollapsed] = useState(false); // State for toggling visibility
 
-  
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -60,7 +55,7 @@ const CarFilter = () => {
         });
     };
 
- 
+
 
     // Toggle collapsibility
     const toggleCollapse = () => setIsCollapsed(!isCollapsed);
@@ -71,18 +66,24 @@ const CarFilter = () => {
 
 
 
-            <div className="flex items-end justify-between mb-4">
+
+            <div className="flex justify-end mb-6">
                 <button
                     onClick={toggleCollapse}
                     className="text-gray-600 hover:text-red-600 transition duration-300">
-                    <FiFilter size={24} />
+                    <FiFilter size={20} />
                 </button>
             </div>
 
             <div className={`overflow-hidden transition-all duration-500 ease-in-out 
                 ${isCollapsed ? "h-0 opacity-0" : "h-auto opacity-100"}`}>
 
-                <div className="grid grid-cols-3">
+
+           
+
+                <div className="flex flex-wrap gap-5">
+                    <Price />
+                    <Condition />
                     <div>
                         <label htmlFor="minYear" className="text-sm">
                             İl
@@ -121,6 +122,8 @@ const CarFilter = () => {
                         </div>
                     </div> */}
                 </div>
+
+                <Colors />
 
 
 
