@@ -18,7 +18,7 @@ const Header = ({ user }) => {
     { href: "/axtar", label: "Maşın Axtar" },
     { href: "/elek", label: "Elektromobillər" },
     { href: "/", label: "İcarəea" },
-    { href: "/qeydiyyat-nisanlariii", label: "Qeydiyyat nişanlarıa" }
+    // { href: "/qeydiyyat-nisanlariii", label: "Qeydiyyat nişanlarıa" }
 
     // { href: "/kataloq", label: "Kataloq" },
     // { href: "/elaqe", label: "Əlaqə" },
@@ -51,7 +51,7 @@ const Header = ({ user }) => {
             <Link
               key={item.href}
               href={item.href}
-              className="text-white py-2 px-4 rounded-md hover:bg-red-600 hover:text-white transition-all"
+              className="text-white py-2 text-xs px-4 rounded-md hover:bg-red-600 hover:text-white transition-all"
             >
               {item.label}
             </Link>
