@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { FiFilter } from "react-icons/fi"; // Importing filter icon from react-icons
 import CustomSelect from "../atoms/CustomSelect";
+import { engineSize, years } from "@/config/data";
 
 const CarFilter = () => {
     const [filters, setFilters] = useState({
@@ -30,14 +31,26 @@ const CarFilter = () => {
         }
     ]
 
+    const features = [
+        "Kasko"
+    ]
+
+    const textarea = [
+        `
+        Təkərlərin vəziyyəti : 
+        Masinin xususi ozellikleri : 
+        Masinin vəziyyəti :
+        Masinin xususi ozellikleri :
+
+        Salonun veziyyeti : 
+        Salonun xususi ozellikleri :
+
+
+        `
+    ]
     const [isCollapsed, setIsCollapsed] = useState(false); // State for toggling visibility
 
-    const years = new Array(40).fill(1).map((item, index) => {
-        return {
-            value: (new Date().getFullYear() - index),
-            text: (new Date().getFullYear() - index)
-        }
-    })
+  
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -47,12 +60,7 @@ const CarFilter = () => {
         });
     };
 
-    const engineSize = new Array(100).fill(1).map((item, index) => {
-        return {
-            value: index * .1,
-            text: index * .1 + "L"
-        }
-    })
+ 
 
     // Toggle collapsibility
     const toggleCollapse = () => setIsCollapsed(!isCollapsed);
@@ -122,39 +130,16 @@ const CarFilter = () => {
 
 
 
-                {/* Engine Volume and Horsepower */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-4">
-                    <div>
-                        <label htmlFor="minHorsepower" className="block text-sm font-medium text-gray-700">
-                            Min Horsepower (hp)
-                            
-                        </label>
-                        <input
-                            type="number"
-                            id="minHorsepower"
-                            name="minHorsepower"
-                            value={filters.minHorsepower}
-                            onChange={handleChange}
-                            className="w-full p-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
-                            placeholder="100"
-                        />
-                        <input
-                            type="number"
-                            id="maxHorsepower"
-                            name="maxHorsepower"
-                            value={filters.maxHorsepower}
-                            onChange={handleChange}
-                            className="w-full p-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
-                            placeholder="400"
-                        />
-                    </div>
-                </div>
+
 
                 {/* Apply Filter Button */}
-                <button className="w-full py-2 bg-red-600 text-white font-medium rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 flex items-center justify-center">
-                    <FiFilter size={18} className="mr-2" />
-                    Tətbiq et
-                </button>
+                <div className="flex justify-end mt-3">
+                    <button className="py-2 px-4 bg-red-600 text-white font-medium rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 flex items-center justify-center">
+                        <FiFilter size={18} className="mr-2" />
+                        Tətbiq et
+                    </button>
+
+                </div>
             </div>
         </div >
     );

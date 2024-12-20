@@ -1,13 +1,26 @@
 "use client"
 import Announcement from '@/components/user/Announcement';
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import FilterHeader from './FilterHeader';
 import Banner from '@/components/common/Banner';
 import CarFilter from '@/components/user/CarFilter';
 import CarCard from '@/components/common/CarCard';
+import LicensePlateFilter from './LicensePlateFilter';
 export function Client({ cars: cars_ }) {
 
     const [cars, setCars] = useState(cars_)
+
+    useEffect(()=>{
+      setCars([
+        ...cars,
+        ...cars_,
+        ...cars,
+        ...cars,
+        ...cars,
+        ...cars,  
+      ])
+    },[])
+
     const [filterType, setFilterType] = useState('car'); // Default active button
 
 
@@ -23,11 +36,17 @@ export function Client({ cars: cars_ }) {
                 </section>
 
                 <section className="mb-6 mx-auto" style={{ maxWidth: "1000px" }}>
-                    <CarFilter />
+                    {
+                      filterType === 'car' ? (
+                        <CarFilter />
+                      ) : (
+                        <LicensePlateFilter />
+                      )
+                    }
                 </section>
 
                 <section className="container mx-auto px-4" >
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                    <div className="grid grid-cols-4 gap-5 ">
                         {cars.map((car) => (
                             <CarCard key={car.id} car={car} />
                         ))}

@@ -15,7 +15,7 @@ const Header = ({ user }) => {
 
 
   const links = [
-    { href: "/axtar", label: "Maşın Axtar" },
+    { href: "/axtar", label: "Axtar" },
     { href: "/elek", label: "Elektromobillər" },
     { href: "/", label: "İcarəea" },
     // { href: "/qeydiyyat-nisanlariii", label: "Qeydiyyat nişanlarıa" }
@@ -80,9 +80,9 @@ const Header = ({ user }) => {
                 {/* Login Button */}
                 <Link
                   href="/daxil-ol"
-                  className="flex items-center justify-center py-2 px-6 text-sm font-medium text-white bg-red-600 shadow-md rounded-lg hover:bg-red-700 transition transform hover:scale-105"
+                  className="flex items-center justify-center py-1 px-3 text-sm font-medium text-white bg-red-600 shadow-md rounded-lg hover:bg-red-700 transition transform hover:scale-105"
                 >
-                  <Image src="/icons/login.svg" width={20} height={20} alt="Login" className="mr-2" />
+                  <Image src="/icons/login.svg" width={16} height={16} alt="Login" className="mr-2" />
                   Daxil ol
                 </Link>
 
@@ -190,13 +190,13 @@ const Header = ({ user }) => {
               <>
                 <Link
                   href="/login"
-                  className="block py-2 px-4 text-sm text-white border border-white rounded-md hover:bg-white hover:text-red-500 transition"
+                  className="block py-2 px-2 text-sm text-white border border-white rounded-md hover:bg-white hover:text-red-500 transition"
                 >
                   Daxil ol
                 </Link>
                 <Link
                   href="/register"
-                  className="block py-2 px-4 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 transition"
+                  className="block py-2 px-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 transition"
                 >
                   Qeydiyyat
                 </Link>

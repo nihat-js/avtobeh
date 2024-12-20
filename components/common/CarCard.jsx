@@ -29,9 +29,14 @@ export default function CarCard({ car }) {
     setIsFavorite((prev) => !prev)
   }
 
+  car.engineSize = "1.5"
+  car.fuelType = "Benzin"
+  car.transmissionType = "Avtomat"
+  car.mileage = "100.000"
+
   return (
-    <Link href={`/masinlar/${car.slug}`}>
-      <div key={car.id} className="max-w-sm bg-white rounded-lg shadow-xl overflow-hidden cursor-pointer ">
+    <div key={car.id} className="bg-white rounded-lg shadow-xl overflow-hidden cursor-pointer">
+      <Link href={`/masinlar/${car.slug}`} className="" >
 
         <div>
           <div>
@@ -39,9 +44,8 @@ export default function CarCard({ car }) {
               src={car?.images && car.images[activeImageIndex]?.path}
               alt={`${car.brand} ${car.model}`}
               className=""
-              style={{ width: '100%', height: '200px', objectFit: 'contain' }}
-            // width={300}
-            // height={150}
+              style={{ width: '100%', height: '250px', obectFit: 'cover' }}
+              height={300}
             />
           </div>
 
@@ -79,41 +83,50 @@ export default function CarCard({ car }) {
 
         {/* Car Details */}
         <div className="py-2 px-4">
-          <h2 className=" font-bold text-gray-800 flex gap-2">
-            {car.brandName} {car.modelName}  {car.year}
-            {/* <Image src="/icons/verified.svg" alt="Verified" width={16} height={16} /> */}
-            {/* <Tooltip content="VIN kod" placement="top"> */}
-            <Image className='hover:bg-slate-100 p-2 cursor-default' src="/icons/search-colored.svg" alt="VIN kod"
-              data-tooltip="VIN kod"
-              onClick={handleVINClick}
-              width={32} height={32} />
-            {/* </Tooltip> */}
-          </h2>
-          <p className="text-gray-600 text-xl mt-2"><span className="text-orange-400 font-bold">{car.price} {car.currency} </span></p>
+          <div className="flex justify-between items-center">
+            <h2 className=" text-gray-600 text-sm flex gap-2">
+              {car.brandName} {car.modelName}  {car.year}
+              {/* <Image src="/icons/verified.svg" alt="Verified" width={16} height={16} /> */}
+              {/* <Tooltip content="VIN kod" placement="top"> */}
+              {/* <Image className='hover:bg-slate-100 p-2 cursor-default' src="/icons/search-colored.svg" alt="VIN kod"
+                data-tooltip="VIN kod"
+                onClick={handleVINClick}
+                width={32} height={32} /> */}
+              {/* </Tooltip> */}
+            </h2>
+            <p className="text-gray-600 text-xl mt-2"><span className="text-gray-800 font-bold">{car.price} {car.currency} ₼  </span></p>
+          </div>
+
+
+          <div>
+            {/* <p className="text-gray-600 text-sm" > Konum: {car.country} {car.city}  </p> */}
+            <p className="text-gray-600 text-sm">
+              {car.engineSize} L • {car.transmissionType} •  {car.fuelType}
+            </p>
+            <p className="text-gray-600 text-sm">
+              140 HP • 100,000km
+            </p>
+          </div>
 
           <div className="mt-4 grid grid-cols-3 gap-2">
-            <Tag src="/icons/engine.svg" text={` ${car.engineDisplacement / 1000} L`} />
+            {/* <Tag src="/icons/engine.svg" text={` ${car.engineDisplacement / 1000} L`} />
             <Tag src="/icons/fuel.svg" text="Benzin" />
-            <Tag src="/icons/gearbox.svg" text={` ${car.gearbox}`} />
+            <Tag src="/icons/gearbox.svg" text={` ${car.gearbox}`} /> */}
 
             {/* <Tag src="/icons/seat.svg" text="4" /> */}
             {/* <Tag src="/icons/calendar.svg" text="2018" /> */}
             {/* <Tag src="/icons/color.svg" text={` ${car.color}`} /> */}
           </div>
-          <div className="mt-4 grid grid-cols-2 gap-2" >
-            <Tag src="/icons/road.svg" text={` ${car.mileage} km`} />
+          {/* <Tag src="/icons/road.svg" text={` ${car.mileage} km`} />
             <Tag src="/icons/city.svg" text={`Baku, ${formatDate(car.createdAt)}  `} />
-            <Tag src="/icons/power.svg" text="140 HP" />
-          </div>
-          <div className="mt-2">
-            {/* <p className="text-gray-600 text-sm" > Yas asfalt • Tecili </p> */}
-          </div>
+            <Tag src="/icons/power.svg" text="140 HP" /> */}
+          {/* <p className="text-gray-600 text-sm" > Yas asfalt • Tecili </p> */}
 
 
         </div>
-      </div>
+      </Link>
+    </div>
 
-    </Link>
 
   )
 }
