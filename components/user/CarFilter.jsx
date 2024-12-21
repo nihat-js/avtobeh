@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { FiFilter } from "react-icons/fi"; // Importing filter icon from react-icons
 import CustomSelect from "../atoms/CustomSelect";
-import { engineSize, years } from "@/config/data";
+import { carFeatures, cylindersCount, engineSize, years } from "@/config/data";
 import { cities } from "@/config/cities";
 import Colors from "./CarFilter/Colors";
 import Price from "./CarFilter/Price";
@@ -79,7 +79,7 @@ const CarFilter = () => {
                 ${isCollapsed ? "h-0 opacity-0" : "h-auto opacity-100"}`}>
 
 
-           
+
 
                 <div className="flex flex-wrap gap-5">
                     <Price />
@@ -106,6 +106,35 @@ const CarFilter = () => {
 
                         </div>
                     </div>
+                    <div>
+                        <label htmlFor="">Silindirlərin sayı</label>
+                        {
+                            <CustomSelect data={cylindersCount} valueField="value" textField="text" />
+                        }
+                    </div>
+
+                    <div className="dropdown dropdown-hover">
+                        <div tabIndex={0} role="button" className="btn m-1">Hover</div>
+                        <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-md">
+                            <li><a>Item 1</a></li>
+                            <li><a>Item 2</a></li>
+                        </ul>
+                    </div>
+
+                    <div className="flex flex-row flex-wrap gap-2">
+                        {
+                            carFeatures.map((feature, index) => (
+                                <div key={index} className="flex gap-2  ">
+                                    <input type="checkbox" id={feature.value} value={feature.value} />
+                                    <label htmlFor={feature.value} className="text-sm text-gray-500" >{feature.key}  </label>
+                                </div>
+                            ))
+                        }
+                    </div>
+
+
+                    {/* <Colors /> */}
+
                     {/* 
                     <div>
                         <label htmlFor="">Vəziyyəti</label>
@@ -123,7 +152,6 @@ const CarFilter = () => {
                     </div> */}
                 </div>
 
-                <Colors />
 
 
 
@@ -143,7 +171,7 @@ const CarFilter = () => {
                     </button>
 
                 </div>
-            </div>
+            </div >
         </div >
     );
 };

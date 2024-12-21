@@ -1,6 +1,5 @@
 export default function CustomSelect({ children, data, valueField, textField, state, onChange,placeholder }) {
 
-  console.log({ data })
 
   return (
     <div class="relative">

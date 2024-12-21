@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import Banner from '../common/Banner';
 import { HoverDropdown } from '../common/HoverDropdown';
+import CurrencySwitcher from './CurrencySwitcher';
 
 const Header = ({ user }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -85,6 +86,7 @@ const Header = ({ user }) => {
                   <Image src="/icons/login.svg" width={16} height={16} alt="Login" className="mr-2" />
                   Daxil ol
                 </Link>
+                <CurrencySwitcher/>
 
                 {/* Register Button */}
                 {/* <Link

@@ -13,7 +13,7 @@ export async function getServerSideProps() {
       // role : true,
     }
   })
-  console.log(usersData[0])
+  // console.log(usersData[0])
   // usersData = JSON.parse(usersData)
 
   // const usersDataWithSerializedDates = usersData.map((user) => ({

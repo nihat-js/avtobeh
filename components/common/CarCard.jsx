@@ -41,7 +41,7 @@ export default function CarCard({ car }) {
         <div>
           <div>
             <img
-              src={car?.images && car.images[activeImageIndex]?.path}
+              src={ car.images[0] ? car.images[activeImageIndex]?.path : "https://placehold.co/600x400" }
               alt={`${car.brand} ${car.model}`}
               className=""
               style={{ width: '100%', height: '250px', obectFit: 'cover' }}

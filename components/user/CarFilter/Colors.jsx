@@ -3,7 +3,7 @@ export default () => {
 
     return (
         <div className="max-w-md mx-auto px-4">
-            <h2 className="text-gray-800 font-medium">Rəng seç</h2>
+            <h2 className="text-gray-700 font-medium">Rəng seç</h2>
             <ul className="mt-4 flex items-center flex-wrap gap-4">
                 {
                     colors.map((item, idx) => (
