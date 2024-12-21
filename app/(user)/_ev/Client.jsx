@@ -6,7 +6,7 @@ import Banner from '@/components/common/Banner';
 import CarFilter from '@/components/user/CarFilter';
 import CarCard from '@/components/common/CarCard';
 import LicensePlateFilter from './LicensePlateFilter';
-export function Client({ cars: cars_ }) {
+export function Client({ cars: cars_, brands  }) {
 
   const [cars, setCars] = useState(cars_)
 
@@ -48,7 +48,7 @@ export function Client({ cars: cars_ }) {
         <section className="mb-6 mx-auto" style={{ maxWidth: "1000px" }}>
           {
             filterType === 'car' ? (
-              <CarFilter />
+              <CarFilter brands={brands} />
             ) : (
               <LicensePlateFilter />
             )

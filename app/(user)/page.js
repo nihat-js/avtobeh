@@ -26,8 +26,10 @@ export default async function Home() {
     }
   });
 
+  let brands  = await prisma.carBrand.findMany();
+
 
   return (
-    <Client cars={cars} />
+    <Client cars={cars} brands={brands} />
   );
 }

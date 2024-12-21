@@ -9,7 +9,7 @@ import Colors from "./CarFilter/Colors";
 import Price from "./CarFilter/Price";
 import Condition from "./CarFilter/Condition";
 
-const CarFilter = () => {
+const CarFilter = ({ brands }) => {
     const [filters, setFilters] = useState({
         minYear: "",
         maxYear: "",
@@ -82,6 +82,15 @@ const CarFilter = () => {
 
 
                 <div className="flex flex-wrap gap-5">
+                    <div>
+                        <h1 className=" text-gray-600 mb-4">Marka </h1>
+                        <CustomSelect data={brands} valueField="id" textField="name" state={filters.brand} onChange={handleChange} placeholder="Avtomobilin markasını seçin" />
+                    </div>
+                    <div>
+                        <h1 className=" text-gray-600 mb-4">Model </h1>
+                        <CustomSelect data={brands} valueField="id" textField="name" state={filters.brand} onChange={handleChange} placeholder="Avtomobilin markasını seçin" />
+                    </div>
+
                     <Price />
                     <Condition />
                     <div>
