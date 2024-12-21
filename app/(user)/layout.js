@@ -1,3 +1,4 @@
+import Snowfall from "@/components/common/Snowfall";
 import "../../styles/globals.css"
 
 import Footer from '@/components/user/Footer';
@@ -37,6 +38,7 @@ const Layout = ({ children }) => {
     <html>
       <body>
 
+        <Snowfall />
         <div>
           <Header user={user} />
           <div className='bg-slate-100'>

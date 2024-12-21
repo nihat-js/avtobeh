@@ -17,8 +17,9 @@ const Header = ({ user }) => {
 
   const links = [
     { href: "/axtar", label: "Axtar" },
-    { href: "/elek", label: "Elektromobillər" },
-    { href: "/", label: "İcarəea" },
+    {href : "/servisler" , label : "Servisler"},
+    // { href: "/elek", label: "Elektromobillər" },
+    // { href: "/", label: "İcarəea" },
     // { href: "/qeydiyyat-nisanlariii", label: "Qeydiyyat nişanlarıa" }
 
     // { href: "/kataloq", label: "Kataloq" },
@@ -77,16 +78,19 @@ const Header = ({ user }) => {
 
 
 
-              <div className="flex space-x-4">
-                {/* Login Button */}
-                <Link
-                  href="/daxil-ol"
-                  className="flex items-center justify-center py-1 px-3 text-sm font-medium text-white bg-red-600 shadow-md rounded-lg hover:bg-red-700 transition transform hover:scale-105"
-                >
-                  <Image src="/icons/login.svg" width={16} height={16} alt="Login" className="mr-2" />
-                  Daxil ol
-                </Link>
-                <CurrencySwitcher/>
+              <div className="flex justify-center items-center">
+
+                <div>
+                  <Link
+                    href="/daxil-ol"
+                    className="flex items-center justify-center py-3 px-3 text-sm font-medium text-white
+                     bg-red-600 shadow-md rounded-lg hover:bg-red-700 transition transform hover:scale-105"
+                  >
+                    <Image src="/icons/login.svg" width={16} height={16} alt="Login" className="mr-2" />
+                    Daxil ol
+                  </Link>
+                </div>
+                <CurrencySwitcher />
 
                 {/* Register Button */}
                 {/* <Link
