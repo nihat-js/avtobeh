@@ -12,6 +12,13 @@ import Brand from "./components/Brand";
 import Model from "./components/Model";
 import { fuelTypes } from "@/lib/data";
 import ImagePreview from "./components/ImagePreview";
+import CustomSelect from "@/components/atoms/CustomSelect";
+import { Option, Select } from "@material-tailwind/react";
+import { carFeatures, vehicleTypes, years } from "@/config/data";
+import { Input } from "@material-tailwind/react";
+import { Radio } from "@material-tailwind/react";
+import { Checkbox } from "@material-tailwind/react";
+import { Typography } from "@material-tailwind/react";
 
 
 
@@ -27,18 +34,6 @@ export default function Index({ brands }) {
   });
 
   const [models, setModels] = useState([]);
-  const inputs = [
-    "images-1",
-    "images-2",
-    "images-3",
-    "images-4",
-    "images-5",
-    "images-6",
-    "images-7",
-    "images-8",
-    "images-9",
-    "images-10",
-  ]
   const [uploadedImages, setUploadedImages] = useState([])
 
 
@@ -58,10 +53,10 @@ export default function Index({ brands }) {
   };
 
   async function removeImage(imageUrl) {
-    console.log({imageUrl})
-    
+    // console.log({imageUrl})
 
-    let response = await axios.post("/api/remove-image", { imageURL: imageUrl.replace("/temporary-uploads/","") });
+
+    let response = await axios.post("/api/remove-image", { imageURL: imageUrl.replace("/temporary-uploads/", "") });
     // console.log(response.data)
     if (response.data["status"] == "ok") {
       setUploadedImages(uploadedImages.filter(image => image != imageUrl))
@@ -96,6 +91,10 @@ export default function Index({ brands }) {
     input.click();
   }
 
+  function handleBrandChange() {
+    console.log("brand changed")
+  }
+
 
   return (
     <div className="max-w-4xl mx-auto p-8 bg-gray-50 shadow-lg rounded-xl">
@@ -103,62 +102,88 @@ export default function Index({ brands }) {
 
       <form onSubmit={handleSubmit} className="space-y-6">
 
-        <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
-          <div className="w-1/2">
-            <Brand brands={brands} value={formData.brand} handleChange={handleChange} />
-          </div>
-          <div className="w-1/2">
-            <Model models={models} value={formData.model} handleChange={handleChange} />
-          </div>
+
+        <h4 className="text-2xl font-semibold text-gray-800 mb-4"> Ümumi məlumatlar </h4>
+        <div className="flex  flex-row gap-6">
+          <Select size="md" label="Marka seçin">
+            {
+              brands.map(brand => (
+                <Option key={brand.id} value={brand.id}>{brand.name}</Option>
+              ))
+            }
+          </Select>
+          <Select size="md" label="Model seçin">
+            {
+              models.map(model => (
+                <Option key={model.id} value={model.id}>{model.name}</Option>
+              ))
+            }
+          </Select>
+        </div>
+
+        <div className="flex flex-row gap-6">
+          <Select size="md" label="Ilini seçin" required>
+            {
+              years.map(year => (
+                <Option key={year} value={year}>{year}</Option>
+              ))
+            }
+          </Select>
+          <Select size="md" label="Kuzasini seçin">
+
+            {
+              vehicleTypes.map(vehicleType => (
+                <Option key={vehicleType.key} value={vehicleType.key}>{vehicleType.value}</Option>
+              ))
+            }
+          </Select>
+        </div>
+        <div>
+
         </div>
 
 
-        <Category value={formData.category} onChange={handleChange} />
-        <Year value={formData.year} handleChange={handleChange} />
 
-        <div className="gap-2 grid grid-cols-2  ">
-
-          <VIN value={formData.vin} onChange={handleChange} />
-          <Mileage value={formData.mileage} onChange={handleChange} />
+        <h4 className="text-2xl font-semibold text-gray-800 mt-6"> Digər Məlumatlar </h4>
+        <div className="flex flex-row gap-6">
+          <Input label="VIN (Avtomobilin identifikasiya nömrəsi)" type="text" name="vin" value={formData.vin} onChange={handleChange} />
+          <Input label="Qiymət" type="number" name="mileage" value={formData.mileage} onChange={handleChange} />
+        </div>
+        <div className="flex flex-row gap-1">
+          {
+            fuelTypes.map(fuelType => (
+              <Radio name="fuelType" label={fuelType.value} value={fuelType.key} formData={formData} handleChange={handleChange} />
+            ))
+          }
         </div>
 
-        <PhoneNumber />
+        <h4 className="text-2xl font-semibold text-gray-800 mt-6"> Özəlliklər </h4>
 
-        {/* <div className="is-original">
-          <input type="checkbox" id="is-original" name="isOriginal" value="true" onChange={handleChange} />
-          <label htmlFor="is-original" className="ml-2 text-lg font-medium text-gray-700">Orjinal Yürüyüş Məsafəsi</label>
-
-        </div> */}
-
-        <div className="is-urgent">
-          <input type="checkbox" id="is-urgent" name="isUrgent" value="true" onChange={handleChange} />
-          <label htmlFor="is-urgent" className="ml-2 text-lg font-medium text-gray-700">Təcili - Qırmızı işarəylə göstərilir </label>
-        </div>
-
-
-        <div className="flex">
-          <div className="flex items-center h-5">
-            <input id="helper-checkbox" aria-describedby="helper-checkbox-text" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-          </div>
-          <div className="ms-2 text-lg">
-            <label for="helper-checkbox" className="font-medium text-gray-900 dark:text-gray-300">Barter maraqlıdır</label>
-            {/* <p id="helper-checkbox-text" class="text-xs font-normal text-gray-500 dark:text-gray-300">For orders shipped from $25 in books or $29 in other categories</p> */}
-          </div>
-        </div>
-
-
-        <div class="flex">
-          <div class="flex items-center h-5">
-            <input id="helper-checkbox" aria-describedby="helper-checkbox-text" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-          </div>
-          <div class="ms-2 text-lg">
-            <label for="helper-checkbox" class="font-medium text-gray-900 dark:text-gray-300">Təcili</label>
-            <p id="helper-checkbox-text" class="text-xs font-normal text-gray-500 dark:text-gray-300">
-              Siyahıda qırmızı işarə əlavə olunacaq </p>
-          </div>
+        <div className="flex flex-row flex-wrap gap-2">
+          {
+            carFeatures.map(carFeature => (
+              <Checkbox color="purple" name="carFeature" label={carFeature.value} value={carFeature.key} formData={formData} handleChange={handleChange} />
+            ))
+          }
+          <Checkbox
+            label={
+              <div>
+                <Typography color="blue-gray" className="font-medium">
+                Təcili 
+                </Typography>
+                <Typography variant="small" color="gray" className="font-normal">
+                Qırmızı işarəylə göstərilir
+                </Typography>
+              </div>
+            }
+            containerProps={{
+              className: "-mt-5",
+            }}
+          />
         </div>
 
 
+        <h4 className="text-2xl font-semibold text-gray-800 mt-6"> Qeyd </h4>
         <div>
           <label htmlFor="description" className="block text-lg font-medium text-gray-700">Təsvir</label>
           <textarea
@@ -174,35 +199,13 @@ export default function Index({ brands }) {
 
 
 
-        {/* Fuel Type */}
-        <div>
-          <label className="block text-lg font-medium text-gray-700">Yanacaq Növü</label>
-          <div className="mt-2 flex space-x-6">
 
-            {
-              fuelTypes.map(fuelType => (
-                <RadioButton key={fuelType.value} onChange={handleChange} formData={formData} name={fuelType.name} value={fuelType.value} />
-              ))
-            }
-
-          </div>
-        </div>
 
         <Price value={formData.price} onChange={handleChange} />
         <div>
         </div>
 
-        {
-          inputs.map((input, index) => (
-            <input
-              key={index}
-              type="file"
-              id={input}
-              className="hidden"
-              onChange={handleImageChange}
-            />
-          ))
-        }
+        <input type="file" id="images" className="hidden" onChange={handleImageChange} />
 
 
 
@@ -226,6 +229,7 @@ export default function Index({ brands }) {
         <div>
           <button
             type="submit"
+            onClick={handleSubmit}
             className="w-full py-3 px-4 bg-gray-700 text-white font-semibold rounded-lg
              hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >

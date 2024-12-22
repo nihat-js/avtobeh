@@ -1,9 +1,41 @@
 export const years = new Array(40).fill(1).map((item, index) => {
-    return {
-        value: (new Date().getFullYear() - index),
-        text: (new Date().getFullYear() - index)
-    }
+    // return {
+    //     value: (new Date().getFullYear() - index),
+    //     text: (new Date().getFullYear() - index)
+    // }
+    return (new Date().getFullYear() - index)
 })
+
+export const  vehicleTypes = [
+    {
+        key: "sedan",
+        value: "Sedan"
+    },
+    {
+        key: "hatchback",
+        value: "Hatchback"
+    },
+    {
+        key: "suv",
+        value: "SUV"
+    },
+    {
+        key: "pickup",
+        value: "Pickup"
+    },
+    {
+        key: "minivan",
+        value: "Minivan"
+    },
+    {
+        key: "convertible",
+        value: "Convertible"
+    },
+    {
+        key: "coupe",
+        value: "Coupe"
+    }
+]
 
 export const engineSize = new Array(100).fill(1).map((item, index) => {
     return {

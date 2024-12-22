@@ -3,7 +3,7 @@ import React from 'react'
 export default function Category({value,onChange}) {
   return (
     <div>
-      <label htmlFor="category" className="block text-lg font-medium text-gray-700">Kateqoriya</label>
+      <label htmlFor="category" className="block text-lg font-medium text-gray-700">Kateqoriya  <span className="text-red-500">*</span> </label>
       <select
         id="category"
         name="category"

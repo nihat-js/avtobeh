@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Brand({brands,value}) {
+export default function Brand({brands,value,onChange}) {
   return (
     <div>
       <label htmlFor="brand" className="block text-lg font-medium text-gray-700">Marka</label>
