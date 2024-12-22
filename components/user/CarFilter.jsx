@@ -9,7 +9,7 @@ import Colors from "./CarFilter/Colors";
 import Price from "./CarFilter/Price";
 import Condition from "./CarFilter/Condition";
 
-const CarFilter = ({ brands }) => {
+const CarFilter = ({ brands }) => { 
     const [filters, setFilters] = useState({
         minYear: "",
         maxYear: "",

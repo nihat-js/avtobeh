@@ -53,7 +53,8 @@ export function Client({ cars: cars_, brands }) {
               filterType === 'license-plate' ?
                 <LicensePlateFilter />
                 :
-                <RentACarFilter />
+                // <RentACarFilter />
+                <LicensePlateFilter/>
 
           }
         </section>
