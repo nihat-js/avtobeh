@@ -24,12 +24,6 @@ const CarFilter = ({ brands }) => {
         model: "",
 
     });
-
-
-    const features = [
-        "Kasko"
-    ]
-
     const [isCollapsed, setIsCollapsed] = useState(false); // State for toggling visibility
 
 

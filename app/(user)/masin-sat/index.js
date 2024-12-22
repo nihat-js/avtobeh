@@ -3,12 +3,12 @@
 import axios from "axios";
 import Image from "next/image";
 import { useRef, useState } from "react";
-import VIN from "./components/VIN";
-import Category from "./components/Category";
-import Year from "./components/Year";
-import Mileage from "./components/Mileage";
-import Price from "./components/Price";
-import Brand from "./components/Brand";
+// import VIN from "./components/VIN";
+// import Category from "./components/Category";
+// import Year from "./components/Year";
+// import Mileage from "./components/Mileage";
+// import Price from "./components/Price";
+// import Brand from "./components/Brand";
 import Model from "./components/Model";
 import { fuelTypes } from "@/lib/data";
 import ImagePreview from "./components/ImagePreview";
@@ -25,7 +25,27 @@ import { Textarea } from "@material-tailwind/react";
 
 export default function Index({ brands }) {
   const [formData, setFormData] = useState({
+    bodyType: "",
     brand: "",
+    model: "",
+    year: "",
+    price: "",
+    horsePower: "",
+    transmissionType: "",
+    engineSize: "",
+    cylindersCount: "",
+    seatsCount: "",
+    features: [],
+    color: "",
+    interiorColor: "",
+    interiorMaterial: "",
+    interiorTrim: "",
+    interiorTrimColor: "",
+    city: "",
+    phone: "",
+    name: "",
+    email: "",
+
     category: "",
     vin: "",
     mileage: "",
@@ -33,11 +53,13 @@ export default function Index({ brands }) {
     fuelType: "",
     images: [],
   });
-
   const [models, setModels] = useState([]);
   const [uploadedImages, setUploadedImages] = useState([])
 
 
+  async function handleTailwindElementChange(name, value) {
+    setFormData({ ...formData, [name]: value });
+  }
 
 
   async function handleImageChange(event) {
@@ -92,7 +114,14 @@ export default function Index({ brands }) {
     input.click();
   }
 
-  function handleBrandChange() {
+  async function handleBrandChange(value) {
+    let brand = value
+    let response = await axios.get(`/api/car-models/${brand}`);
+    if (response.data["status"] == "ok") {
+      setModels(response.data["data"]);
+    }
+    setFormData({ ...formData, brand: value });
+    // setFormData({ ...formData, model: "" });
     console.log("brand changed")
   }
 
@@ -105,32 +134,38 @@ export default function Index({ brands }) {
 
 
         <h4 className="text-2xl font-semibold text-gray-800 mb-4"> Ümumi məlumatlar </h4>
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6">
-          <Select size="md" label="Marka seçin *">
+        <div className="grid sm:grid-cols-3 md:grid-cols-3 gap-6">
+          <Select size="md" label="Marka seçin *" value={formData.brand} onChange={handleBrandChange} >
             {
               brands.map(brand => (
                 <Option key={brand.id} value={brand.id}>{brand.name}</Option>
               ))
             }
           </Select>
-          <Select size="md" label="Model seçin *">
+          <Select size="md" label="Model seçin *" disabled={models.length == 0} value={formData.model}
+            onChange={(value) => { setFormData({ ...formData, model: value }) }} >
             {
               models.map(model => (
                 <Option key={model.id} value={model.id}>{model.name}</Option>
               ))
             }
           </Select>
-        </div>
-
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6">
-          <Select size="md" label="Ilini seçin *" required>
+          <Select size="md" label="Ilini seçin *" required
+            value={formData.year} onChange={(value) => { setFormData({ ...formData, year: value }) }}
+          >
             {
               years.map(year => (
                 <Option key={year} value={year}>{year}</Option>
               ))
             }
           </Select>
-          <Select size="md" label="Kuzasini seçin *">
+        </div>
+
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+
+          <Select size="md" label="Gövdə tipi *"
+            value={formData.bodyType} onChange={(value) => { setFormData({ ...formData, bodyType: value }) }}
+          >
 
             {
               vehicleTypes.map(vehicleType => (
@@ -138,20 +173,27 @@ export default function Index({ brands }) {
               ))
             }
           </Select>
-          <Select size="md" label="Mühərrik həcmi *">
+          <Select size="md" label="Mühərrik həcmi *"
+            value={formData.engineSize} onChange={(value) => { setFormData({ ...formData, engineSize: value }) }}
+
+          >
             {
               engineSize.map(c => (
                 <Option key={c} value={c} onchange={handleChange} >{c} L</Option>
               ))
             }
           </Select>
-          <Select size="md" label="Sürətlər qutusu *">
+          <Select size="md" label="Sürətlər qutusu *"
+            value={formData.transmissionType} onChange={(value) => { setFormData({ ...formData, transmissionType: value }) }}
+
+          >
             {
               transmissionType.map(t => (
                 <Option key={t.key} value={t.key} onchange={handleChange} >{t.value} </Option>
               ))
             }
           </Select>
+
         </div>
         <div>
 
@@ -160,8 +202,17 @@ export default function Index({ brands }) {
 
 
         <h4 className="text-2xl font-semibold text-gray-800 mt-6"> Digər Məlumatlar </h4>
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6">
-          <Input label="VIN (Avtomobilin identifikasiya nömrəsi)" type="text" name="vin" value={formData.vin} onChange={handleChange} />
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <Select size="md" label="Rəng *"
+            value={formData.color} onChange={(value) => { setFormData({ ...formData, color: value }) }}
+          >
+            {
+              carColors.map(color => (
+                <Option key={color.key} value={color.key}>{color.value}</Option>
+              ))
+            }
+          </Select>
+          <Input label="At gücü (HP)" type="text" name="horsePower" value={formData.horsePower} onChange={handleChange} />
           <Select size="md" label="Silindr sayı" >
             {
               cylindersCount.map(c => (
@@ -171,6 +222,7 @@ export default function Index({ brands }) {
           </Select>
         </div>
         <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6 ">
+          <Input label="VIN (Avtomobilin identifikasiya nömrəsi)" type="text" name="vin" value={formData.vin} onChange={handleChange} />
           <Select size="md" label="Oturacaq sayı" >
             {
               seatsCount.map(s => (
@@ -178,14 +230,6 @@ export default function Index({ brands }) {
               ))
             }
           </Select>
-          <Select size="md" label="Rəng">
-            {
-              carColors.map(color => (
-                <Option key={color.key} value={color.key}>{color.value}</Option>
-              ))
-            }
-          </Select>
-          <Input label="At gücü (HP)" type="text" name="horsePower" value={formData.horsePower} onChange={handleChange} />
         </div>
 
         <div className="flex flex-row flex-wrap gap-1">
@@ -234,7 +278,7 @@ export default function Index({ brands }) {
             label="Təkərlərin vəziyyəti, Salonun veziyyeti, xususi ozellikleri :"
           />
         </div>
-        <Price value={formData.price} onChange={handleChange} />
+        {/* <Price value={formData.price} onChange={handleChange} /> */}
         <div>
         </div>
 
@@ -268,22 +312,22 @@ export default function Index({ brands }) {
 
 
 
-function RadioButton({ name, value, formData, handleChange }) {
-  return (
-    <div className="flex items-center">
-      <input
-        type="radio"
-        id={value}
-        name="fuelType"
-        value={value}
-        // checked={formData.fuelType === value}
-        onChange={handleChange}
-        className="h-5 w-5 text-indigo-600 border-gray-300 focus:ring-indigo-500"
-      />
-      <label htmlFor={value} className="ml-2 text-lg font-medium text-gray-700">{name}</label>
-    </div>
-  )
-}
+// function RadioButton({ name, value, formData, handleChange }) {
+//   return (
+//     <div className="flex items-center">
+//       <input
+//         type="radio"
+//         id={value}
+//         name="fuelType"
+//         value={value}
+//         // checked={formData.fuelType === value}
+//         onChange={handleChange}
+//         className="h-5 w-5 text-indigo-600 border-gray-300 focus:ring-indigo-500"
+//       />
+//       <label htmlFor={value} className="ml-2 text-lg font-medium text-gray-700">{name}</label>
+//     </div>
+//   )
+// }
 
 function PhoneNumber() {
   return (
