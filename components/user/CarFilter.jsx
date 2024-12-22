@@ -30,19 +30,6 @@ const CarFilter = ({ brands }) => {
         "Kasko"
     ]
 
-    const textarea = [
-        `
-        Təkərlərin vəziyyəti : 
-        Masinin xususi ozellikleri : 
-        Masinin vəziyyəti :
-        Masinin xususi ozellikleri :
-
-        Salonun veziyyeti : 
-        Salonun xususi ozellikleri :
-
-
-        `
-    ]
     const [isCollapsed, setIsCollapsed] = useState(false); // State for toggling visibility
 
 

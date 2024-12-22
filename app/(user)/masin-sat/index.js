@@ -14,11 +14,12 @@ import { fuelTypes } from "@/lib/data";
 import ImagePreview from "./components/ImagePreview";
 import CustomSelect from "@/components/atoms/CustomSelect";
 import { Option, Select } from "@material-tailwind/react";
-import { carFeatures, vehicleTypes, years } from "@/config/data";
+import { carColors, carFeatures, cylindersCount, engineSize, seatsCount, transmissionType, vehicleTypes, years } from "@/config/data";
 import { Input } from "@material-tailwind/react";
 import { Radio } from "@material-tailwind/react";
 import { Checkbox } from "@material-tailwind/react";
 import { Typography } from "@material-tailwind/react";
+import { Textarea } from "@material-tailwind/react";
 
 
 
@@ -104,15 +105,15 @@ export default function Index({ brands }) {
 
 
         <h4 className="text-2xl font-semibold text-gray-800 mb-4"> Ümumi məlumatlar </h4>
-        <div className="flex  flex-row gap-6">
-          <Select size="md" label="Marka seçin">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6">
+          <Select size="md" label="Marka seçin *">
             {
               brands.map(brand => (
                 <Option key={brand.id} value={brand.id}>{brand.name}</Option>
               ))
             }
           </Select>
-          <Select size="md" label="Model seçin">
+          <Select size="md" label="Model seçin *">
             {
               models.map(model => (
                 <Option key={model.id} value={model.id}>{model.name}</Option>
@@ -121,19 +122,33 @@ export default function Index({ brands }) {
           </Select>
         </div>
 
-        <div className="flex flex-row gap-6">
-          <Select size="md" label="Ilini seçin" required>
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6">
+          <Select size="md" label="Ilini seçin *" required>
             {
               years.map(year => (
                 <Option key={year} value={year}>{year}</Option>
               ))
             }
           </Select>
-          <Select size="md" label="Kuzasini seçin">
+          <Select size="md" label="Kuzasini seçin *">
 
             {
               vehicleTypes.map(vehicleType => (
                 <Option key={vehicleType.key} value={vehicleType.key}>{vehicleType.value}</Option>
+              ))
+            }
+          </Select>
+          <Select size="md" label="Mühərrik həcmi *">
+            {
+              engineSize.map(c => (
+                <Option key={c} value={c} onchange={handleChange} >{c} L</Option>
+              ))
+            }
+          </Select>
+          <Select size="md" label="Sürətlər qutusu *">
+            {
+              transmissionType.map(t => (
+                <Option key={t.key} value={t.key} onchange={handleChange} >{t.value} </Option>
               ))
             }
           </Select>
@@ -145,11 +160,35 @@ export default function Index({ brands }) {
 
 
         <h4 className="text-2xl font-semibold text-gray-800 mt-6"> Digər Məlumatlar </h4>
-        <div className="flex flex-row gap-6">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6">
           <Input label="VIN (Avtomobilin identifikasiya nömrəsi)" type="text" name="vin" value={formData.vin} onChange={handleChange} />
-          <Input label="Qiymət" type="number" name="mileage" value={formData.mileage} onChange={handleChange} />
+          <Select size="md" label="Silindr sayı" >
+            {
+              cylindersCount.map(c => (
+                <Option key={c} value={c}>{c}</Option>
+              ))
+            }
+          </Select>
         </div>
-        <div className="flex flex-row gap-1">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6 ">
+          <Select size="md" label="Oturacaq sayı" >
+            {
+              seatsCount.map(s => (
+                <Option key={s} value={s}>{s}</Option>
+              ))
+            }
+          </Select>
+          <Select size="md" label="Rəng">
+            {
+              carColors.map(color => (
+                <Option key={color.key} value={color.key}>{color.value}</Option>
+              ))
+            }
+          </Select>
+          <Input label="At gücü (HP)" type="text" name="horsePower" value={formData.horsePower} onChange={handleChange} />
+        </div>
+
+        <div className="flex flex-row flex-wrap gap-1">
           {
             fuelTypes.map(fuelType => (
               <Radio name="fuelType" label={fuelType.value} value={fuelType.key} formData={formData} handleChange={handleChange} />
@@ -169,10 +208,10 @@ export default function Index({ brands }) {
             label={
               <div>
                 <Typography color="blue-gray" className="font-medium">
-                Təcili 
+                  Təcili
                 </Typography>
                 <Typography variant="small" color="gray" className="font-normal">
-                Qırmızı işarəylə göstərilir
+                  Qırmızı işarəylə göstərilir
                 </Typography>
               </div>
             }
@@ -184,33 +223,23 @@ export default function Index({ brands }) {
 
 
         <h4 className="text-2xl font-semibold text-gray-800 mt-6"> Qeyd </h4>
+        <Textarea label="Sərfiyyat" value={formData.description} onChange={handleChange} />
         <div>
-          <label htmlFor="description" className="block text-lg font-medium text-gray-700">Təsvir</label>
-          <textarea
+          <Textarea
             id="description"
             name="description"
             value={formData.description}
             onChange={handleChange}
             rows="4"
-            className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
-            placeholder="Avtomobiliniz haqqında daha çox məlumat əlavə edin"
+            label="Təkərlərin vəziyyəti, Salonun veziyyeti, xususi ozellikleri :"
           />
         </div>
-
-
-
-
-
         <Price value={formData.price} onChange={handleChange} />
         <div>
         </div>
 
         <input type="file" id="images" className="hidden" onChange={handleImageChange} />
-
-
-
         <div className="grid grid-cols-5 gap-2">
-
           {
             uploadedImages.map((image, index) => (
               <ImagePreview key={index} image={image} removeImage={() => removeImage(image)} rotateImage={() => rotateImage(image)} />
@@ -221,11 +250,7 @@ export default function Index({ brands }) {
               <Image src="/icons/photo.svg" width={40} height={40} alt="Add Image" />
             </label>
           </div>
-
-
         </div>
-
-
         <div>
           <button
             type="submit"

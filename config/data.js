@@ -6,7 +6,7 @@ export const years = new Array(40).fill(1).map((item, index) => {
     return (new Date().getFullYear() - index)
 })
 
-export const  vehicleTypes = [
+export const vehicleTypes = [
     {
         key: "sedan",
         value: "Sedan"
@@ -38,10 +38,11 @@ export const  vehicleTypes = [
 ]
 
 export const engineSize = new Array(100).fill(1).map((item, index) => {
-    return {
-        value: parseFloat(((index + 1) * .1).toFixed(1)),
-        text: ((index + 1) * .1).toFixed(1) + " L"
-    }
+    // return {
+    //     value: parseFloat(((index + 1) * .1).toFixed(1)),
+    //     text: ((index + 1) * .1).toFixed(1) + " L"
+    // }
+    return parseFloat(((index + 1) * .1).toFixed(1))
 })
 
 export const carFeatures = [
@@ -89,9 +90,31 @@ export const carFeatures = [
     },
 ]
 
+export const carColors = [
+    {
+        key: "white",
+        value: "Beyaz"
+    },
+    {
+        key: "black",
+        value: "Siyah"
+    },
+    {
+        key: "red",
+        value: "Kırmızı"
+    },
+    {
+        key: "blue",
+        value: "Mavi"
+    },
+    {
+        key: "green",
+        value: "Yeşil"
+    }
+]
 
 export const cylindersCount = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 24, 32, 48, 64]
-
+export const seatsCount = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 
 const featuredBrands = [
