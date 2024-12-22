@@ -5,12 +5,12 @@ import { useState } from "react";
 // import Layout from '../components/Layout';
 import Link from 'next/link';
 import { useRouter } from "next/router";
-import { create, loginAction } from "./actions";
+import { create, login,  } from "./actions";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null); // For handling error messages
+  const [error, setError] = useState(null); 
   // const router = useRouter(); // For redirecting to the home page after successful login
 
  
@@ -18,12 +18,10 @@ const Login = () => {
   return (
       <div className="max-w-md mx-auto bg-white p-6 shadow-md rounded-md">
         <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">Login</h1>
-        {/* <button onClick={create}>Create</button> */}
         
-        {/* Display error if any */}
         {error && <div className="text-red-500 text-center mb-4">{error}</div>}
 
-        <form onSubmit={() => loginAction({email,password})} className="space-y-6">
+        <form onSubmit={() => login({email,password})} className="space-y-6" method="POST">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-600">
               Email

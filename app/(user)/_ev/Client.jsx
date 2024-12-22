@@ -6,18 +6,18 @@ import Banner from '@/components/common/Banner';
 import CarFilter from '@/components/user/CarFilter';
 import CarCard from '@/components/common/CarCard';
 import LicensePlateFilter from './LicensePlateFilter';
-export function Client({ cars: cars_, brands  }) {
+export function Client({ cars: cars_, brands }) {
 
   const [cars, setCars] = useState(cars_)
 
   useEffect(() => {
     setCars([
       ...cars,
-      ...cars_,
-      ...cars,
-      ...cars,
-      ...cars,
-      ...cars,
+      // ...cars_,
+      // ...cars,
+      // ...cars,
+      // ...cars,
+      // ...cars,
     ])
   }, [])
 
@@ -47,11 +47,14 @@ export function Client({ cars: cars_, brands  }) {
 
         <section className="mb-6 mx-auto" style={{ maxWidth: "1000px" }}>
           {
-            filterType === 'car' ? (
+            filterType === 'car' ?
               <CarFilter brands={brands} />
-            ) : (
-              <LicensePlateFilter />
-            )
+              :
+              filterType === 'license-plate' ?
+                <LicensePlateFilter />
+                :
+                <RentACarFilter />
+
           }
         </section>
 
