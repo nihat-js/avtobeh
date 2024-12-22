@@ -11,6 +11,7 @@ import Price from "./components/Price";
 import Brand from "./components/Brand";
 import Model from "./components/Model";
 import { fuelTypes } from "@/lib/data";
+import ImagePreview from "./components/ImagePreview";
 
 
 
@@ -38,18 +39,34 @@ export default function Index({ brands }) {
     "images-9",
     "images-10",
   ]
-  const [previewImages, setPreviewImages] = useState([]);
-  const [uploadedImageCount, setUploadedImageCount] = useState(0);
+  const [uploadedImages, setUploadedImages] = useState([])
 
 
-  function handleImageChange(event) {
+
+
+  async function handleImageChange(event) {
     const file = event.target.files[0];
-    let url = URL.createObjectURL(file);
-    if (file) {
-      setUploadedImageCount(uploadedImageCount + 1);
-      setPreviewImages([...previewImages, url]);
+    const formData = new FormData();
+    formData.append("image", file);
+
+    let response = await axios.post("/api/upload-image", formData);
+
+    if (response.data["status"] == "ok") {
+      setUploadedImages([...uploadedImages, response.data["imageURL"]])
     }
+
   };
+
+  async function removeImage(imageUrl) {
+    console.log({imageUrl})
+    
+
+    let response = await axios.post("/api/remove-image", { imageURL: imageUrl.replace("/temporary-uploads/","") });
+    // console.log(response.data)
+    if (response.data["status"] == "ok") {
+      setUploadedImages(uploadedImages.filter(image => image != imageUrl))
+    }
+  }
 
 
   async function getModels(brandId) {
@@ -64,7 +81,7 @@ export default function Index({ brands }) {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  
+
 
 
   const handleSubmit = (e) => {
@@ -74,13 +91,11 @@ export default function Index({ brands }) {
   };
 
   function handleAddImage() {
-    const input = document.getElementById(inputs[uploadedImageCount]);
+    // const input = document.getElementById(inputs[uploadedImageCount]);
+    const input = document.querySelector(`input[type="file"]`)
     input.click();
   }
 
-  function handleRemoveImage(){
-
-  }
 
   return (
     <div className="max-w-4xl mx-auto p-8 bg-gray-50 shadow-lg rounded-xl">
@@ -194,8 +209,8 @@ export default function Index({ brands }) {
         <div className="grid grid-cols-5 gap-2">
 
           {
-            previewImages.map((image, index) => (
-              <ImagePreview key={index} image={image} handleRemoveImage={(index) => handleRemoveImage(index)} />
+            uploadedImages.map((image, index) => (
+              <ImagePreview key={index} image={image} removeImage={() => removeImage(image)} rotateImage={() => rotateImage(image)} />
             ))
           }
           <div className="w-40 h-40 border-2 border-dashed flex justify-center items-center cursor-pointer rounded-full hover:bg-slate-200 " onClick={handleAddImage}  >
@@ -222,29 +237,6 @@ export default function Index({ brands }) {
   );
 }
 
-function ImagePreview({ image, handleRemoveImage }) {
-  return (
-    <div
-      className="w-40 h-40 border-2 border-dashed cursor-pointer flex justify-center items-center relative rounded-md"
-    >
-      <div className="w-full h-full flex justify-center items-center relative">
-        <img
-          src={image}
-          alt="Preview"
-          className="w-full h-full object-cover rounded-lg"
-        />
-        <button
-          onClick={handleRemoveImage}
-          className="absolute top-2 right-1 w-6 h-6 text-white bg-red-500 hover:bg-red-600 rounded-full p-2 flex justify-center items-center"
-        >
-          &times;
-        </button>
-      </div>
-
-    </div>
-  )
-
-}
 
 
 function RadioButton({ name, value, formData, handleChange }) {
