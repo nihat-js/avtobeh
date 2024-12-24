@@ -20,11 +20,11 @@ export function Client({ cars: cars_, brands }) {
   useEffect(() => {
     setCars([
       ...cars,
-      // ...cars_,
-      // ...cars,
-      // ...cars,
-      // ...cars,
-      // ...cars,
+      ...cars_,
+      ...cars,
+      ...cars,
+      ...cars,
+      ...cars,
     ])
   }, [])
 
@@ -78,8 +78,8 @@ export function Client({ cars: cars_, brands }) {
 
         <section className="container mx-auto px-4" >
           <div className="grid sm:grid-cols-2 md:grid-cols-2  lg:grid-cols-4 gap-4">
-            {cars.map((car) => (
-              <CarCard key={car.id} car={car} />
+            {cars.map((car,index) => (
+              <CarCard key={index} car={car} />
             ))}
           </div>
         </section>

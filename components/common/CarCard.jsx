@@ -82,8 +82,8 @@ export default function CarCard({ car }) {
         </div>
 
         {/* Car Details */}
-        <div className="py-2 px-4">
-          <div className="flex justify-between items-center">
+        <div className="py-2 px-4 ">
+          <div className="flex flex-col justify-between items-center">
             <h2 className=" text-gray-600 text-sm flex gap-2">
               {car.brandName} {car.modelName}  {car.year}
               {/* <Image src="/icons/verified.svg" alt="Verified" width={16} height={16} /> */}
@@ -94,17 +94,17 @@ export default function CarCard({ car }) {
                 width={32} height={32} /> */}
               {/* </Tooltip> */}
             </h2>
-            <p className="text-gray-600 text-xl mt-2"><span className="text-gray-800 font-bold">{car.price} {car.currency} ₼  </span></p>
+            <p className="text-gray-600 text-2xl mt-2"><span className="text-indigo-600 font-bold">{car.price} {car.currency} ₼  </span></p>
           </div>
 
 
-          <div>
+          <div className="mt-2">
             {/* <p className="text-gray-600 text-sm" > Konum: {car.country} {car.city}  </p> */}
-            <p className="text-gray-600 text-sm">
+            <p className="text-gray-600 text-sm text-center">
               {car.engineSize} L • {car.transmissionType} •  {car.fuelType}
             </p>
-            <p className="text-gray-600 text-sm">
-              140 HP • 100,000km
+            <p className="text-gray-600 text-sm text-center">
+            100,000km * 140 HP  
             </p>
           </div>
 
