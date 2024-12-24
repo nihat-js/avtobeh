@@ -67,15 +67,15 @@ const Header = ({ user }) => {
 
 
   return (
-    <header className="bg-accent shadow-md sticky top-0 z-50">
+    <header className="bg-slate-100 shadow-md sticky top-0 z-50">
 
       <Register state={registerModalState} setState={setRegisterModalState} toggleLoginRegisterState={toggleLoginRegisterState} />
       <Login state={loginModalState} setState={setLoginModalState} toggleLoginRegisterState={toggleLoginRegisterState} />
 
       <div className="mx-auto flex items-center justify-between py-2" style={{ maxWidth: "1000px" }}>
 
-        <Link href="/" className="text-2xl font-bold text-white">
-          <div className="text-2xl font-bold text-white">
+        <Link href="/" className="text-2xl font-bold ">
+          <div className="text-2xl font-bold ">
             <Image src="/icons/logo.png" width={150} height={120} alt="Logo" />
             {/* <Link href="/">AvtoBeh</Link> */}
           </div>
@@ -88,7 +88,7 @@ const Header = ({ user }) => {
             <MenuHandler>
               <Button
                 variant="text"
-                className="flex items-center gap-3 text-white  text-sm font-normal capitalize tracking-normal"
+                className="flex items-center gap-3   text-sm font-normal capitalize tracking-normal"
               >
                 Servislər
                 {/* <FiChevronRight
@@ -138,7 +138,7 @@ const Header = ({ user }) => {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-white text-sm  rounded-md  font-normal hover:bg-red-600 hover:text-white transition-all p-4"
+                className=" text-sm  rounded-md  font-normal hover:bg-red-600 hover:text-white transition-all p-4"
               >
                 {item.label}
               </Link>
