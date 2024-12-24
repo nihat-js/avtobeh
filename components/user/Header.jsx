@@ -6,18 +6,49 @@ import { useState } from 'react';
 import Banner from '../common/Banner';
 import { HoverDropdown } from '../common/HoverDropdown';
 import CurrencySwitcher from './CurrencySwitcher';
+import Register from '../dialogs/register';
+import Login from "../dialogs/login"
+import { Button, MenuHandler, MenuItem, MenuList } from '@material-tailwind/react';
+import { Menu } from '@material-tailwind/react';
+import { FiChevronRight } from 'react-icons/fi';
+import { Card } from '@material-tailwind/react';
+import { FaChevronCircleLeft } from 'react-icons/fa';
+import { Typography } from '@material-tailwind/react';
 
 const Header = ({ user }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
+  const [loginModalState, setLoginModalState] = useState(false)
+  const [registerModalState, setRegisterModalState] = useState(false)
+
+  function toggleLoginModalState() {
+    setLoginModalState(prev => !prev)
+  }
+  function toggleRegisterModalState() {
+    setRegisterModalState(prev => !prev)
+  }
+
+  function toggleLoginRegisterState() {
+    setLoginModalState(prev => !prev)
+    setRegisterModalState(prev => !prev)
+  }
+
+
+
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const toggleProfileDropdown = () => setIsProfileDropdownOpen(!isProfileDropdownOpen);
+
+  const services = [
+    { label: 'Gomruk kalkulyatoru', href: '/gomruk-kalkulyatoru' },
+    { label: 'Onlayn servis', href: '/onlayn-servis' },
+    { label: 'Sen de xaricden sifaris et', href: '/sen-de-xaricden-sifaris-et' },
+  ]
 
 
   const links = [
     { href: "/axtar", label: "Axtar" },
-    {href : "/servisler" , label : "Servisler"},
+    { href: "/servisler", label: "Servisler" },
     // { href: "/elek", label: "Elektromobillər" },
     // { href: "/", label: "İcarəea" },
     // { href: "/qeydiyyat-nisanlariii", label: "Qeydiyyat nişanlarıa" }
@@ -28,8 +59,18 @@ const Header = ({ user }) => {
     // { href: "/bonus", label: "Bonus" },
   ]
 
+  const [openMenu, setOpenMenu] = useState(false);
+
+
+
+
+
   return (
     <header className="bg-accent shadow-md sticky top-0 z-50">
+
+      <Register state={registerModalState} setState={setRegisterModalState} toggleLoginRegisterState={toggleLoginRegisterState} />
+      <Login state={loginModalState} setState={setLoginModalState} toggleLoginRegisterState={toggleLoginRegisterState} />
+
       <div className="mx-auto flex items-center justify-between py-2" style={{ maxWidth: "1000px" }}>
         <Link href="/" className="text-2xl font-bold text-white">
           <div className="text-2xl font-bold text-white">
@@ -41,6 +82,52 @@ const Header = ({ user }) => {
         {/* Navigation (Desktop) */}
         <nav className="hidden md:flex ">
 
+
+          <Menu open={openMenu} handler={setOpenMenu} allowHover>
+            <MenuHandler>
+              <Button
+                variant="text"
+                className="flex items-center gap-3 text-base font-normal capitalize tracking-normal"
+              >
+                Technology{" "}
+                <FiChevronRight
+                  strokeWidth={2.5}
+                  className={`h-3.5 w-3.5 transition-transform ${openMenu ? "rotate-180" : ""
+                    }`}
+                />
+              </Button>
+            </MenuHandler>
+            <MenuList className="hidden w-[36rem] grid-cols-7 gap-3 overflow-visible lg:grid">
+              <Card
+                color="gray"
+                shadow={false}
+                className="col-span-3 flex h-full w-full items-center justify-center rounded-2xl p-4"
+              >
+                <FaChevronCircleLeft strokeWidth={1} className="h-10 w-10" />
+                <Typography className="mt-5 text-center" variant="h5">
+                  Material Tailwind PRO
+                </Typography>
+              </Card>
+              <ul className="col-span-4 flex w-full flex-col gap-1">
+                {services.map(({ title, description }) => (
+                  <a href="#" key={title}>
+                    <MenuItem>
+                      <Typography variant="h6" color="blue-gray" className="mb-1">
+                        {title}
+                      </Typography>
+                      <Typography
+                        variant="small"
+                        color="gray"
+                        className="font-normal"
+                      >
+                        {description}
+                      </Typography>
+                    </MenuItem>
+                  </a>
+                ))}
+              </ul>
+            </MenuList>
+          </Menu>
 
           <HoverDropdown content={"Oyyy"}>
             <div className="text-white py-2 px-4 rounded-md hover:bg-red-600 hover:text-white transition-all relative" >   Maşın Axtar </div>
@@ -81,14 +168,15 @@ const Header = ({ user }) => {
               <div className="flex justify-center items-center">
 
                 <div>
-                  <Link
-                    href="/daxil-ol"
+                  <Button
+                    // href="/daxil-ol"
+                    onClick={toggleLoginModalState}
                     className="flex items-center justify-center py-3 px-3 text-sm font-medium text-white
                      bg-red-600 shadow-md rounded-lg hover:bg-red-700 transition transform hover:scale-105"
                   >
                     <Image src="/icons/login.svg" width={16} height={16} alt="Login" className="mr-2" />
                     Daxil ol
-                  </Link>
+                  </Button>
                 </div>
                 <CurrencySwitcher />
 

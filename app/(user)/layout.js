@@ -36,7 +36,9 @@ const Layout = ({ children }) => {
 
   return (
     <html>
-      <body>
+      <body style={{ 
+        //  backgroundImage: "url('/backgrounds/1.png')", backgroundSize: "cover" 
+        }}>
 
         <Snowfall />
         <div>

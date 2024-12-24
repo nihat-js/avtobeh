@@ -6,6 +6,13 @@ import Banner from '@/components/common/Banner';
 import CarFilter from '@/components/user/CarFilter';
 import CarCard from '@/components/common/CarCard';
 import LicensePlateFilter from './LicensePlateFilter';
+import { CardBody, CardFooter } from '@material-tailwind/react';
+import { Card } from '@material-tailwind/react';
+import { Typography } from '@material-tailwind/react';
+import { Button } from '@material-tailwind/react';
+import { Dialog } from '@material-tailwind/react';
+import { Input } from '@material-tailwind/react';
+import { Checkbox } from '@material-tailwind/react';
 export function Client({ cars: cars_, brands }) {
 
   const [cars, setCars] = useState(cars_)
@@ -23,12 +30,22 @@ export function Client({ cars: cars_, brands }) {
 
   const [filterType, setFilterType] = useState('car'); // Default active button
 
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen((cur) => !cur);
 
   return (
 
 
+
     <main>
+
+
       <div className="container mx-auto" style={{ maxWidth: "1000px" }}>
+
+
+     
+
+
         {/* <Announcement /> */}
 
         <div className="flex flex-row space-x-4 items-center">
@@ -54,7 +71,7 @@ export function Client({ cars: cars_, brands }) {
                 <LicensePlateFilter />
                 :
                 // <RentACarFilter />
-                <LicensePlateFilter/>
+                <LicensePlateFilter />
 
           }
         </section>
@@ -239,6 +256,6 @@ export function Client({ cars: cars_, brands }) {
       <Banner text="Artıq saytda maşın qeydiyyat nişanlarını da sata bilərsiniz " href="/car/add-license-plate" />
 
 
-    </main>
+    </main >
   )
 }

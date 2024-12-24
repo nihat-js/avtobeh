@@ -1,10 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images : {
-    domains : ["*","www.carlogos.org","demo.themesberg.com","turbo.azstatic.com", "placehold.co"]
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: "*"
+      }
+    ]
   },
   reactStrictMode: true,
-  
+
   // middleware: {
   //   '/': [
   //     // Run this middleware on the home page and other paths that require authentication
