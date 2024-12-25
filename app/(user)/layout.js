@@ -3,6 +3,7 @@ import "../../styles/globals.css"
 
 import Footer from '@/components/user/Footer';
 import Header from '@/components/user/Header.jsx';
+import { AuthProvider } from "@/components/providers/AuthProvider";
 // import Header from './Header.jsx';
 // import Footer from './Footer.jsx';
 // import { useEffect, useState } from 'react';
@@ -35,21 +36,23 @@ const Layout = ({ children }) => {
   // }, []);
 
   return (
-    <html>
-      <body style={{ 
-        //  backgroundImage: "url('/backgrounds/1.png')", backgroundSize: "cover" 
+    <AuthProvider>
+      <html>
+        <body style={{
+          //  backgroundImage: "url('/backgrounds/1.png')", backgroundSize: "cover" 
         }}>
 
-        <Snowfall />
-        <div>
-          <Header user={user} />
-          <div className='bg-slate-100'>
-            <main className="flex-1 container mx-auto py-6 px-4 ">{children}</main>
+          <Snowfall />
+          <div>
+            <Header user={user} />
+            <div className='bg-slate-100'>
+              <main className="flex-1 container mx-auto py-6 px-4 ">{children}</main>
+            </div>
+            <Footer />
           </div>
-          <Footer />
-        </div>
-      </body>
-    </html>
+        </body>
+      </html>
+    </AuthProvider>
   );
 };
 

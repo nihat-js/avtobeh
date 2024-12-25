@@ -35,13 +35,13 @@ export default function CarCard({ car }) {
   car.mileage = "100.000"
 
   return (
-    <div key={car.id} className="bg-white rounded-lg shadow-xl overflow-hidden cursor-pointer scale-100 hover:scale-105 transition-all duration-300  ">
+    <div key={car.id} className="bg-white rounded-lg shadow-xl overflow-hidden cursor-pointer  hover:bg-neutral-100 relative  transition-all duration-300  ">
       <Link href={`/masinlar/${car.slug}`} className="" >
 
         <div>
           <div>
             <img
-              src={car.images?.length  ? car.images[activeImageIndex]?.path : "https://placehold.co/600x400"}
+              src={car.images?.length ? car.images[activeImageIndex]?.path : "https://placehold.co/600x400"}
               alt={`${car.brand} ${car.model}`}
               className=""
               style={{ width: '100%', height: '250px', obectFit: 'cover' }}
@@ -60,12 +60,13 @@ export default function CarCard({ car }) {
           <div className={`absolute right-2 top-2  rounded-full  pointer p-2 ${isFavorite ? 'bg-orange-600' : 'bg-white'}
         cursor-pointer 4  hover:opacity-60  `} onClick={toggleFavorite} >
             <p className="text-sm">
-              <Image src="/icons/save.svg" alt="View" width={16} height={16} />
+              <Image src="/icons/heart-outlined.svg" alt="View" width={16} height={16} />
+
             </p>
           </div>
 
           {/* Navigation Icons */}
-          <div className="absolute bottom-4 right-4 flex space-x-2">
+          {/* <div className="absolute bottom-4 right-4 flex space-x-2">
 
             <button className="text-white bg-black p-1 rounded-sm hover:bg-gray-700">
               <FaChevronLeft size={12} onClick={previousImage} />
@@ -78,6 +79,26 @@ export default function CarCard({ car }) {
             <button className="text-white bg-black p-1 rounded-sm hover:bg-gray-700">
               <FaChevronRight size={12} onClick={nextImage} />
             </button>
+          </div> */}
+
+          <div class="flex items-center justify-center col-span-2">
+            <div class="flex items-center justify-between w-full text-gray-600 dark:text-gray-400 bg-gray-100 rounded-lg dark:bg-gray-600 max-w-[128px] mx-2">
+              <button type="button" class="inline-flex items-center justify-center h-8 px-1 w-6 bg-gray-100 rounded-s-lg dark:bg-gray-600 hover:bg-gray-200
+               dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-800">
+                <svg class="w-2 h-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4" />
+                </svg>
+                <span class="sr-only">Previous page</span>
+              </button>
+              <span class="flex-shrink-0 mx-1 text-sm font-medium space-x-0.5 rtl:space-x-reverse"> 1 / 10 </span>
+              <button type="button" class="inline-flex items-center justify-center h-8 px-1 w-6 bg-gray-100 rounded-e-lg dark:bg-gray-600 
+              hover:bg-gray-200 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-800">
+                <svg class="w-2 h-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
+                </svg>
+                <span class="sr-only">Next page</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -104,7 +125,7 @@ export default function CarCard({ car }) {
               {car.engineSize} L • {car.transmissionType} •  {car.fuelType}
             </p>
             <p className="text-gray-600 text-sm text-center">
-            100,000km * 140 HP  
+              100,000km * 140 HP
             </p>
           </div>
 

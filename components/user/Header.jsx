@@ -60,6 +60,14 @@ const Header = ({ user }) => {
     // { href: "/bonus", label: "Bonus" },
   ]
 
+
+  function isLoginRequired(e){
+    if (true){
+      e.preventDefault();
+      return toggleLoginModalState()
+    }
+  } 
+
   const [openMenu, setOpenMenu] = useState(false);
 
 
@@ -146,7 +154,7 @@ const Header = ({ user }) => {
             <Link href="/muqayise" className='hover:text-red-600 hover:bg-red-100 p-2 rounded-md ' >
               <FaBalanceScale strokeWidth={1} size={20} />
             </Link>
-            <Link href="/beyendiklerim" className='hover:text-red-600 hover:bg-red-100 p-2 rounded-md ' >
+            <Link onClick={isLoginRequired} href="/beyendiklerim" className='hover:text-red-600 hover:bg-red-100 p-2 rounded-md ' >
               <FaHeart strokeWidth={1} size={20} />
             </Link>
 
