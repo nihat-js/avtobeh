@@ -7,6 +7,7 @@ import { GlobalProvider } from "@/lib/GlobalContext";
 import prisma from "@/prisma";
 import { AuthProvider } from "@/lib/AuthContext";
 import { cookies } from "next/headers";
+import jwt from 'jsonwebtoken';
 // import Header from './Header.jsx';
 // import Footer from './Footer.jsx';
 // import { useEffect, useState } from 'react';
@@ -20,24 +21,45 @@ export const metadata = {
 }
 
 
-async function Layout({ children })  {
-  const user = null
-    // const cache = new NodeCache({ stdTTL: 3600 });
-  const cities = await prisma.city.findMany() 
+async function Layout({ children }) {
+  // const cache = new NodeCache({ stdTTL: 3600 });
+  const cities = await prisma.city.findMany()
   const brands = await prisma.carBrand.findMany()
 
-  const data = {
-    user,
-    cities,
-    brands
+  let cookies_ = await cookies()
+  
+  const token = cookies_.get('token')?.value
+  const secret = process.env.JWT_SECRET || "your-secret-key";
+
+  let user;
+  // console.log({token})
+  if (token) {
+    try {
+      const decoded = jwt.verify(token, secret);
+      // user = decoded;
+      user = await prisma.user.findUnique({
+        where: {
+          id: decoded.userId,
+        },
+        select : {
+          id: true,
+          name: true,
+          email: true
+        }
+      });
+    } catch (error) {
+      user = null;
+    }
   }
+  // console.log(user)
+
 
 
 
 
   return (
-    <GlobalProvider data={data}>
-      <AuthProvider>
+    <GlobalProvider data={{ cities, brands }}>
+      <AuthProvider data={{ user }}>
         <html>
           <body style={{
             //  backgroundImage: "url('/backgrounds/1.png')", backgroundSize: "cover" 

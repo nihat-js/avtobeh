@@ -129,6 +129,10 @@ const featuredBrands = [
 
 export const transmissionType = [
     {
+        value : "",
+        name : "Seçin"
+    },
+    {
         value: "automatic",
         name: "Avtomat",
     },
@@ -145,7 +149,7 @@ export const transmissionType = [
         name : "Reduktor"
     },
     {
-        
+
     }
 
 ]

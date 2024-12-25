@@ -147,8 +147,8 @@ const CarFilter = () => {
                 <div>
                     <Select label="Sürətlər qutusu" size="md">
                         {
-                            transmissionType.map(type => (
-                                <Option key={type.value} value={type.value}>{type.name}</Option>
+                            transmissionType.map((type,index) => (
+                                <Option key={index} value={type.value}>{type.name}</Option>
                             ))
                         }
                     </Select>

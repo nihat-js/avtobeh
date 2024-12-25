@@ -2,57 +2,91 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import prisma from '@/prisma';
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'avtobeh-2025-od-jtw';
 
-export async function handler(request, { params }) {
-    const { operation } = params; // This will capture the 'operation' part of the route
+export async function POST(request, { params }) {
+    const { operation } = await params;
 
-    if (operation === 'signup') {
-        return await signup(request);
+    if (operation == 'register') {
+        return await register(request);
     }
 
-    if (operation === 'login') {
-        return await login(request); // Call the login handler
+    if (operation == 'login') {
+        return await login(request);
     }
 
-    if (operation === 'protected') {
-        return await protectedRoute(request); // Call the protected route handler
+    if (operation == 'status') {
+        return await status(request);
     }
 
-    return NextResponse.json({ message: 'Operation not found' }, { status: 404 });
+    if (operation == 'logout') {
+        return await logout(request);
+    }
+
+    // if (operation == 'protected') {
+    //     return await protectedRoute(request);
+    // }
+
+    return NextResponse.json({ message: 'Not found' }, { status: 404 });
 }
 
-async function signup(request) {
-    const { email, password } = await request.json();
+async function register(request) {
+    const { name, email, password } = await request.json();
 
     const existingUser = await prisma.user.findUnique({
         where: { email },
     });
-
     if (existingUser) {
         return NextResponse.json(
             { message: 'Email already in use' },
             { status: 400 }
         );
     }
-
     const hashedPassword = await bcrypt.hash(password, 10);
-
     const newUser = await prisma.user.create({
         data: {
+            name,
             email,
             password: hashedPassword,
         },
     });
 
+
+    const jwtToken = jwt.sign(
+        { userId: newUser.id, email: newUser.email },
+        JWT_SECRET,
+        { expiresIn: '1h' }
+    );
+
+    cookies().set('token', jwtToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 60 * 60,
+    });
+
     return NextResponse.json({
         message: 'User created successfully',
+        status: 'ok',
+
         user: {
             id: newUser.id,
             email: newUser.email,
         },
     });
+}
+
+async function status(request) {
+
+    const token = request.cookies.get('token');
+    if (!token) {
+        return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+    }
+
+    const decodeData = jwt.verify(token, JWT_SECRET);
+    return NextResponse.json({ message: 'Authorized', data: decodeData });
 }
 
 // Login operation handler
@@ -65,26 +99,53 @@ async function login(request) {
     });
 
     if (!user) {
-        return NextResponse.json({ message: 'Invalid credentials' }, { status: 401 });
+        return NextResponse.json({ status: 'error', message: 'Invalid credentials' });
     }
 
-    // Compare the password
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
-        return NextResponse.json({ message: 'Invalid credentials' }, { status: 401 });
+        return NextResponse.json({ status: 'error', message: 'Invalid credentials' });
     }
 
-    // Generate a JWT token
     const token = jwt.sign(
         { userId: user.id, email: user.email },
         JWT_SECRET,
-        { expiresIn: '1h' }
+        { expiresIn: '7d' }
     );
 
+    const cookieStore = await cookies();
+
+    cookieStore.set('token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 60 * 60 * 24 * 7,
+    });
+
+    // cookies().set('token', token, {
+    //     httpOnly: true,
+    //     secure: process.env.NODE_ENV === 'production',
+    //     sameSite: 'strict',
+    //     maxAge: 60 * 60 * 24 * 7,
+    // });
+
+
     return NextResponse.json({
+        status: 'ok',
         message: 'Login successful',
-        token,
+        data: user,
+    });
+}
+
+async function logout(request) {
+    const cookieStore = await cookies(); 
+
+    cookieStore.delete('token');
+
+    return NextResponse.json({
+        status: 'ok',
+        message: 'Logout successful',
     });
 }
 

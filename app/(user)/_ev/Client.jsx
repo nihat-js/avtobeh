@@ -130,7 +130,7 @@ export function Client({ cars: cars_, brands, cities }) {
         <section className="mb-6 mx-auto" style={{ maxWidth: "1000px" }}>
           {
             filterType === 'car' ?
-              <CarFilter />
+              <CarFilter key="car" />
               :
               filterType === 'license-plate' ?
                 <LicensePlateFilter />
