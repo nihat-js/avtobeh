@@ -1,4 +1,4 @@
-export default function Client({ cars, brands }) {
+export default function Client({ car, brands }) {
     return (
         <div className="max-w-5xl mx-auto bg-white p-6 shadow-md rounded-md">
             {/* Car Image and Info */}
