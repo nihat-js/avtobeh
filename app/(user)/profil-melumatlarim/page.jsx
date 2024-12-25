@@ -13,7 +13,7 @@ import {
 } from "@material-tailwind/react";
 
 // day picker
-import { format } from "date-fns";
+// import { format } from "date-fns";
 import { DayPicker } from "react-day-picker";
 
 // @heroicons/react
@@ -123,7 +123,7 @@ function Account1() {
                             Birth Date
                         </Typography>
                         <Popover placement="bottom">
-                            <PopoverHandler>
+                            {/* <PopoverHandler>
                                 <Input
                                     size="lg"
                                     onChange={() => null}
@@ -134,7 +134,7 @@ function Account1() {
                                     }}
                                     className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
                                 />
-                            </PopoverHandler>
+                            </PopoverHandler> */}
                             <PopoverContent>
                                 <DayPicker
                                     mode="single"
