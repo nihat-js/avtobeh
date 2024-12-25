@@ -129,39 +129,23 @@ const featuredBrands = [
 
 export const transmissionType = [
     {
-        key: "automatic",
-        value: "Avtomat",
+        value: "automatic",
+        name: "Avtomat",
     },
     {
-        key: "manual",
-        value: "Manuel",
+        value: "manual",
+        name: "Manuel",
     },
     {
-        key: "hybrid",
-        value: "Hibrid",
-
+        value: "robot",
+        name: "Robot",
     },
     {
-        key: "electric",
-        value: "Elektrikli",
+        value : "reduktor",
+        name : "Reduktor"
     },
     {
-        key: "gas",
-        value: "Benzinli",
-    },
-    {
-        key: "diesel",
-        value: "Dizel",
-    },
-    {
-        key: "lpg",
-        value: "LPG",
-    },
-    {
-        key: "cng",
-        value: "CNG",
-    },
-    {
-
+        
     }
+
 ]

@@ -3,7 +3,10 @@ import "../../styles/globals.css"
 
 import Footer from '@/components/user/Footer';
 import Header from '@/components/user/Header.jsx';
-import { AuthProvider } from "@/components/providers/AuthProvider";
+import { GlobalProvider } from "@/lib/GlobalContext";
+import prisma from "@/prisma";
+import { AuthProvider } from "@/lib/AuthContext";
+import { cookies } from "next/headers";
 // import Header from './Header.jsx';
 // import Footer from './Footer.jsx';
 // import { useEffect, useState } from 'react';
@@ -17,42 +20,41 @@ export const metadata = {
 }
 
 
-const Layout = ({ children }) => {
+async function Layout({ children })  {
   const user = null
-  // const [user, setUser] = useState(null);
+    // const cache = new NodeCache({ stdTTL: 3600 });
+  const cities = await prisma.city.findMany() 
+  const brands = await prisma.carBrand.findMany()
 
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     const res = await fetch('/api/getUser');
-  //     if (res.ok) {
-  //       const data = await res.json();
-  //       setUser(data);
-  //     } else {
-  //       console.error('Error fetching user data');
-  //     }
-  //   };
+  const data = {
+    user,
+    cities,
+    brands
+  }
 
-  //   fetchUser();
-  // }, []);
+
+
 
   return (
-    <AuthProvider>
-      <html>
-        <body style={{
-          //  backgroundImage: "url('/backgrounds/1.png')", backgroundSize: "cover" 
-        }}>
+    <GlobalProvider data={data}>
+      <AuthProvider>
+        <html>
+          <body style={{
+            //  backgroundImage: "url('/backgrounds/1.png')", backgroundSize: "cover" 
+          }}>
 
-          <Snowfall />
-          <div>
-            <Header user={user} />
-            <div className='bg-slate-100'>
-              <main className="flex-1 container mx-auto py-6 px-4 ">{children}</main>
+            <Snowfall />
+            <div>
+              <Header user={user} />
+              <div className='bg-slate-100'>
+                <main className="flex-1 container mx-auto py-6 px-4 ">{children}</main>
+              </div>
+              <Footer />
             </div>
-            <Footer />
-          </div>
-        </body>
-      </html>
-    </AuthProvider>
+          </body>
+        </html>
+      </AuthProvider>
+    </GlobalProvider>
   );
 };
 

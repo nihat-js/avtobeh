@@ -16,10 +16,14 @@ export const viewport = 'width=device-width, initial-scale=1';
 
 export default async function Page() {
   let brands = await prisma.carBrand.findMany();
+  
+  let cities = await prisma.city.findMany();
+  
+
   // console.log(brands);
   return (
     <main>
-      <Index brands={brands} />
+      <Index brands={brands} cities={cities} />
     </main>
   )
 }

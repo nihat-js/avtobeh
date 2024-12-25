@@ -124,3 +124,14 @@ model CarImage {
 
   @@index([carId], map: "carId")
 }
+
+model City {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique(map: "name") @default("0") @db.VarChar(20)
+  groupName String?   @db.VarChar(20)
+  countryId Int?
+  createdAt DateTime? @default(dbgenerated("(now())")) @db.Timestamp(0)
+  updatedAt DateTime? @db.Timestamp(0)
+
+  @@index([name], map: "carId")
+}

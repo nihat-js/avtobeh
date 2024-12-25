@@ -16,7 +16,7 @@ import { FaBalanceScale, FaChevronCircleLeft, FaHeart } from 'react-icons/fa';
 import { Typography } from '@material-tailwind/react';
 import { Avatar } from '@material-tailwind/react';
 
-const Header = ({ user }) => {
+const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
@@ -61,15 +61,16 @@ const Header = ({ user }) => {
   ]
 
 
-  function isLoginRequired(e){
-    if (true){
+  function isLoginRequired(e) {
+    if (true) {
       e.preventDefault();
       return toggleLoginModalState()
     }
-  } 
+  }
 
   const [openMenu, setOpenMenu] = useState(false);
 
+  const user = null;
 
 
 
@@ -84,7 +85,7 @@ const Header = ({ user }) => {
 
         <Link href="/" className="text-2xl font-bold ">
           <div className="text-2xl font-bold ">
-            <Image src="/icons/logo.png" width={150} height={120} alt="Logo" />
+            <Image src="/icons/logo.png" width={100} height={50} alt="Logo" />
             {/* <Link href="/">AvtoBeh</Link> */}
           </div>
         </Link>
@@ -158,8 +159,26 @@ const Header = ({ user }) => {
               <FaHeart strokeWidth={1} size={20} />
             </Link>
 
+            <Link href="/masin-sat" className='hover:text-red-600 hover:bg-red-100 p-2 rounded-md ' >
+              <Image src="/icons/plus-circle.svg" width={32} height={32} alt="Logo" />
+            </Link>
+
 
           </div>
+
+          {
+            !user && (
+              <Button onClick={() => toggleLoginModalState()} variant="text" className="flex items-center gap-3   text-sm font-normal capitalize tracking-normal">
+                Daxil ol
+                <FiChevronRight
+                  strokeWidth={2.5}
+                  className={`h-3.5 w-3.5 transition-transform ${openMenu ? "rotate-180" : ""
+                    }`}
+                />
+              </Button>
+
+            )
+          }
 
 
           <Menu allowHover >
@@ -301,61 +320,7 @@ const Header = ({ user }) => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      <div
-        className={`md:hidden ${isMobileMenuOpen ? "block" : "hidden"} bg-red-500 shadow-md`}
-      >
-        <nav className="flex flex-col px-4 py-4 space-y-2">
-          {[
-            { href: "/", label: "Ev" },
-            { href: "/axtar", label: "Axtar" },
-            { href: "/sell", label: "Sat" },
-            { href: "/contact", label: "Əlaqə" },
-            { href: "/faq", label: "FAQ" },
-          ].map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-white py-2 px-4 rounded-md hover:bg-red-600 hover:text-white transition-all"
-            >
-              {item.label}
-            </Link>
-          ))}
-          <div className="border-t mt-4 pt-4">
-            {!user ? (
-              <>
-                <Link
-                  href="/login"
-                  className="block py-2 px-2 text-sm text-white border border-white rounded-md hover:bg-white hover:text-red-500 transition"
-                >
-                  Daxil ol
-                </Link>
-                <Link
-                  href="/register"
-                  className="block py-2 px-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 transition"
-                >
-                  Qeydiyyat
-                </Link>
-              </>
-            ) : (
-              <>
-                <Link
-                  href="/bonus"
-                  className="block text-white py-2 px-4 rounded-md hover:bg-red-600 hover:text-white transition-all"
-                >
-                  Bonus: {user.bonus}₼
-                </Link>
-                <Link
-                  href="/wallet"
-                  className="block text-white py-2 px-4 rounded-md hover:bg-red-600 hover:text-white transition-all"
-                >
-                  Balance: {user.balance}₼
-                </Link>
-              </>
-            )}
-          </div>
-        </nav>
-      </div>
+
     </header>
   );
 };

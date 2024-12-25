@@ -20,10 +20,14 @@ import { Radio } from "@material-tailwind/react";
 import { Checkbox } from "@material-tailwind/react";
 import { Typography } from "@material-tailwind/react";
 import { Textarea } from "@material-tailwind/react";
+import { StepperWithDots } from "./components/StepperWithDots";
+import Step1 from "./Step1";
+import Step2 from "./Step2";
+import Step3 from "./Step3";
 
 
 
-export default function Index({ brands }) {
+export default function Index({ brands, cities }) {
   const [formData, setFormData] = useState({
     bodyType: "",
     brand: "",
@@ -133,178 +137,22 @@ export default function Index({ brands }) {
       <form onSubmit={handleSubmit} className="space-y-6">
 
 
-        <h4 className="text-2xl font-semibold text-gray-800 mb-4"> Ümumi məlumatlar </h4>
-        <div className="grid sm:grid-cols-3 md:grid-cols-3 gap-6">
-          <Select size="md" label="Marka seçin *" value={formData.brand} onChange={handleBrandChange} >
-            {
-              brands.map(brand => (
-                <Option key={brand.id} value={brand.id}>{brand.name}</Option>
-              ))
-            }
-          </Select>
-          <Select size="md" label="Model seçin *" disabled={models.length == 0} value={formData.model}
-            onChange={(value) => { setFormData({ ...formData, model: value }) }} >
-            {
-              models.map(model => (
-                <Option key={model.id} value={model.id}>{model.name}</Option>
-              ))
-            }
-          </Select>
-          <Select size="md" label="Ilini seçin *" required
-            value={formData.year} onChange={(value) => { setFormData({ ...formData, year: value }) }}
-          >
-            {
-              years.map(year => (
-                <Option key={year} value={year}>{year}</Option>
-              ))
-            }
-          </Select>
-        </div>
+        <StepperWithDots />
 
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <Step1 formData={formData} setFormData={setFormData} handleBrandChange={handleBrandChange}
+          handleChange={handleChange}
+          brands={brands} models={models} years={years} vehicleTypes={vehicleTypes}
+          engineSize={engineSize} transmissionType={transmissionType} />
 
-          <Select size="md" label="Gövdə tipi *"
-            value={formData.bodyType} onChange={(value) => { setFormData({ ...formData, bodyType: value }) }}
-          >
+        <Step2 setFormData={setFormData} />
+        <Step3 formData={formData} setFormData={setFormData} handleImageChange={handleImageChange}
+          uploadedImages={uploadedImages}
+          removeImage={removeImage}
+          // rotateImage={rotateImage}
+          handleAddImage={handleAddImage}
+          handleSubmit={handleSubmit}
+          handleChange={handleChange} />
 
-            {
-              vehicleTypes.map(vehicleType => (
-                <Option key={vehicleType.key} value={vehicleType.key}>{vehicleType.value}</Option>
-              ))
-            }
-          </Select>
-          <Select size="md" label="Mühərrik həcmi *"
-            value={formData.engineSize} onChange={(value) => { setFormData({ ...formData, engineSize: value }) }}
-
-          >
-            {
-              engineSize.map(c => (
-                <Option key={c} value={c} onchange={handleChange} >{c} L</Option>
-              ))
-            }
-          </Select>
-          <Select size="md" label="Sürətlər qutusu *"
-            value={formData.transmissionType} onChange={(value) => { setFormData({ ...formData, transmissionType: value }) }}
-
-          >
-            {
-              transmissionType.map(t => (
-                <Option key={t.key} value={t.key} onchange={handleChange} >{t.value} </Option>
-              ))
-            }
-          </Select>
-
-        </div>
-        <div>
-
-        </div>
-
-
-
-        <h4 className="text-2xl font-semibold text-gray-800 mt-6"> Digər Məlumatlar </h4>
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-          <Select size="md" label="Rəng *"
-            value={formData.color} onChange={(value) => { setFormData({ ...formData, color: value }) }}
-          >
-            {
-              carColors.map(color => (
-                <Option key={color.key} value={color.key}>{color.value}</Option>
-              ))
-            }
-          </Select>
-          <Input label="At gücü (HP)" type="text" name="horsePower" value={formData.horsePower} onChange={handleChange} />
-          <Select size="md" label="Silindr sayı" >
-            {
-              cylindersCount.map(c => (
-                <Option key={c} value={c}>{c}</Option>
-              ))
-            }
-          </Select>
-        </div>
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6 ">
-          <Input label="VIN (Avtomobilin identifikasiya nömrəsi)" type="text" name="vin" value={formData.vin} onChange={handleChange} />
-          <Select size="md" label="Oturacaq sayı" >
-            {
-              seatsCount.map(s => (
-                <Option key={s} value={s}>{s}</Option>
-              ))
-            }
-          </Select>
-        </div>
-
-        <div className="flex flex-row flex-wrap gap-1">
-          {
-            fuelTypes.map(fuelType => (
-              <Radio name="fuelType" label={fuelType.value} value={fuelType.key} formData={formData} handleChange={handleChange} />
-            ))
-          }
-        </div>
-
-        <h4 className="text-2xl font-semibold text-gray-800 mt-6"> Özəlliklər </h4>
-
-        <div className="flex flex-row flex-wrap gap-2">
-          {
-            carFeatures.map(carFeature => (
-              <Checkbox color="purple" name="carFeature" label={carFeature.value} value={carFeature.key} formData={formData} handleChange={handleChange} />
-            ))
-          }
-          <Checkbox
-            label={
-              <div>
-                <Typography color="blue-gray" className="font-medium">
-                  Təcili
-                </Typography>
-                <Typography variant="small" color="gray" className="font-normal">
-                  Qırmızı işarəylə göstərilir
-                </Typography>
-              </div>
-            }
-            containerProps={{
-              className: "-mt-5",
-            }}
-          />
-        </div>
-
-
-        <h4 className="text-2xl font-semibold text-gray-800 mt-6"> Qeyd </h4>
-        <Textarea label="Sərfiyyat" value={formData.description} onChange={handleChange} />
-        <div>
-          <Textarea
-            id="description"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            rows="4"
-            label="Təkərlərin vəziyyəti, Salonun veziyyeti, xususi ozellikleri :"
-          />
-        </div>
-        {/* <Price value={formData.price} onChange={handleChange} /> */}
-        <div>
-        </div>
-
-        <input type="file" id="images" className="hidden" onChange={handleImageChange} />
-        <div className="grid grid-cols-5 gap-2">
-          {
-            uploadedImages.map((image, index) => (
-              <ImagePreview key={index} image={image} removeImage={() => removeImage(image)} rotateImage={() => rotateImage(image)} />
-            ))
-          }
-          <div className="w-40 h-40 border-2 border-dashed flex justify-center items-center cursor-pointer rounded-full hover:bg-slate-200 " onClick={handleAddImage}  >
-            <label htmlFor="images" className="block text-lg font-medium text-gray-700 cursor-pointer">
-              <Image src="/icons/photo.svg" width={40} height={40} alt="Add Image" />
-            </label>
-          </div>
-        </div>
-        <div>
-          <button
-            type="submit"
-            onClick={handleSubmit}
-            className="w-full py-3 px-4 bg-gray-700 text-white font-semibold rounded-lg
-             hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          >
-            Paylaş
-          </button>
-        </div>
       </form>
     </div>
   );

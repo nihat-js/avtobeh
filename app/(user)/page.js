@@ -24,12 +24,15 @@ export default async function Home() {
         }
       }
     }
-  });
+  })
 
-  let brands  = await prisma.carBrand.findMany();
+  // let brands  = await prisma.carBrand.findMany();
+  // let cities = await prisma.city.findMany();
 
 
   return (
-    <Client cars={cars} brands={brands} />
+    <div>
+      <Client cars={cars}  />
+    </div>
   );
 }
