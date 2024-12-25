@@ -35,7 +35,7 @@ export default function CarCard({ car }) {
   car.mileage = "100.000"
 
   return (
-    <div key={car.id} className="bg-white rounded-lg shadow-xl overflow-hidden cursor-pointer">
+    <div key={car.id} className="bg-white rounded-lg shadow-xl overflow-hidden cursor-pointer scale-100 hover:scale-105 transition-all duration-300  ">
       <Link href={`/masinlar/${car.slug}`} className="" >
 
         <div>

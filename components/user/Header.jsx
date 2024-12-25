@@ -12,7 +12,7 @@ import { Button, MenuHandler, MenuItem, MenuList } from '@material-tailwind/reac
 import { Menu } from '@material-tailwind/react';
 import { FiChevronRight } from 'react-icons/fi';
 import { Card } from '@material-tailwind/react';
-import { FaChevronCircleLeft } from 'react-icons/fa';
+import { FaBalanceScale, FaChevronCircleLeft, FaHeart } from 'react-icons/fa';
 import { Typography } from '@material-tailwind/react';
 import { Avatar } from '@material-tailwind/react';
 
@@ -48,7 +48,7 @@ const Header = ({ user }) => {
 
 
   const links = [
-    { href: "/axtar", label: "Axtar" },
+    // { href: "/axtar", label: "Axtar" },
     // { href: "/servisler", label: "Servisler" },
     // { href: "/elek", label: "Elektromobillər" },
     // { href: "/", label: "İcarəea" },
@@ -143,6 +143,13 @@ const Header = ({ user }) => {
                 {item.label}
               </Link>
             ))}
+            <Link href="/muqayise" className='hover:text-red-600 hover:bg-red-100 p-2 rounded-md ' >
+              <FaBalanceScale strokeWidth={1} size={20} />
+            </Link>
+            <Link href="/beyendiklerim" className='hover:text-red-600 hover:bg-red-100 p-2 rounded-md ' >
+              <FaHeart strokeWidth={1} size={20} />
+            </Link>
+
 
           </div>
 
