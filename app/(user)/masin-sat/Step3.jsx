@@ -1,6 +1,11 @@
+import { Checkbox } from "@material-tailwind/react";
+import { Typography } from "@material-tailwind/react";
+import { carFeatures } from "@/config/data";
+import { Textarea } from "@material-tailwind/react";
+import Image from "next/image";
 export default function Step3({
-    formData,
-    setFormData,
+    form,
+    setForm,
     handleImageChange,
     uploadedImages,
     removeImage,
@@ -8,8 +13,14 @@ export default function Step3({
     handleAddImage,
     handleSubmit,
     handleChange,
-    carFeatures
 }) {
+
+
+    console.log(carFeatures)
+
+
+
+
     return (
         <section>
             <h4 className="text-2xl font-semibold text-gray-800 mt-6"> Özəlliklər </h4>
@@ -17,7 +28,7 @@ export default function Step3({
             <div className="flex flex-row flex-wrap gap-2">
                 {
                     carFeatures.map(carFeature => (
-                        <Checkbox color="purple" name="carFeature" label={carFeature.value} value={carFeature.key} formData={formData} handleChange={handleChange} />
+                        <Checkbox color="purple" name="carFeature" label={carFeature.value} value={carFeature.key} form={form} handleChange={handleChange} />
                     ))
                 }
                 <Checkbox
@@ -39,18 +50,18 @@ export default function Step3({
 
 
             <h4 className="text-2xl font-semibold text-gray-800 mt-6"> Qeyd </h4>
-            <Textarea label="Sərfiyyat" value={formData.description} onChange={handleChange} />
+            <Textarea label="Sərfiyyat" value={form.description} onChange={handleChange} />
             <div>
                 <Textarea
                     id="description"
                     name="description"
-                    value={formData.description}
+                    value={form.description}
                     onChange={handleChange}
                     rows="4"
                     label="Təkərlərin vəziyyəti, Salonun veziyyeti, xususi ozellikleri :"
                 />
             </div>
-            {/* <Price value={formData.price} onChange={handleChange} /> */}
+            {/* <Price value={form.price} onChange={handleChange} /> */}
             <div>
             </div>
 

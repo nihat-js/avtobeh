@@ -1,22 +1,24 @@
-import { Select } from "@material-tailwind/react"
+import { Button } from "@material-tailwind/react"
+import { Option, Select } from "@material-tailwind/react"
 
-export default function Step1({ formData, setFormData, handleBrandChange,
+export default function Step1({ form, setForm, handleBrandChange,
     handleChange,
     brands, models, years, vehicleTypes,
+    setActiveStep,
     engineSize, transmissionType }) {
     return (
         <section>
             <h4 className="text-2xl font-semibold text-gray-800 mb-4"> Ümumi məlumatlar </h4>
             <div className="grid sm:grid-cols-3 md:grid-cols-3 gap-6">
-                <Select size="md" label="Marka seçin *" value={formData.brand} onChange={handleBrandChange} >
+                <Select size="md" label="Marka seçin *" value={form.brand} onChange={handleBrandChange} >
                     {
                         brands.map(brand => (
                             <Option key={brand.id} value={brand.id}>{brand.name}</Option>
                         ))
                     }
                 </Select>
-                <Select size="md" label="Model seçin *" disabled={models.length == 0} value={formData.model}
-                    onChange={(value) => { setFormData({ ...formData, model: value }) }} >
+                <Select size="md" label="Model seçin *" disabled={models.length == 0} value={form.model}
+                    onChange={(value) => { setForm({ ...form, model: value }) }} >
                     {
                         models.map(model => (
                             <Option key={model.id} value={model.id}>{model.name}</Option>
@@ -24,7 +26,7 @@ export default function Step1({ formData, setFormData, handleBrandChange,
                     }
                 </Select>
                 <Select size="md" label="Ilini seçin *" required
-                    value={formData.year} onChange={(value) => { setFormData({ ...formData, year: value }) }}
+                    value={form.year} onChange={(value) => { setForm({ ...form, year: value }) }}
                 >
                     {
                         years.map(year => (
@@ -37,7 +39,7 @@ export default function Step1({ formData, setFormData, handleBrandChange,
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
 
                 <Select size="md" label="Gövdə tipi *"
-                    value={formData.bodyType} onChange={(value) => { setFormData({ ...formData, bodyType: value }) }}
+                    value={form.bodyType} onChange={(value) => { setForm({ ...form, bodyType: value }) }}
                 >
 
                     {
@@ -47,7 +49,7 @@ export default function Step1({ formData, setFormData, handleBrandChange,
                     }
                 </Select>
                 <Select size="md" label="Mühərrik həcmi *"
-                    value={formData.engineSize} onChange={(value) => { setFormData({ ...formData, engineSize: value }) }}
+                    value={form.engineSize} onChange={(value) => { setForm({ ...form, engineSize: value }) }}
 
                 >
                     {
@@ -57,7 +59,7 @@ export default function Step1({ formData, setFormData, handleBrandChange,
                     }
                 </Select>
                 <Select size="md" label="Sürətlər qutusu *"
-                    value={formData.transmissionType} onChange={(value) => { setFormData({ ...formData, transmissionType: value }) }}
+                    value={form.transmissionType} onChange={(value) => { setForm({ ...form, transmissionType: value }) }}
 
                 >
                     {
@@ -66,6 +68,15 @@ export default function Step1({ formData, setFormData, handleBrandChange,
                         ))
                     }
                 </Select>
+
+                <div className="flex gap-2 items-center">
+                    <Button disabled={true}>
+                        Geri
+                    </Button>
+                    <Button onClick={() => setActiveStep(1)} disabled={false}>
+                        İrəli
+                    </Button>
+                </div>
 
             </div>
         </section>

@@ -20,7 +20,7 @@ import { Radio } from "@material-tailwind/react";
 import { Checkbox } from "@material-tailwind/react";
 import { Typography } from "@material-tailwind/react";
 import { Textarea } from "@material-tailwind/react";
-import { StepperWithDots } from "./components/StepperWithDots";
+import { DefaultStepper } from "./components/DefaultStepper";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
@@ -28,7 +28,7 @@ import Step3 from "./Step3";
 
 
 export default function Index({ brands, cities }) {
-  const [formData, setFormData] = useState({
+  const [form, setForm] = useState({
     bodyType: "",
     brand: "",
     model: "",
@@ -58,12 +58,14 @@ export default function Index({ brands, cities }) {
     images: [],
   });
   const [models, setModels] = useState([]);
+
+  const [activeStep, setActiveStep] = useState(0)
   const [uploadedImages, setUploadedImages] = useState([])
 
 
-  async function handleTailwindElementChange(name, value) {
-    setFormData({ ...formData, [name]: value });
-  }
+  // async function handleTailwindElementChange(name, value) {
+  //   setFormData({ ...formData, [name]: value });
+  // }
 
 
   async function handleImageChange(event) {
@@ -137,21 +139,33 @@ export default function Index({ brands, cities }) {
       <form onSubmit={handleSubmit} className="space-y-6">
 
 
-        <StepperWithDots />
+        <DefaultStepper activeStep={activeStep} setActiveStep={setActiveStep} />
 
-        <Step1 formData={formData} setFormData={setFormData} handleBrandChange={handleBrandChange}
-          handleChange={handleChange}
-          brands={brands} models={models} years={years} vehicleTypes={vehicleTypes}
-          engineSize={engineSize} transmissionType={transmissionType} />
+        {
+          activeStep == 0 && <>
+            <Step1 setActiveStep={setActiveStep} form={form} setForm={setForm} handleBrandChange={handleBrandChange}
+              handleChange={handleChange}
+              brands={brands} models={models} years={years} vehicleTypes={vehicleTypes}
+              engineSize={engineSize} transmissionType={transmissionType} />
+          </>
+        }
+        {
+          activeStep == 1 && <>
+            <Step2 setActiveStep={setActiveStep} form={form} setForm={setForm} />
+          </>
+        }
 
-        <Step2 setFormData={setFormData} />
-        <Step3 formData={formData} setFormData={setFormData} handleImageChange={handleImageChange}
-          uploadedImages={uploadedImages}
-          removeImage={removeImage}
-          // rotateImage={rotateImage}
-          handleAddImage={handleAddImage}
-          handleSubmit={handleSubmit}
-          handleChange={handleChange} />
+        {
+          activeStep == 2 && <>
+            <Step3 setActiveStep={setActiveStep} form={form} setForm={setForm} handleImageChange={handleImageChange}
+              uploadedImages={uploadedImages}
+              removeImage={removeImage}
+              // rotateImage={rotateImage}
+              handleAddImage={handleAddImage}
+              handleSubmit={handleSubmit}
+              handleChange={handleChange} />
+          </>
+        }
 
       </form>
     </div>

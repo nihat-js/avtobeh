@@ -122,7 +122,9 @@ export default function CarCard({ car }) {
           <div className="mt-2">
             {/* <p className="text-gray-600 text-sm" > Konum: {car.country} {car.city}  </p> */}
             <p className="text-gray-600 text-sm text-center">
-              {car.engineSize} L • {car.transmissionType} •  {car.fuelType}
+              <u className="cursor-default">{car.engineSize} L </u>  •
+              <u> {car.transmissionType} </u>  •
+              <u> {car.fuelType} </u>
             </p>
             <p className="text-gray-600 text-sm text-center">
               100,000km * 140 HP
