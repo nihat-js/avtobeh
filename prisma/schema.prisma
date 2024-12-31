@@ -79,14 +79,14 @@ model Car {
 }
 
 model CarBrand {
-  id          Int       @id @default(autoincrement())
-  name        String    @db.VarChar(255)
-  country     String?   @db.VarChar(255)
-  logo        String?   @db.VarChar(255)
-  established DateTime?
-  rank        Int?
-  isVisible   Int?      @default(dbgenerated("(true)")) @db.TinyInt
-  count       Int?      @default(0)
+  id        Int     @id @default(autoincrement())
+  name      String  @db.VarChar(255)
+  slug      String  @db.VarChar(20)
+  rank      Int?    @default(0)
+  count     Int?    @default(0)
+  country   String? @db.VarChar(255)
+  logo      String? @db.VarChar(255)
+  isVisible Int?    @default(dbgenerated("(true)")) @db.TinyInt
 }
 
 model CarModel {
@@ -98,6 +98,7 @@ model CarModel {
   isVisible String?
   count     Int     @default(0)
   groupName String? @db.VarChar(50)
+  slug      String  @db.VarChar(20)
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.

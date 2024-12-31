@@ -15,12 +15,9 @@
     "drizzle.config.js": true,
     "next-env.d.ts": true,
     ".gitignore": true,
-    ".env": true,
-    "postcss.config.mjs": true,
     "README.md": true,
     "pnpm-lock.yaml": true,
     "jsconfig.json": true,
-    "package.json": true,
     "package-lock.json": true,
     "node_modules": true,
     ".next": true,
@@ -36,15 +33,13 @@
     "drizzle.config.js",
     "next-env.d.ts",
     ".gitignore",
-    ".env",
-    "postcss.config.mjs",
     "README.md",
     "pnpm-lock.yaml",
     "jsconfig.json",
-    "package.json",
     "package-lock.json",
     "node_modules",
     ".next",
     ".vscode"
-  ]
+  ],
+  "typescript.tsdk": "node_modules\\typescript\\lib"
 }

@@ -10,7 +10,7 @@ export function DefaultStepper({activeStep,setActiveStep}) {
   // const handlePrev = () => !isFirstStep && setActiveStep((cur) => cur - 1);
  
   return (
-    <div className="w-full py-4 px-8">
+    <div className="w-full">
       <Stepper
         activeStep={activeStep}
         // isLastStep={(value) => setIsLastStep(value)}

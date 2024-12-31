@@ -15,6 +15,7 @@ import { Input } from '@material-tailwind/react';
 import { Checkbox } from '@material-tailwind/react';
 import { Tabs } from '@material-tailwind/react';
 import Image from 'next/image';
+import Link from 'next/link';
 export function Client({ cars: cars_, brands, cities }) {
 
   const [cars, setCars] = useState(cars_)
@@ -35,41 +36,7 @@ export function Client({ cars: cars_, brands, cities }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
 
-  const data = [
-    {
-      label: "HTML",
-      value: "html",
-      desc: `It really matters and then like it really doesn't matter.
-      What matters is the people who are sparked by it. And the people 
-      who are like offended by it, it doesn't matter.`,
-    },
-    {
-      label: "React",
-      value: "react",
-      desc: `Because it's about motivating the doers. Because I'm here
-      to follow my dreams and inspire other people to follow their dreams, too.`,
-    },
-    {
-      label: "Vue",
-      value: "vue",
-      desc: `We're not always in the position that we want to be at.
-      We're constantly growing. We're constantly making mistakes. We're
-      constantly trying to express ourselves and actualize our dreams.`,
-    },
-    {
-      label: "Angular",
-      value: "angular",
-      desc: `Because it's about motivating the doers. Because I'm here
-      to follow my dreams and inspire other people to follow their dreams, too.`,
-    },
-    {
-      label: "Svelte",
-      value: "svelte",
-      desc: `We're not always in the position that we want to be at.
-      We're constantly growing. We're constantly making mistakes. We're
-      constantly trying to express ourselves and actualize our dreams.`,
-    },
-  ];
+
 
   return (
 
@@ -80,52 +47,18 @@ export function Client({ cars: cars_, brands, cities }) {
 
       <div className="container mx-auto" style={{ maxWidth: "1000px" }}>
 
-
-
-
-
         {/* <Announcement /> */}
-
-        {/* <div className="flex flex-row space-x-4 items-center">
-          <p className="text-sm text-gray-600 hover:text-gray-800 transition duration-200 cursor-pointer">
-            Elektrik
-          </p>
-          <p className="text-sm text-gray-600 hover:text-gray-800 transition duration-200 cursor-pointer">
-            Antikvar
-          </p>
-        </div> */}
-
-
-        <section>
+        <section className='bg-slate-100  mb-5'>
           <FilterHeader filterType={filterType} setFilterType={setFilterType} />
         </section>
 
-        <section className='mt-2'>
-          <Tabs value="html">
-            <TabsHeader>
-              {/* {data.map(({ label, value }) => (
-                <Tab key={value} value={value}>
-                  {label}
-                </Tab> */}
-              <Tab >
-                <Image src="/icons/car.svg" width={40} height={40} alt="Car" />
-              </Tab>
-              <Tab >
-                <Image src="/icons/rent.svg" width={40} height={40} alt="License Plate" />
-              </Tab>
-              <Tab >
-                <Image src="/icons/license-plate.svg" width={40} height={40} alt="License Plate" />
-              </Tab>
-            </TabsHeader>
-            <TabsBody>
-              {data.map(({ value, desc }) => (
-                <TabPanel key={value} value={value}>
-                  {desc}
-                </TabPanel>
-              ))}
-            </TabsBody>
-          </Tabs>
-        </section>
+
+
+        {/* <section className='mt-2'>
+          <Image src="/icons/car.svg" width={40} height={40} alt="Car" />
+          <Image src="/icons/rent.svg" width={40} height={40} alt="License Plate" />
+          <Image src="/icons/license-plate.svg" width={40} height={40} alt="License Plate" />
+        </section> */}
 
         <section className="mb-6 mx-auto" style={{ maxWidth: "1000px" }}>
           {

@@ -24,10 +24,18 @@ export const metadata = {
 async function Layout({ children }) {
   // const cache = new NodeCache({ stdTTL: 3600 });
   const cities = await prisma.city.findMany()
-  const brands = await prisma.carBrand.findMany()
-
+  const brands = await prisma.carBrand.findMany({
+    orderBy: [
+      {
+        rank: 'desc',
+      },
+      {
+        name: 'asc',
+      },
+    ],
+  });
   let cookies_ = await cookies()
-  
+
   const token = cookies_.get('token')?.value
   const secret = process.env.JWT_SECRET || "your-secret-key";
 
@@ -41,7 +49,7 @@ async function Layout({ children }) {
         where: {
           id: decoded.userId,
         },
-        select : {
+        select: {
           id: true,
           name: true,
           email: true
