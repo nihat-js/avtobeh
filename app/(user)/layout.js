@@ -8,6 +8,7 @@ import prisma from "@/prisma";
 import { AuthProvider } from "@/lib/AuthContext";
 import { cookies } from "next/headers";
 import jwt from 'jsonwebtoken';
+import { AntdRegistry } from "@ant-design/nextjs-registry";
 // import Header from './Header.jsx';
 // import Footer from './Footer.jsx';
 // import { useEffect, useState } from 'react';
@@ -24,7 +25,7 @@ export const metadata = {
 async function Layout({ children }) {
   // const cache = new NodeCache({ stdTTL: 3600 });
   const cities = await prisma.city.findMany()
-  const brands = await prisma.carBrand.findMany({
+  let brands = await prisma.carBrand.findMany({
     orderBy: [
       {
         rank: 'desc',
@@ -34,10 +35,18 @@ async function Layout({ children }) {
       },
     ],
   });
+  console.log(brands)
   let cookies_ = await cookies()
 
   const token = cookies_.get('token')?.value
   const secret = process.env.JWT_SECRET || "your-secret-key";
+
+  //  brands = brands.sort((a, b) => {
+  //   if (a.groupName === 'popular' && b.groupName !== 'popular') return -1;
+  //   if (a.groupName !== 'popular' && b.groupName === 'popular') return 1;
+
+  //   return b.value - a.value; 
+  // });
 
   let user;
   // console.log({token})
@@ -68,21 +77,23 @@ async function Layout({ children }) {
   return (
     <GlobalProvider data={{ cities, brands }}>
       <AuthProvider data={{ user }}>
-        <html>
-          <body style={{
-            //  backgroundImage: "url('/backgrounds/1.png')", backgroundSize: "cover" 
-          }}>
+        <AntdRegistry>
+          <html>
+            <body style={{
+              //  backgroundImage: "url('/backgrounds/1.png')", backgroundSize: "cover" 
+            }}>
 
-            <Snowfall />
-            <div>
-              <Header user={user} />
-              <div className='bg-slate-100'>
-                <main className="flex-1 container mx-auto py-6 px-4 ">{children}</main>
+              <Snowfall />
+              <div>
+                <Header user={user} />
+                <div className='bg-slate-100'>
+                  <main className="flex-1 container mx-auto py-6 px-4 ">{children}</main>
+                </div>
+                <Footer />
               </div>
-              <Footer />
-            </div>
-          </body>
-        </html>
+            </body>
+          </html>
+        </AntdRegistry>
       </AuthProvider>
     </GlobalProvider>
   );

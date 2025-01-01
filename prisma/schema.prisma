@@ -79,14 +79,16 @@ model Car {
 }
 
 model CarBrand {
-  id        Int     @id @default(autoincrement())
-  name      String  @db.VarChar(255)
-  slug      String  @db.VarChar(20)
-  rank      Int?    @default(0)
-  count     Int?    @default(0)
-  country   String? @db.VarChar(255)
-  logo      String? @db.VarChar(255)
-  isVisible Int?    @default(dbgenerated("(true)")) @db.TinyInt
+  id        Int       @id @default(autoincrement())
+  name      String    @db.VarChar(255)
+  slug      String    @db.VarChar(20)
+  groupName String?   @db.VarChar(50)
+  rank      Int?      @default(0)
+  itemCount Int?      @default(0)
+  country   String?   @db.VarChar(255)
+  logo      String?   @db.VarChar(255)
+  isVisible Int?      @default(dbgenerated("(true)")) @db.TinyInt
+  createdAt DateTime? @default(dbgenerated("(now())")) @db.DateTime(0)
 }
 
 model CarModel {

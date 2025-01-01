@@ -11,7 +11,9 @@ import { Option, Select } from "@material-tailwind/react";
 import { useGlobalContext } from "@/lib/GlobalContext";
 import { ButtonGroup } from "@material-tailwind/react";
 import { Button } from "@material-tailwind/react";
-import { fuelTypes } from "@/lib/data";
+import { colors, fuelTypes } from "@/lib/data";
+
+import { Select as Select2, OptGroup, InputNumber, Slider } from "antd";
 // import MultiRangeSlider from "../common/MultiRangeSlider/MultiRangeSlider";
 
 const CarFilter = () => {
@@ -52,11 +54,37 @@ const CarFilter = () => {
         setIsCollapsed(!isCollapsed);
     }
 
+    const marks = {
+        // 100: 'Mühərrik həcmi (minimum)',
+        // 10000: 'Mühərrik həcmi (maksimum)',
+        100: {
+            style: {
+                // color: '#f50',
+            },
+            label: <strong>Minimum</strong>,
+        },
+        10000: {
+            style: {
+                // color : "#f40"
+            },
+            label: <strong>Maksimum</strong>
+        }
+        // 26: '26°C',
+        // 37: '37°C',
+        // 100: {
+        //   style: {
+        //     color: '#f50',
+        //   },
+        //   label: <strong>100°C</strong>,
+        // },
+    };
+
 
 
 
     return (
         <div className="p-4 bg-neutral-50 rounded-lg shadow-md">
+
 
 
             <div className="flex justify-end mb-10">
@@ -71,28 +99,72 @@ const CarFilter = () => {
 
 
                 <div className="bir flex flex-row gap-2 ">
-                    <Select label="Marka" size="md" >
-                        {
-                            brands.map(brand => (
-                                <Option key={brand.id} value={brand.id}>{brand.name}</Option>
-                            ))
+
+                    <Select2
+                        showSearch
+                        placeholder="Marka"
+                        size="large"
+                        className="w-1/3 bg-slate-50"
+                        allowClear={true}
+                        // mode="multiple"
+                        // filterOption={(input, option) =>
+                        //     (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                        // }
+                        filterOption={(input, option) =>
+                            (typeof option?.label === 'string' && option?.label.toLowerCase().includes(input.toLowerCase()))
                         }
-                    </Select>
-                    <Select label="Model" size="md">
+                        // suffixIcon={<svg fill="#000000" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M620.6 562.3l36.2 36.2L512 743.3 367.2 598.5l36.2-36.2L512 670.9l108.6-108.6zM512 353.1l108.6 108.6 36.2-36.2L512 280.7 367.2 425.5l36.2 36.2L512 353.1z"></path></g></svg>}
+                        options={[
+                            {
+                                label: <span> Populyar </span>,
+                                title: 'Populyar',
+                                options: [
+                                    ...brands.filter(brand => brand.groupName == "popular").map(brand => ({
+                                        label: brand.name,
+                                        value: brand.id,
+                                    }))
+                                ]
+                            },
+                            {
+                                label: <span> Hamısı </span>,
+                                title: 'Hamısı',
+                                options: [
+                                    ...brands.filter(brand => brand.groupName == null).map(brand => ({
+                                        label: brand.name,
+                                        value: brand.id,
+                                    }))
+                                ]
+                            }
+                        ]}
+                        notFoundContent={<span>Nəticə yoxdur</span>} />
+
+                    <Select2 showSearch
+                        placeholder="Model"
+                        size="large"
+                        className="w-1/3 bg-transparent"
+                        // mode="multiple"
+                        // filterOption={(input, option) =>
+                        //     (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                        // }
+                        filterOption={(input, option) =>
+                            (typeof option?.label === 'string' && option?.label.toLowerCase().includes(input.toLowerCase()))
+                        }
+                        notFoundContent={<span>Nəticə yoxdur</span>} />
+
+                    {/* <Select2 label="Model" size="md">
                         <Option value="1">Model 1</Option>
                         <Option value="2">Model 2</Option>
-                        <Option value="3">Model 3</Option>
-                    </Select>
+                        <Option value="3">Model 3</Option> */}
 
                     <div className="flex flex-row">
-                        <Select size="md" label="Buraxlış ili(min)"
-                            value={filters.year} onChange={(value) => { setFilters({ ...filters, year: value }) }}>
-                            {
-                                years.map(year => (
-                                    <Option key={year} value={year}>{year}</Option>
-                                ))
-                            }
-                        </Select>
+                    
+                        <InputNumber placeholder="İl(min)" min={1960} max={2025}
+                            //   onChange={onChange} 
+                            changeOnWheel />
+                        <InputNumber placeholder="İl(max)" min={1960} max={2025} defaultValue={2025}
+                            //   onChange={onChange} 
+                            changeOnWheel />
+                        {/* 
                         <Select size="md" label="Buraxlış ili(max)"
                             value={filters.year} onChange={(value) => { setFilters({ ...filters, year: value }) }}>
                             {
@@ -100,59 +172,83 @@ const CarFilter = () => {
                                     <Option key={year} value={year}>{year}</Option>
                                 ))
                             }
-                        </Select>
+                        </Select> */}
                     </div>
                 </div>
 
 
-                <div className="mt-6 grid  grid-cols-3 gap-5">
-                    <Select size="md" label="Mühərrik həcmi (min)">
-                        {
-                            engineSize.map(size => (
-                                <Option key={size} value={size}>{size}</Option>
-                            ))
+                <div className="mt-6 flex items-center gap-2">
+                    {/* <Slider step={100} marks={marks} defaultValue={[0, 10000]} max={10000} tooltip={{ open: true }} /> */}
+                    <label className="block text-xs font-medium text-gray-700" htmlFor=""> Mühərrik həcmi L (min,max)</label>
+                    <InputNumber  min={0} max={10000}
+                        //   onChange={onChange} 
+                        changeOnWheel />
+                    <InputNumber  min={0} max={10000} defaultValue={10000}
+                        //   onChange={onChange} 
+                        changeOnWheel />
+               
+
+                    <Select2 placeholder="Şəhər"
+                        showSearch={true}
+                        size="large"
+                        className="bg-transparent"
+                        allowClear
+                        // mode="multiple"
+                        // filterOption={(input, option) =>
+                        //     (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                        // }
+                        filterOption={(input, option) =>
+                            (typeof option?.label === 'string' && option?.label.toLowerCase().includes(input.toLowerCase()))
                         }
-                    </Select>
-                    <Select size="md" label="Max">
-                        {
-                            engineSize.map(size => (
-                                <Option key={size} value={size}>{size}</Option>
-                            ))
-                        }
-                    </Select>
-                    <Select label="Şəhər" size="md">
-                        {
-                            cities.map(city => (
-                                <Option key={city.id} value={city.id}> {city.name}</Option>
-                            ))
-                        }
-                    </Select>
+                        options={cities.map(city => ({
+                            label: city.name,
+                            value: city.id,
+                        }))}
+                        notFoundContent={<span>Nəticə yoxdur</span>} />
 
                 </div>
-                <div className="my-5">
-                    <ButtonGroup variant="outlined" size="sm" color="teal" ripple={true} >
-                        {
-                            fuelTypes.map(fuel => (
-                                <Button onClick={() => setFilters({ ...filters, fuelType: fuel.value })}
-                                    className={` ${filters.fuelType === fuel.value ? "bg-teal-500 text-white" : "bg-white text-teal-500"}`}
-                                    key={fuel.value} value={fuel.value}>
-                                    {fuel.name}
-                                </Button>
-                            ))
+                <div className="my-5 flex gap-3">
+                    <Select2
+                        mode="multiple"
+                        placeholder="Yanacaq növü"
+                        className="w-1/4"
+                        allowClear
+                        options={
+                            fuelTypes.map(fuel => ({
+                                label: fuel.name,
+                                value: fuel.value,
+                            }))
                         }
-                    </ButtonGroup>
+                    />
+                    <Select2 mode="multiple"
+                        placeholder="Sürətlər qutusu"
+                        className="w-1/4"
+                        allowClear
+                        options={
+                            transmissionType.map(t => ({
+                                label: t.name,
+                                value: t.value
+                            }))
+                        }
+                    />
+                    <Select2 mode="multiple"
+                        placeholder="Rəng"
+                        className="w-1/4"
+                        allowClear
+                        options={
+                            colors.map(item => ({
+                                label: item.name,
+                                value: item.value
+                            }))
+                        } />
                 </div>
                 {/* <Price /> */}
                 {/* <Condition /> */}
                 <div>
-                    <Select label="Sürətlər qutusu" size="md">
-                        {
-                            transmissionType.map((type,index) => (
-                                <Option key={index} value={type.value}>{type.name}</Option>
-                            ))
-                        }
-                    </Select>
+
                 </div>
+
+                <label className="text-gray-600 mb-2 text-sm "  htmlFor="">Seçimlər</label>
                 <div className="flex flex-row flex-wrap gap-3 my-5 ">
                     {
                         carFeatures.map((feature, index) => (
