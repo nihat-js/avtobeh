@@ -36,3 +36,8 @@
 .snowflake:nth-child(3) { animation-duration: 8s; animation-delay: 2s; }
 .snowflake:nth-child(4) { animation-duration: 15s; animation-delay: 3s; }
 .snowflake:nth-child(5) { animation-duration: 11s; animation-delay: 4s; }
+
+
+.ant-select-selector {
+  background-color: transparent !important;
+}

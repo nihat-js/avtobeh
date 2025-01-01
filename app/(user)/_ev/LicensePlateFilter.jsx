@@ -4,6 +4,7 @@ import CustomSelect from "@/components/atoms/CustomSelect";
 import { years } from "@/config/data";
 import { useState } from "react";
 import { FiFilter } from "react-icons/fi"; // Importing filter icon from react-icons
+import { Input, Select } from "antd";
 // import CustomSelect from "../atoms/CustomSelect";
 // import { licensePlateRegions, years } from "@/config/data"; // Assuming we have some predefined license plate regions and years
 
@@ -66,41 +67,39 @@ const LicensePlateFilter = () => {
             <div className={`overflow-hidden transition-all duration-500 ease-in-out 
                 ${isCollapsed ? "h-0 opacity-0" : "h-auto opacity-100"}`}>
 
+
                 <div className="grid grid-cols-3 gap-4">
-                    {/* License Plate */}
-                    <div>
-                        <label htmlFor="licensePlate" className="text-sm">Plaka Nömrəsi</label>
-                        <input
-                            type="text"
-                            id="licensePlate"
-                            name="licensePlate"
-                            value={filters.licensePlate}
-                            onChange={handleChange}
-                            className="w-full px-4 py-2 border rounded-md"
-                            placeholder="Plaka nömrəsi"
-                        />
+
+                    <Input.OTP length={7} about="aaa" formatter={(str) => str.toUpperCase()} />
+                    <Select placeholder="Şəhər"
+                        showSearch={true}
+                        size="large"
+                        className="bg-transparent"
+                        allowClear
+                        // mode="multiple"
+                        // filterOption={(input, option) =>
+                        //     (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                        // }
+                        filterOption={(input, option) =>
+                            (typeof option?.label === 'string' && option?.label.toLowerCase().includes(input.toLowerCase()))
+                        }
+                        options={cities.map(city => ({
+                            label: city.name,
+                            value: city.id,
+                        }))}
+                        notFoundContent={<span>Nəticə yoxdur</span>} />
+
+
+
+
+
+
+                    <div className="flex justify-end mt-3">
+                        <button className="py-2 px-4 bg-red-600 text-white font-medium rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 flex items-center justify-center">
+                            <FiFilter size={18} className="mr-2" />
+                            Tətbiq et
+                        </button>
                     </div>
-
-                
-                    {/* City Filter */}
-                    <div>
-                        <label htmlFor="city" className="text-sm">Şəhər</label>
-                        <CustomSelect data={cities} valueField="id" textField="name" name="city" value={filters.city} onChange={handleChange} />
-                    </div>
-
-                    {/* Region Filter */}
-                    {/* <div>
-                        <label htmlFor="region" className="text-sm">Region</label>
-                        <CustomSelect data={regions} valueField="id" textField="name" name="region" value={filters.region} onChange={handleChange} />
-                    </div> */}
-                </div>
-
-                {/* Apply Filter Button */}
-                <div className="flex justify-end mt-3">
-                    <button className="py-2 px-4 bg-red-600 text-white font-medium rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 flex items-center justify-center">
-                        <FiFilter size={18} className="mr-2" />
-                        Tətbiq et
-                    </button>
                 </div>
             </div>
         </div>

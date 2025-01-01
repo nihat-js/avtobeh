@@ -1,49 +1,25 @@
-export const carModels = {
+export  const autoModels = {
     "Abarth": [
         "595",
         "124 Spider",
         "695"
     ],
-    "ABM": [
-        "911 Targa 4 GTS",
-        "Clipper",
-        "Volcan 150",
-        "C"
-    ],
-    "AC": [
-        "Cadillac Escalade",
-        "California Roadster",
-        "Hummer H3",
-        "Roadster E39",
-        "T Sport"
-    ],
+    // "ABM": [
+    //     "911 Targa 4 GTS",
+    //     "Clipper",
+    //     "Volcan 150",
+    //     "C"
+    // ],
+    // "AC": [
+    //     "Cadillac Escalade",
+    //     "California Roadster",
+    //     "Hummer H3",
+    //     "Roadster E39",
+    //     "T Sport"
+    // ],
     "ACURA": [
         "ARX-05",
-        "CL-X",
-        "ARX-01",
-        "ARX-02a",
-        "CDX",
-        "CL",
-        "CSX",
-        "EL",
-        "ILX",
-        "Integra",
-        "MDX",
-        "NSX",
-        "RDX",
-        "RL",
-        "RLX",
-        "RSX",
-        "SLX",
-        "TL",
-        "TLX",
-        "TSX",
-        "Vigor",
-        "ZDX",
-        "Venture",
-        "CA6100SH2",
-        "CA6350",
-        "Daily 35C12H"
+        "CL-X", "ARX-01", "ARX-02a", "CDX", "CL", "CSX", "EL", "ILX", "Integra", "MDX", "NSX", "RDX", "RL", "RLX", "RSX", "SLX", "TL", "TLX", "TSX", "Vigor", "ZDX", "Venture", "CA6100SH2", "CA6350", "Daily 35C12H"
     ],
     "Alfa Romeo": [
         "156", "Giulietta", "Mito", "Stelvio", "4C", "6C", "8C", "8C Competizione", "12C", "33", "33 Stradale, ALFA 40/60 HP", "75", "90", "105/115 Series Coupés", "145", "146", "147", "155", "159", "164", "166", "1750 Berlina", "1900", "2000", "2000 Berlina", "2000 GTV", "2000 Spider Veloce", "2000 Sportiva", "2300", "2600", "Alfa 6, Alfasud", "Alfasud", "Alfasud Sprint", "Alfetta, Alphasud", "AR6", "AR8", "Arna", "Brera and Spider", "Castello", "Dauphine", "G1", "Giulia", "Giulia TZ", "Giulietta Sprint Speciale", "Gran Sport Quattroruote", "GT", "GT 1300 Junior", "GTA", "GTV 20", "GTV and Spider", "Matta", "Montreal", "RL", "RM", "Romeo", "Spider", "Sprint", "SZ", "ALFA 15/20 HP", "ALFA 12 HP", "GTV"
@@ -55,39 +31,38 @@ export const carModels = {
     "AMC": [
         "Matador"
     ],
-    "Aprilia": [
-        "Dorsoduro 1200 ABS",
-        "Leonardo",
-        "RS 125",
-        "RSV4",
-        "SR 300 MAX",
-        "SR 50",
-        "Shiver 750 ABS"
-    ],
-    "Arctic Cat": [
-        "ATV XR550 LIMITED",
-        "Prowler 700",
-        "TRV 500",
-        "TRV 700 Limited EPS",
-        "WILDCAT 700 SPORT LIMITED",
-        "WILDCAT 700 TRAIL",
-        "XR 500",
-        "XR 550",
-        "XR 550 XT EPS",
-        "XR 700 XT EPS"
-    ],
-
-    argo: [
-        "HDI750",
-    ],
-    "ARO": [
-        "10",
-        "244",
-        "Spartana"
-    ],
-    "Arora": [
-        "AR100-62 Kartal"
-    ],
+    // "Aprilia": [
+    //     "Dorsoduro 1200 ABS",
+    //     "Leonardo",
+    //     "RS 125",
+    //     "RSV4",
+    //     "SR 300 MAX",
+    //     "SR 50",
+    //     "Shiver 750 ABS"
+    // ],
+    // "Arctic Cat": [
+    //     "ATV XR550 LIMITED",
+    //     "Prowler 700",
+    //     "TRV 500",
+    //     "TRV 700 Limited EPS",
+    //     "WILDCAT 700 SPORT LIMITED",
+    //     "WILDCAT 700 TRAIL",
+    //     "XR 500",
+    //     "XR 550",
+    //     "XR 550 XT EPS",
+    //     "XR 700 XT EPS"
+    // ],
+    // argo: [
+    //     "HDI750",
+    // ],
+    // "ARO": [
+    //     "10",
+    //     "244",
+    //     "Spartana"
+    // ],
+    // "Arora": [
+    //     "AR100-62 Kartal"
+    // ],
     "Ashok Leyland": [
         "Eagle 816"
     ],
@@ -325,7 +300,7 @@ export const carModels = {
     fiat: [
         "124 Spider", "131", "500", "500C", "500L", "500X", "600", "Albea", "Barchetta", "Brava", "Bravo", "Cinquecento", "Cordoba", "Coupe", "Croma", "Doblo", "Ducato", "Egea", "Fiorino", "Freemont", "Fullback", "Grande Punto", "Lancia", "Linea", "Marea", "Multipla", "Palio", "Panda", "Punto", "Qubo", "Scudo", "Sedici", "Seicento", "Siena", "Stilo", "Tempra", "Tipo", "Ulysse", "Uno",
     ],
-    foday =[
+    foday : [
         "NHQ"
     ],
     ford: [
@@ -384,7 +359,7 @@ export const carModels = {
         "GV80",
         "GV60",
     ],
-    geon =[
+    geon : [
         "Issen",
         "Tossa",
 
@@ -773,7 +748,7 @@ export const carModels = {
         { name: "SC 430", groupName: "SC" },
         { name: "UX 200", groupName: "UX" }
     ],
-    liebherr =[
+    liebherr :[
         "LT 1030"
     ],
     Lifan: [
@@ -1711,7 +1686,7 @@ export const carModels = {
         { name: "Wagon R", groupName: "Suzuki" },
         { name: "XL7", groupName: "Suzuki" },
     ],
-    Talbot =[
+    Talbot :[
         "1510", "Avenger", "Horizon", "Rancho", "Samba", "Solara", "Tagora",
     ],
 
@@ -1907,8 +1882,8 @@ export const carModels = {
         "MMZ 45023",
     ],
 
- 
- 
+
+
 
     zoomlion: [
         "10m3",
@@ -1930,8 +1905,6 @@ export const carModels = {
     // ],
 
 }
-
-
 
 
 
