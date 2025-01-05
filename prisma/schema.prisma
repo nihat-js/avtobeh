@@ -71,37 +71,86 @@ model City {
   @@index([name], map: "carId")
 }
 
-model Auto {
-  id                  Int         @id @default(autoincrement())
-  userId              String?     @db.VarChar(50)
-  slug                String      @db.VarChar(100)
-  brandId             Int?
-  brandName           String?     @db.VarChar(50)
-  modelId             Int?
-  price               Int?
-  modelName           String      @default("") @db.VarChar(50)
-  description         String?     @db.VarChar(50)
-  year                Int?
-  mileage             Int?
-  VIN                 String?     @db.VarChar(50)
-  fuelType            String?     @db.VarChar(50)
-  seatCount           Int?
-  color               String?     @db.VarChar(50)
-  gearbox             String?     @db.VarChar(50)
-  isUrgent            Int?
-  isWhatsappActive    Int?
-  is_original_mileage Int?        @db.TinyInt
-  createdAt           DateTime    @default(dbgenerated("(now())")) @db.Timestamp(0)
-  updatedAt           DateTime?   @db.Timestamp(0)
-  deletedAt           DateTime?   @db.Timestamp(0)
-  country             String?     @db.VarChar(50)
-  city                String?     @db.VarChar(50)
-  engineDisplacement  Int?
-  currency            String?     @db.VarChar(50)
-  AutoImage           AutoImage[]
+model AutoImage {
+  id        Int       @id @default(autoincrement())
+  carId     Int       @default(0)
+  rank      Int?
+  path      String?   @db.VarChar(250)
+  storage   String?   @db.VarChar(50)
+  createdAt DateTime? @default(dbgenerated("(now())")) @db.Timestamp(0)
+  updatedAt DateTime? @db.Timestamp(0)
+  Auto      auto      @relation(fields: [carId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_CarImage_Car")
+
+  @@index([carId], map: "carId")
 }
 
-model AutoBrand {
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model AutoFeature {
+  id Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model Color {
+  id      Int?
+  name    Int?
+  hexCode Int?
+
+  @@ignore
+}
+
+model auto {
+  id                Int                  @id @default(autoincrement())
+  userId            Int?
+  slug              String               @db.VarChar(100)
+  brandId           Int?
+  brandName         String?              @db.VarChar(50)
+  modelId           Int?
+  modelName         String               @default("") @db.VarChar(50)
+  year              Int?
+  mileage           Int?
+  horsePower        Int?
+  price             Int?
+  currency          auto_currency?       @default(AZN)
+  description       String?              @db.VarChar(50)
+  VIN               String?              @db.VarChar(50)
+  fuelTypeId        Int?
+  seatCount         Int?
+  colorId           Int?                 @db.TinyInt
+  transmissionType  String?              @db.VarChar(50)
+  isUrgent          Int?
+  isWhatsappActive  Int?
+  isOriginalMileage Int?                 @db.TinyInt
+  country           String?              @db.VarChar(20)
+  cityId            Int?                 @db.TinyInt
+  engineSize        Int?
+  hasCasgo          Int?                 @default(0) @db.TinyInt
+  barter            Int?                 @default(0) @db.TinyInt
+  viewsCount        Int?
+  createdAt         DateTime             @default(dbgenerated("(now())")) @db.Timestamp(0)
+  status            String?              @db.VarChar(50)
+  updatedAt         DateTime?            @db.Timestamp(0)
+  deletedAt         DateTime?            @db.Timestamp(0)
+  renewedAt         DateTime?            @db.Timestamp(0)
+  expiresAt         DateTime?            @db.Timestamp(0)
+  bodyStyleId       Int?                 @db.TinyInt
+  wheelDriveType    auto_wheelDriveType?
+  phoneNumber       String?              @db.VarChar(15)
+  email             String?              @db.VarChar(40)
+  AutoImage         AutoImage[]
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model autoBodyStyle {
+  id      Int?
+  name    Int?
+  name_az Int?
+
+  @@ignore
+}
+
+model autoBrand {
   id        Int       @id @default(autoincrement())
   name      String    @db.VarChar(255)
   slug      String    @db.VarChar(20)
@@ -114,27 +163,35 @@ model AutoBrand {
   createdAt DateTime? @default(dbgenerated("(now())")) @db.DateTime(0)
 }
 
-model AutoImage {
-  id        Int       @id @default(autoincrement())
-  carId     Int       @default(0)
-  rank      Int?
-  path      String?   @db.VarChar(250)
-  storage   String?   @db.VarChar(50)
-  createdAt DateTime? @default(dbgenerated("(now())")) @db.Timestamp(0)
-  updatedAt DateTime? @db.Timestamp(0)
-  Auto      Auto      @relation(fields: [carId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_CarImage_Car")
-
-  @@index([carId], map: "carId")
-}
-
-model AutoModel {
+model autoModel {
   id        Int     @id @default(autoincrement())
-  name      String
   brandId   Int
   brandName String  @default("") @db.VarChar(50)
+  name      String
   years     String?
   isVisible String?
   count     Int     @default(0)
   groupName String? @db.VarChar(50)
-  slug      String  @db.VarChar(20)
+  slug      String  @unique(map: "slug") @db.VarChar(20)
+}
+
+model autoTransmissionType {
+  id        Int       @id @default(autoincrement())
+  name      String    @db.VarChar(20)
+  nameAZ    String    @db.VarChar(20)
+  createdAt DateTime? @default(now()) @db.DateTime(0)
+  updatedAt DateTime? @default(now()) @db.DateTime(0)
+  deletedAt DateTime? @db.DateTime(0)
+}
+
+enum auto_currency {
+  AZN
+  USD
+  EUR
+}
+
+enum auto_wheelDriveType {
+  front
+  rear
+  full
 }

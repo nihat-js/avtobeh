@@ -1,9 +1,12 @@
-import { carColors, cylindersCount, seatsCount } from "@/config/data"
-import { fuelTypes } from "@/lib/data"
+import { carColors, cylindersCount, seatsCount } from "@/config/auto"
+import { colors, fuelTypes } from "@/lib/data"
 import { Button } from "@material-tailwind/react"
 import { Radio } from "@material-tailwind/react"
-import { Input } from "@material-tailwind/react"
+// import { Input } from "@material-tailwind/react"
 import { Select } from "@material-tailwind/react"
+
+import { Select as Select2, Input } from "antd"
+import Image from "next/image"
 
 export default function Step2({
     form,
@@ -13,45 +16,48 @@ export default function Step2({
 }) {
     return (
         <section>
-            <h4 className="text-2xl font-semibold text-gray-800 mt-6"> Digər Məlumatlar </h4>
+            <h4 className="text-2xl font-semibold text-gray-800 mb-5"> Digər Məlumatlar </h4>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-                <Select size="md" label="Rəng *"
-                    value={form.color} onChange={(value) => { setForm({ ...form, color: value }) }}
-                >
-                    {
-                        carColors.map(color => (
-                            <Option key={color.key} value={color.key}>{color.value}</Option>
-                        ))
+                <Select2 size="md" placeholder="Rəng *"
+                    onChange={(value) => { setForm({ ...form, color: value }) }}
+                    suffixIcon={
+                        <Image src="/icons/arrow-down-up.svg" width={12} height={12} alt="ox" />
                     }
-                </Select>
-                <Input label="At gücü (HP)" type="text" name="horsePower" value={form.horsePower} onChange={handleChange} />
-                <Select size="md" label="Silindr sayı" >
-                    {
-                        cylindersCount.map(c => (
-                            <Option key={c} value={c}>{c}</Option>
-                        ))
+                    options={
+                        colors.map(color => ({
+                            value: color.key,
+                            label: color.value
+                        }))
                     }
-                </Select>
-            </div>
-            <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6 ">
-                <Input label="VIN (Avtomobilin identifikasiya nömrəsi)" type="text" name="vin" value={form.vin} onChange={handleChange} />
-                <Select size="md" label="Oturacaq sayı" >
-                    {
-                        seatsCount.map(s => (
-                            <Option key={s} value={s}>{s}</Option>
-                        ))
+                />
+
+                <Input placeholder="At gücü (HP)" type="number" name="horsePower" onChange={handleChange} />
+                <Select2 size="md" placeholder="Silindr sayı"
+                    onChange={(value) => { setForm({ ...form, cylinders: value }) }}
+                    suffixIcon={
+                        <Image src="/icons/arrow-down-up.svg" width={12} height={12} alt="ox" />
                     }
-                </Select>
+                    options={
+                        cylindersCount.map(c => ({
+                            value: c,
+                            label: c
+                        }))
+                    }
+                />
+                <Input placeholder="VIN (Avtomobilin identifikasiya nömrəsi)" type="text" name="vin" onChange={handleChange} />
+                <Select2 size="md" placeholder="Oturacaq sayı"
+                    options={
+                        seatsCount.map(s => ({
+                            value: s,
+                            label: s
+                        }))
+                    }
+                />
+
             </div>
 
-            <div className="flex flex-row flex-wrap gap-1">
-                {
-                    fuelTypes.map(fuelType => (
-                        <Radio name="fuelType" label={fuelType.value} value={fuelType.key} form={form} handleChange={handleChange} />
-                    ))
-                }
-            </div>
-            <div className="flex">
+
+            <div className="flex mt-5 gap-3">
                 <Button onClick={() => setActiveStep(0)}  >
                     Geri
                 </Button>

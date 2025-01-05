@@ -1,8 +1,8 @@
-import Snowfall from "@/components/common/Snowfall";
+import Snowfall from "@/app/components/common/Snowfall";
 import "../../styles/globals.css"
 
-import Footer from '@/components/user/Footer';
-import Header from '@/components/user/Header.jsx';
+import Footer from '@/app/components/user/Footer';
+import Header from '@/app/components/user/Header.jsx';
 import { GlobalProvider } from "@/lib/GlobalContext";
 import prisma from "@/prisma";
 import { AuthProvider } from "@/lib/AuthContext";
@@ -25,7 +25,7 @@ export const metadata = {
 async function Layout({ children }) {
   // const cache = new NodeCache({ stdTTL: 3600 });
   const cities = await prisma.city.findMany()
-  let brands = await prisma.carBrand.findMany({
+  let brands = await prisma.autoBrand.findMany({
     orderBy: [
       {
         rank: 'desc',
@@ -35,7 +35,7 @@ async function Layout({ children }) {
       },
     ],
   });
-  console.log(brands)
+  // console.log(brands)
   let cookies_ = await cookies()
 
   const token = cookies_.get('token')?.value

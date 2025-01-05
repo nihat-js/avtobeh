@@ -1,8 +1,11 @@
 import { Checkbox } from "@material-tailwind/react";
 import { Typography } from "@material-tailwind/react";
-import { carFeatures } from "@/config/data";
+import { autoFEatures2, carFeatures } from "@/config/auto";
 import { Textarea } from "@material-tailwind/react";
 import Image from "next/image";
+import { InputNumber } from "antd";
+import { autoFeatures1 } from "../../../config/auto";
+import {Select} from "antd"
 export default function Step3({
     form,
     setForm,
@@ -16,8 +19,20 @@ export default function Step3({
 }) {
 
 
-    console.log(carFeatures)
-
+    const selectBefore = (
+        <Select defaultValue="add" style={{ width: 60 }}>
+            <Option value="add">+</Option>
+            <Option value="minus">-</Option>
+        </Select>
+    );
+    const selectAfter = (
+        <Select defaultValue="USD" style={{ width: 60 }}>
+            <Option value="USD">$</Option>
+            <Option value="EUR">€</Option>
+            <Option value="GBP">£</Option>
+            <Option value="CNY">¥</Option>
+        </Select>
+    );
 
 
 
@@ -27,7 +42,7 @@ export default function Step3({
 
             <div className="flex flex-row flex-wrap gap-2">
                 {
-                    carFeatures.map(carFeature => (
+                    autoFeatures1.map(carFeature => (
                         <Checkbox color="purple" name="carFeature" label={carFeature.value} value={carFeature.key} form={form} handleChange={handleChange} />
                     ))
                 }
@@ -50,7 +65,6 @@ export default function Step3({
 
 
             <h4 className="text-2xl font-semibold text-gray-800 mt-6"> Qeyd </h4>
-            <Textarea label="Sərfiyyat" value={form.description} onChange={handleChange} />
             <div>
                 <Textarea
                     id="description"
@@ -58,12 +72,23 @@ export default function Step3({
                     value={form.description}
                     onChange={handleChange}
                     rows="4"
-                    label="Təkərlərin vəziyyəti, Salonun veziyyeti, xususi ozellikleri :"
+                    label="Sərfiyyat, Təkərlərin vəziyyəti, Salonun veziyyeti, xüsusiyyətlər :"
                 />
             </div>
             {/* <Price value={form.price} onChange={handleChange} /> */}
             <div>
             </div>
+            <InputNumber addonAfter={selectAfter} defaultValue={100} />
+            {
+                autoFeatures2.map(feature => {
+                    return (
+                        <div className="flex flex-row flex-wrap gap-2">
+                            <Checkbox color="purple" name="carFeature" label={feature.value} value={feature.key} form={form} handleChange={handleChange} />
+                        </div>
+                    )
+                })
+            }
+
 
             <input type="file" id="images" className="hidden" onChange={handleImageChange} />
             <div className="grid grid-cols-5 gap-2">

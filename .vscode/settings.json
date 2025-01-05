@@ -6,30 +6,12 @@
     "**/CVS": true,
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
-    "vercel.json": true,
-    "drizzle.config.js": true,
     "next-env.d.ts": true,
-    ".gitignore": true,
-    "README.md": true,
-    "pnpm-lock.yaml": true,
-    "jsconfig.json": true,
-    "package-lock.json": true,
-    "node_modules": true,
-    ".next": true,
     ".vscode": true
   },
   "hide-files.files": [
-    "vercel.json",
-    "drizzle.config.js",
-    "next-env.d.ts",
-    ".gitignore",
-    "README.md",
-    "pnpm-lock.yaml",
-    "jsconfig.json",
-    "package-lock.json",
-    "node_modules",
-    ".next",
     ".vscode"
   ],
-  "typescript.tsdk": "node_modules\\typescript\\lib"
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "explorer.excludeGitIgnore": false
 }

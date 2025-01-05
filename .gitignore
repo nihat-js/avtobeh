@@ -2,7 +2,7 @@
 
 # dependencies
 temporary-uploads
-/node_modules
+node_modules
 /.pnp
 .pnp.*
 .yarn/*
@@ -11,11 +11,14 @@ temporary-uploads
 !.yarn/releases
 !.yarn/versions
 
+.idea
+environment.js
+
 # testing
 /coverage
 
 # next.js
-/.next/
+.next/
 /out/
 
 # production

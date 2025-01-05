@@ -1,3 +1,4 @@
+import { colors } from "../config/auto.js";
 import { autoModels } from "../config/autoModels.js"
 import prisma from "./index.js";
 
@@ -60,6 +61,22 @@ async function importModels() {
     }
 }
 
-importModels()
+async function importColors() {
+    let insertData = colors.map(item => {
+        return {
+            name: item,
+            slug: item.replace(/\s+/g, '-').toLowerCase(),
+        }
+    })
+    await prisma.color.createMany({
+        data: insertData,
+        skipDuplicates: true
+    })
+
+}
+
+
+// importModels()
+importColors()
 
 

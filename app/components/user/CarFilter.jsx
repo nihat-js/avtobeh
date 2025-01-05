@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { FiFilter } from "react-icons/fi"; // Importing filter icon from react-icons
 import CustomSelect from "../atoms/CustomSelect";
-import { carFeatures, cylindersCount, engineSize, transmissionType, vehicleTypes, years } from "@/config/data";
+import { carFeatures, cylindersCount, engineSize, transmissionType, vehicleTypes, years } from "@/config/auto";
 import Colors from "./CarFilter/Colors";
 import Price from "./CarFilter/Price";
 import Condition from "./CarFilter/Condition";

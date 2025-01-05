@@ -1,5 +1,5 @@
 "use client"
-import Announcement from '@/components/user/Announcement';
+import Announcement from '../components/user/Announcement';
 import { useState, useEffect } from 'react'
 import FilterHeader from './FilterHeader';
 import Banner from '@/components/common/Banner';
