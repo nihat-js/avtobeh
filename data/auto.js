@@ -37,7 +37,7 @@ export const autoEngineSizes = new Array(100).fill(1).map((item, index) => {
     return parseFloat(((index + 1) * .1).toFixed(1))
 })
 
-export const autoFeatures1 = [
+export const autoFeatures = [
     { id: 1, name : "Start/Stop", nameRu: "Start/Stop"  },
     { id: 2, name : "Uzaqdan start/stop", nameRu: "Uzaqdan start/stop"  },
     { id: 3, name : "Apple carplay", nameRu: "Apple carplay"  },

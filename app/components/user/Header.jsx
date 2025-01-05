@@ -95,8 +95,8 @@ const Header = () => {
       <div className="mx-auto flex items-center justify-between py-2" style={{ maxWidth: "1000px" }}>
 
         <Link href="/" className="text-2xl font-bold ">
-          <div className="text-2xl font-bold ">
-            <Image src="/icons/logo.png" width={100} height={50} alt="Logo" />
+          <div className=" ">
+            <Image src="/icons/logo.png" width={100} height={50} alt="Logo"  />
             {/* <Link href="/">AvtoBeh</Link> */}
           </div>
         </Link>

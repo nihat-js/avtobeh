@@ -1,4 +1,4 @@
-import { autoBodyStyles, autoEngineSizes, fuelTypes, transmissionType,  wheelDriveType, wheelDriveTypes, years } from "@/data/auto"
+import { autoBodyStyles, autoEngineSizes, fuelTypes, transmissionType, wheelDriveType, wheelDriveTypes, years } from "@/data/auto"
 import { useGlobalContext } from "@/lib/GlobalContext"
 import { Button } from "@material-tailwind/react"
 import { Option, Select } from "@material-tailwind/react"
@@ -7,51 +7,29 @@ import { InputNumber, Select as Select2 } from "antd"
 import axios from "axios"
 import Image from "next/image"
 
-export default function Step1({ form, setForm,
-	setActiveStep,
-}) {
+export default function Step1({ form, setForm, setActiveStep}) {
 
 	const [models, setModels] = useState([])
 	const { brands } = useGlobalContext()
 
-	const [componentsState, setComponentsState] = useState({
-		// brand: false,
-		model: false,
-		// year: false,
-		// bodyType: false,
-		// engineSize: false,
-		// transmissionType: false,
-		nextButton: false
-	})
-
-	async function validateComponentState() {
-		// let state = componentsState
-		// state.nextButton = validateEnabled()
-		// setComponentsState(state)
-		if (form.brand && form.model && form.year && form.bodyType && form.engineSize && form.transmissionType) {
-			setComponentsState({ ...componentsState, nextButton: true })
-		} else {
-			setComponentsState({ ...componentsState, nextButton: false })
-		}
-	}
-
 	async function onBrandChange(value) {
-		console.log({ value })
-		setComponentsState({ ...componentsState, model: "loading" })
+		// console.log({ value })
+		// setComponentsState({ ...componentsState, model: "loading" })
 		let res = await axios.post(`/api/car-models/${value}`)
 		setForm({ ...form, brand: value })
 		setModels(res.data.data)
-		setComponentsState({ ...componentsState, model: true })
+		// setComponentsState({ ...componentsState, model: true })
 		// validateEnabled()
 		// console.log({ form })
 	}
 
 	async function goNextStep() {
+		console.log({form})
 		if (
 			form.brand && form.model && form.year && form.bodyType && form.engineSize && form.transmissionType && form.wheelDriveType) {
 			setActiveStep(1)
 		} else {
-			alert("Məlumatların tam olması lazım")
+			alert("Məlumatların tam olması lazımdır")
 		}
 	}
 
@@ -59,7 +37,7 @@ export default function Step1({ form, setForm,
 	return (
 		<section>
 
-			<h4 className="text-2xl font-semibold text-gray-800 mb-4"> Ümumi məlumatlar </h4>
+			{/* <h4 className="text-2xl font-semibold text-gray-800 mb-4"> Ümumi məlumatlar </h4> */}
 			<div className="grid sm:grid-cols-3 md:grid-cols-3 gap-6">
 				<Select2
 					showSearch
@@ -102,7 +80,7 @@ export default function Step1({ form, setForm,
 
 				<Select2 size="middle" placeholder="Model  *"
 					disabled={models.length == 0}
-					loading={componentsState.model == "loading"}
+					// loading={componentsState.model == "loading"}
 					onChange={(value) => { setForm({ ...form, model: value }) }}
 					suffixIcon={
 						<Image src="/icons/arrow-down-up.svg" width={12} height={12} alt="ox" />
@@ -113,7 +91,7 @@ export default function Step1({ form, setForm,
 					}))}
 				/>
 
-				<InputNumber placeholder="İli * (məsələn: 2020)" value={form.year} onChange={(value) => { setForm({ ...form, year: value }) }}
+				<InputNumber placeholder="İli * (məsələn: 2020)" onChange={(value) => { setForm({ ...form, year: value }) }}
 					style={{ width: '100%' }}
 					min={1960} max={2025} />
 				<Select2 size="middle" placeholder="BAN (Kuza növü) *"
@@ -139,31 +117,31 @@ export default function Step1({ form, setForm,
 					}
 				/>
 				<Select2
-					// mode="multiple"
-					placeholder="Sürətlər qutusu"
+					size="middle" placeholder="Sürətlər qutusu"
 					onChange={(value) => { setForm({ ...form, transmissionType: value }) }}
 					className="w-full"
-					allowClear
+
 					suffixIcon={
 						<Image src="/icons/arrow-down-up.svg" width={12} height={12} alt="ox" />
 					}
 					options={
 						transmissionType.map(t => ({
 							label: t.name,
-							value: t.value
+							value: t.id
 						}))
 					}
 				/>
 
 
-				<Select2 siz="middle" placeholder="Yanacaq tipi"
+				<Select2 size="middle" placeholder="Yanacaq tipi"
 					suffixIcon={
 						<Image src="/icons/arrow-down-up.svg" width={12} height={12} alt="ox" />
 					}
+					onChange={(value) => { setForm({ ...form, fuelType: value }) }}
 					options={
 						fuelTypes.map(f => ({
 							label: f.name,
-							value: f.value
+							value: f.id
 						}))
 					}
 				/>
@@ -173,8 +151,8 @@ export default function Step1({ form, setForm,
 					}
 					onChange={(value) => { setForm({ ...form, wheelDriveType: value }) }}
 					options={wheelDriveTypes.map(w => ({
+						value: w.id,
 						label: w.name,
-						value: w.value
 					}))}
 				/>
 
@@ -183,15 +161,43 @@ export default function Step1({ form, setForm,
 
 			<div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 mt-4">
 				<div className="flex gap-2 items-center">
-					<Button disabled={true}>
+					{/* <button className="bg-blue-500 text-white font-semibold py-2 px-4 rounded transition-colors duration-300 hover:bg-green-500">
+						Next
+					</button> */}
+					<div className="w-full flex justify-between mt-8 gap-5">
+						<button disabled
+							className="group relative overflow-hidden rounded-md bg-secondary px-4 py-2 text-xs font-medium text-green-600 transition-all duration-150 hover:border-green-500 active:scale-95 w-full">
+							<span className="absolute bottom-0 left-0 z-0 h-0 w-full bg-gradient-to-t from-green-700 to-green-500 transition-all duration-500 group-hover:h-full"></span>
+							<span className="relative z-10 transition-all duration-500 group-hover:text-white w-full flex justify-center">
+								<div className="flex flex-col items-center">
+									<p>Geri</p>
+								</div>
+							</span>
+						</button>
+
+						<button className="group relative overflow-hidden rounded-md bg-secondary px-4 py-2 text-xs font-medium text-blue-600 transition-all duration-150 hover:border-blue-500 active:scale-95 w-full"
+							onClick={goNextStep}
+						>
+							<span className="absolute bottom-0 left-0 z-0 h-0 w-full bg-gradient-to-t from-blue-700 to-blue-500 transition-all duration-500 group-hover:h-full"></span>
+							<span className="relative z-10 transition-all duration-500 group-hover:text-white w-full flex justify-center">
+								<div className="flex flex-col items-center">
+									<p>İrəli</p>
+								</div>
+							</span>
+						</button>
+					</div>
+
+
+
+					{/* <Button color="red" disabled={true}>
 						Geri
 					</Button>
 					<Button onClick={goNextStep} >
 						İrəli
-					</Button>
+					</Button> */}
 				</div>
 
 			</div>
-		</section>
+		</section >
 	)
 }

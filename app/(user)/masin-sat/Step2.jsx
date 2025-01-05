@@ -16,7 +16,7 @@ export default function Step2({
 }) {
     return (
         <section>
-            <h4 className="text-2xl font-semibold text-gray-800 mb-5"> Digər Məlumatlar </h4>
+            {/* <h4 className="text-2xl font-semibold text-gray-800 mb-5"> Digər Məlumatlar </h4> */}
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
                 <Select2 size="md" placeholder="Rəng *"
                     onChange={(value) => { setForm({ ...form, color: value }) }}

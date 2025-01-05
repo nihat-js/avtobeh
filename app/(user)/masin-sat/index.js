@@ -24,6 +24,7 @@ import { DefaultStepper } from "./components/DefaultStepper";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
+import { Steps } from "antd";
 
 
 
@@ -63,7 +64,7 @@ export default function Index() {
   });
   const [models, setModels] = useState([]);
 
-  const [activeStep, setActiveStep] = useState(0)
+  const [activeStep, setActiveStep] = useState(2)
   const [uploadedImages, setUploadedImages] = useState([])
 
 
@@ -140,33 +141,56 @@ export default function Index() {
     <div className="max-w-4xl mx-auto p-8 bg-gray-50 shadow-lg rounded-xl">
       <h1 className="text-4xl font-extrabold text-center text-orange-600 mb-6">Maşınınızı Satın</h1>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="">
 
+        <div>
+          <Steps
+            direction="horizontal"
+            current={activeStep}
+            items={[
+              {
+                title: 'Əsas məlumatlar',
+                // description,
+              },
+              {
+                title: 'Digər məlumatlar',
+                // description,
+              },
+              {
+                title: 'Əlaqə məlumatları',
+                // description,
+              },
+            ]}
+          />
 
-        <DefaultStepper activeStep={activeStep} setActiveStep={setActiveStep} />
+        </div>
 
-        {
-          activeStep == 0 && <>
-            <Step1 setActiveStep={setActiveStep} form={form} setForm={setForm} handleChange={handleChange} />
-          </>
-        }
-        {
-          activeStep == 1 && <>
-            <Step2 setActiveStep={setActiveStep} form={form} setForm={setForm} />
-          </>
-        }
+        <div className="mt-16">
 
-        {
-          activeStep == 2 && <>
-            <Step3 setActiveStep={setActiveStep} form={form} setForm={setForm} handleImageChange={handleImageChange}
-              uploadedImages={uploadedImages}
-              removeImage={removeImage}
-              // rotateImage={rotateImage}
-              handleAddImage={handleAddImage}
-              handleSubmit={handleSubmit}
-              handleChange={handleChange} />
-          </>
-        }
+          {
+            activeStep == 0 && <>
+              <Step1 setActiveStep={setActiveStep} form={form} setForm={setForm} handleChange={handleChange} />
+            </>
+          }
+          {
+            activeStep == 1 && <>
+              <Step2 setActiveStep={setActiveStep} form={form} setForm={setForm} />
+            </>
+          }
+
+          {
+            activeStep == 2 && <>
+              <Step3 setActiveStep={setActiveStep} form={form} setForm={setForm} handleImageChange={handleImageChange}
+                uploadedImages={uploadedImages}
+                removeImage={removeImage}
+                // rotateImage={rotateImage}
+                handleAddImage={handleAddImage}
+                handleSubmit={handleSubmit}
+                handleChange={handleChange} />
+            </>
+          }
+        </div>
+
 
       </form>
     </div>
