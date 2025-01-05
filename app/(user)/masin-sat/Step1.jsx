@@ -1,4 +1,4 @@
-import { autoEngineSizes, transmissionType, vehicleTypes, wheelDriveType, years } from "@/config/auto"
+import { autoEngineSizes, transmissionType, vehicleTypes, wheelDriveType, years } from "@/data/auto"
 import { useGlobalContext } from "@/lib/GlobalContext"
 import { Button } from "@material-tailwind/react"
 import { Option, Select } from "@material-tailwind/react"
@@ -6,7 +6,6 @@ import { useState } from "react"
 import { InputNumber, Select as Select2 } from "antd"
 import axios from "axios"
 import Image from "next/image"
-import { fuelTypes } from "@/lib/data"
 
 export default function Step1({ form, setForm,
 	setActiveStep,

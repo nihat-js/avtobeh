@@ -4,11 +4,13 @@ import "../../styles/globals.css"
 import Footer from '@/app/components/user/Footer';
 import Header from '@/app/components/user/Header.jsx';
 import { GlobalProvider } from "@/lib/GlobalContext";
-import prisma from "@/prisma";
+// import prisma from "@/prisma";
 import { AuthProvider } from "@/lib/AuthContext";
 import { cookies } from "next/headers";
 import jwt from 'jsonwebtoken';
 import { AntdRegistry } from "@ant-design/nextjs-registry";
+import AutoBrand from "@/database/sequelize/models/AutoBrand";
+import City from "@/database/sequelize/models/City";
 // import Header from './Header.jsx';
 // import Footer from './Footer.jsx';
 // import { useEffect, useState } from 'react';
@@ -24,23 +26,28 @@ export const metadata = {
 
 async function Layout({ children }) {
   // const cache = new NodeCache({ stdTTL: 3600 });
-  const cities = await prisma.city.findMany()
-  let brands = await prisma.autoBrand.findMany({
-    orderBy: [
-      {
-        rank: 'desc',
-      },
-      {
-        name: 'asc',
-      },
-    ],
-  });
+  // const cities = await prisma.city.findMany()
+  // let brands = await prisma.autoBrand.findMany({
+  //   orderBy: [
+  //     {
+  //       rank: 'desc',
+  //     },
+  //     {
+  //       name: 'asc',
+  //     },
+  //   ],
+  // });
   // console.log(brands)
   let cookies_ = await cookies()
-
   const token = cookies_.get('token')?.value
-  const secret = process.env.JWT_SECRET || "your-secret-key";
 
+  let brands = await AutoBrand.findAll({})
+  let cities = await City.findAll()
+
+  brands = JSON.parse(JSON.stringify(brands))
+  cities = JSON.parse(JSON.stringify(cities))
+  
+  const secret = process.env.JWT_SECRET || "your-secret-key";
   //  brands = brands.sort((a, b) => {
   //   if (a.groupName === 'popular' && b.groupName !== 'popular') return -1;
   //   if (a.groupName !== 'popular' && b.groupName === 'popular') return 1;
@@ -53,17 +60,18 @@ async function Layout({ children }) {
   if (token) {
     try {
       const decoded = jwt.verify(token, secret);
+      user = null
       // user = decoded;
-      user = await prisma.user.findUnique({
-        where: {
-          id: decoded.userId,
-        },
-        select: {
-          id: true,
-          name: true,
-          email: true
-        }
-      });
+      // user = await prisma.user.findUnique({
+      //   where: {
+      //     id: decoded.userId,
+      //   },
+      //   select: {
+      //     id: true,
+      //     name: true,
+      //     email: true
+      //   }
+      // });
     } catch (error) {
       user = null;
     }

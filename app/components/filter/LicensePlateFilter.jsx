@@ -1,7 +1,7 @@
 'use client'; // Ensure this component is rendered on the client side
 
-import CustomSelect from "@/components/atoms/CustomSelect";
-import { years } from "@/config/auto";
+// `import CustomSelect from "@/components/atoms/CustomSelect";
+import { years } from "@/data/auto";
 import { useState } from "react";
 import { FiFilter } from "react-icons/fi"; // Importing filter icon from react-icons
 import { Input, Select } from "antd";

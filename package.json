@@ -7,10 +7,12 @@
     "dbpull": "npx prisma db pull && npx prisma generate",
     "deploy": "git pull origin main && pnpm install && next build && npx prisma generate && next-sitemap && pm2 restart avtobeh"
   },
+  "type": "module",
   "dependencies": {
     "@ant-design/nextjs-registry": "^1.0.2",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@material-tailwind/react": "^2.1.10",
     "antd": "^5.22.7",
     "axios": "^1.7.9",
     "bcryptjs": "^2.4.3",
@@ -24,6 +26,7 @@
     "postcss": "^8.4.49",
     "react": "^19.0.0-rc.1",
     "react-dom": "^19.0.0-rc.1",
+    "react-icons": "^5.4.0",
     "sequelize": "^6.37.5",
     "sequelize-auto": "^0.8.8",
     "sharp": "^0.33.5",

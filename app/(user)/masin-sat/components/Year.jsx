@@ -1,4 +1,4 @@
-import { years } from '@/config/auto'
+import { years } from '@/data/auto'
 import React from 'react'
 
 export default function Year({handleChange,value}) {

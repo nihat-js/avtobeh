@@ -1,11 +1,12 @@
 "use client"
 import Announcement from '../components/user/Announcement';
 import { useState, useEffect } from 'react'
-import FilterHeader from './FilterHeader';
-import Banner from '@/components/common/Banner';
-import CarFilter from '@/components/user/CarFilter';
-import CarCard from '@/components/common/CarCard';
-import LicensePlateFilter from './LicensePlateFilter';
+import FilterHeader from '../components/filter/FilterHeader';
+// import Banner from '@/components/common/Banner';
+// import CarFilter from '@/components/user/CarFilter';
+// import CarCard from '@/components/common/CarCard';
+
+import LicensePlateFilter from '../components/filter/LicensePlateFilter';
 import { CardBody, CardFooter, Tab, TabPanel, TabsBody, TabsHeader } from '@material-tailwind/react';
 import { Card } from '@material-tailwind/react';
 import { Typography } from '@material-tailwind/react';
@@ -16,18 +17,20 @@ import { Checkbox } from '@material-tailwind/react';
 import { Tabs } from '@material-tailwind/react';
 import Image from 'next/image';
 import Link from 'next/link';
-export function Client({ cars: cars_, brands, cities }) {
+import Banner from '../components/common/Banner';
+import CarFilter from '../components/user/CarFilter';
+import CarCard from '../components/common/CarCard';
+export function Client({ autos: autos_, }) {
 
-  const [cars, setCars] = useState(cars_)
+  const [autos, setAutos] = useState(autos_)
 
   useEffect(() => {
-    setCars([
-      ...cars,
-      ...cars_,
-      ...cars,
-      ...cars,
-      ...cars,
-      ...cars,
+    setAutos([
+      ...autos,
+      ...autos,
+      ...autos,
+      ...autos,
+      ...autos,
     ])
   }, [])
 
@@ -76,8 +79,8 @@ export function Client({ cars: cars_, brands, cities }) {
 
         <section className="container mx-auto px-4" >
           <div className="grid sm:grid-cols-2 md:grid-cols-2  lg:grid-cols-4 gap-4">
-            {cars.map((car, index) => (
-              <CarCard key={index} car={car} />
+            {autos.map((auto, index) => (
+              <CarCard key={index} car={auto} />
             ))}
           </div>
         </section>

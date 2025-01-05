@@ -3,15 +3,15 @@
 import { useState } from "react";
 import { FiFilter } from "react-icons/fi"; // Importing filter icon from react-icons
 import CustomSelect from "../atoms/CustomSelect";
-import { carFeatures, cylindersCount, engineSize, transmissionType, vehicleTypes, years } from "@/config/auto";
-import Colors from "./CarFilter/Colors";
+import { carFeatures, cylindersCount, engineSize, transmissionType, vehicleTypes, years } from "@/data/auto";
+// import Colors from "./CarFilter/Colors";
 import Price from "./CarFilter/Price";
 import Condition from "./CarFilter/Condition";
 import { Option, Select } from "@material-tailwind/react";
 import { useGlobalContext } from "@/lib/GlobalContext";
 import { ButtonGroup } from "@material-tailwind/react";
 import { Button } from "@material-tailwind/react";
-import { colors, fuelTypes } from "@/lib/data";
+// import { colors, fuelTypes } from "@/lib/data";
 
 import { Select as Select2, OptGroup, InputNumber, Slider } from "antd";
 // import MultiRangeSlider from "../common/MultiRangeSlider/MultiRangeSlider";
@@ -119,7 +119,7 @@ const CarFilter = () => {
                                 label: <span> Populyar </span>,
                                 title: 'Populyar',
                                 options: [
-                                    ...brands.filter(brand => brand.groupName == "popular").map(brand => ({
+                                    ...brands?.filter(brand => brand.groupName == "popular").map(brand => ({
                                         label: brand.name,
                                         value: brand.id,
                                     }))
@@ -129,7 +129,7 @@ const CarFilter = () => {
                                 label: <span> Hamısı </span>,
                                 title: 'Hamısı',
                                 options: [
-                                    ...brands.filter(brand => brand.groupName == null).map(brand => ({
+                                    ...brands?.filter(brand => brand.groupName == null).map(brand => ({
                                         label: brand.name,
                                         value: brand.id,
                                     }))
@@ -200,7 +200,7 @@ const CarFilter = () => {
                         filterOption={(input, option) =>
                             (typeof option?.label === 'string' && option?.label.toLowerCase().includes(input.toLowerCase()))
                         }
-                        options={cities.map(city => ({
+                        options={cities?.map(city => ({
                             label: city.name,
                             value: city.id,
                         }))}
@@ -214,7 +214,7 @@ const CarFilter = () => {
                         className="w-1/4"
                         allowClear
                         options={
-                            fuelTypes.map(fuel => ({
+                            [].map(fuel => ({
                                 label: fuel.name,
                                 value: fuel.value,
                             }))
@@ -236,7 +236,7 @@ const CarFilter = () => {
                         className="w-1/4"
                         allowClear
                         options={
-                            colors.map(item => ({
+                            [].map(item => ({
                                 label: item.name,
                                 value: item.value
                             }))
@@ -251,7 +251,7 @@ const CarFilter = () => {
                 <label className="text-gray-600 mb-2 text-sm "  htmlFor="">Seçimlər</label>
                 <div className="flex flex-row flex-wrap gap-3 my-5 ">
                     {
-                        carFeatures.map((feature, index) => (
+                        [].map((feature, index) => (
                             <div key={index} className="flex gap-2  ">
                                 <input type="checkbox" id={feature.value} value={feature.value} />
                                 <label htmlFor={feature.value} className="text-sm text-gray-500" >{feature.key}  </label>

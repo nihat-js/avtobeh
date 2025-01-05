@@ -1,5 +1,5 @@
-import { carColors, cylindersCount, seatsCount } from "@/config/auto"
-import { colors, fuelTypes } from "@/lib/data"
+import { carColors, cylindersCount, seatsCount } from "@/data/auto"
+// import { colors, } from "@/lib/data"
 import { Button } from "@material-tailwind/react"
 import { Radio } from "@material-tailwind/react"
 // import { Input } from "@material-tailwind/react"

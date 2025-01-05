@@ -1,10 +1,10 @@
 import { Checkbox } from "@material-tailwind/react";
 import { Typography } from "@material-tailwind/react";
-import { autoFEatures2, carFeatures } from "@/config/auto";
+import { autoFEatures2, carFeatures } from "@/data/auto";
 import { Textarea } from "@material-tailwind/react";
 import Image from "next/image";
 import { InputNumber } from "antd";
-import { autoFeatures1 } from "../../../config/auto";
+import { autoFeatures1 } from "../../../data/auto";
 import {Select} from "antd"
 export default function Step3({
     form,
