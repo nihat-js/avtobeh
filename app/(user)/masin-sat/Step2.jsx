@@ -1,4 +1,4 @@
-import { carColors, cylindersCount, seatsCount } from "@/data/auto"
+import { carColors, colors, cylindersCount, seatsCount } from "@/data/auto"
 // import { colors, } from "@/lib/data"
 import { Button } from "@material-tailwind/react"
 import { Radio } from "@material-tailwind/react"
@@ -25,8 +25,8 @@ export default function Step2({
                     }
                     options={
                         colors.map(color => ({
-                            value: color.key,
-                            label: color.value
+                            value: color.id,   
+                            label: color.name
                         }))
                     }
                 />

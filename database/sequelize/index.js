@@ -22,6 +22,10 @@ import City from "./models/City.js";
 // })
 
 
+async function importFuelTypes(){
+  fuelType
+}
+
 
 async function run(){
   // User.findAll({

@@ -1,4 +1,4 @@
-import { autoEngineSizes, transmissionType, vehicleTypes, wheelDriveType, years } from "@/data/auto"
+import { autoBodyStyles, autoEngineSizes, fuelTypes, transmissionType,  wheelDriveType, wheelDriveTypes, years } from "@/data/auto"
 import { useGlobalContext } from "@/lib/GlobalContext"
 import { Button } from "@material-tailwind/react"
 import { Option, Select } from "@material-tailwind/react"
@@ -122,9 +122,9 @@ export default function Step1({ form, setForm,
 					}
 					onChange={(value) => { setForm({ ...form, bodyType: value }) }}
 					options={
-						vehicleTypes.map(vehicleType => ({
-							label: vehicleType.value,
-							value: vehicleType.key,
+						autoBodyStyles.map(type => ({
+							label: type.name,
+							value: type.id,
 						}))
 					}
 				/>
@@ -132,7 +132,7 @@ export default function Step1({ form, setForm,
 				<Select2 size="middle" placeholder="Mühərrik həcmi *"
 					onChange={(value) => { setForm({ ...form, engineSize: value }) }}
 					options={
-						engineSize.map(c => ({
+						autoEngineSizes.map(c => ({
 							label: `${c} L`,
 							value: c,
 						}))
@@ -172,7 +172,7 @@ export default function Step1({ form, setForm,
 						<Image src="/icons/arrow-down-up.svg" width={12} height={12} alt="ox" />
 					}
 					onChange={(value) => { setForm({ ...form, wheelDriveType: value }) }}
-					options={wheelDriveType.map(w => ({
+					options={wheelDriveTypes.map(w => ({
 						label: w.name,
 						value: w.value
 					}))}

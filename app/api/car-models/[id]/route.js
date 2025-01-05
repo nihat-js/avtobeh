@@ -1,4 +1,6 @@
-import prisma from "@/prisma";
+import { sequelize } from "@/database/sequelize/db";
+import AutoModel from "@/database/sequelize/models/AutoModel";
+// import prisma from "@/prisma";
 import { NextResponse } from "next/server";
 
 export async function POST(request, {params}) {
@@ -6,13 +8,19 @@ export async function POST(request, {params}) {
   const { id } = await params
   // console.log(id)
 
-  const models = await prisma.autoModel.findMany({
+  // const models = await prisma.autoModel.findMany({
     // select: {
     //   id: true,
     //   name: true,
     //   count: true,
     //   groupName: true,
     // },
+    // where: {
+      brandId: +id
+    // }
+  // })
+
+  const models = await AutoModel.findAll({
     where: {
       brandId: +id
     }

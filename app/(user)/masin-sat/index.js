@@ -14,7 +14,7 @@ import Model from "./components/Model";
 import ImagePreview from "./components/ImagePreview";
 import CustomSelect from "@/app/components/atoms/CustomSelect";
 import { Option, Select } from "@material-tailwind/react";
-import { carColors, carFeatures, cylindersCount,  seatsCount, transmissionType, autoBodyStyles, years } from "@/data/auto";
+import { carColors, carFeatures, cylindersCount, seatsCount, transmissionType, autoBodyStyles, years } from "@/data/auto";
 import { Input } from "@material-tailwind/react";
 import { Radio } from "@material-tailwind/react";
 import { Checkbox } from "@material-tailwind/react";
@@ -29,10 +29,10 @@ import Step3 from "./Step3";
 
 export default function Index() {
 
-  
-  
+
+
   const [form, setForm] = useState({
-    wheelDriveType : "",
+    wheelDriveType: "",
     bodyType: "",
     brand: "",
     model: "",
@@ -63,7 +63,7 @@ export default function Index() {
   });
   const [models, setModels] = useState([]);
 
-  const [activeStep, setActiveStep] = useState(1)
+  const [activeStep, setActiveStep] = useState(0)
   const [uploadedImages, setUploadedImages] = useState([])
 
 
@@ -147,10 +147,7 @@ export default function Index() {
 
         {
           activeStep == 0 && <>
-            <Step1 setActiveStep={setActiveStep} form={form} setForm={setForm} handleBrandChange={handleBrandChange}
-              handleChange={handleChange}
-               years={years} vehicleTypes={vehicleTypes}
-              engineSize={engineSize} transmissionType={transmissionType} />
+            <Step1 setActiveStep={setActiveStep} form={form} setForm={setForm} handleChange={handleChange} />
           </>
         }
         {
