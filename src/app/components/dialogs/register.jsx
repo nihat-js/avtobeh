@@ -5,27 +5,53 @@ import { Checkbox } from "@material-tailwind/react";
 import { Typography } from "@material-tailwind/react";
 import { Dialog } from "@material-tailwind/react";
 import axios from "axios";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
-export default function Register({ state, setState , toggleLoginRegisterState}) {
+export default function Register({ state, setState, toggleLoginRegisterState }) {
 
-    const [form,setForm] = useState({
-        name : "",
-        email : "",
-        password : "",
-        confirmPassword : ""
+    const [form, setForm] = useState({
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: ""
     })
 
     function handler() {
         setState(prev => !prev)
     }
 
-    async function submit(e){
+    let router = useRouter();
+
+
+
+    async function submit(e) {
         e.preventDefault()
-   
-        let response = await axios.post("/api/auth/register",form)
-        // console.log(response.data)
+
+        let response;
+        try {
+            response = await axios.post("/api/auth/register", form);
+            console.log(response.data);
+            if (!response.data.error) {
+                alert(response.data.message);
+                router.push("/");
+            } else {
+                alert(response.data.error);
+            }
+        } catch (error) {
+            console.error("Error occurred:", error); // Log the entire error for debugging
+            if (error.response && error.response.data) {
+                // If the server responded with an error
+                alert(error.response.data.error || "An error occurred");
+            } else {
+                alert("An unexpected error occurred");
+            }
+        }
     }
+
+    // useEffect(()=>{
+    //     document.querySelector("input[name='name']")?.focus();
+    // }, [])
 
 
     return (
@@ -51,16 +77,16 @@ export default function Register({ state, setState , toggleLoginRegisterState}) 
                             {/* Zəhmət olmasa email və şifrənizi daxil edin. */}
                             Yeni hesab məlumatlarınız
                         </Typography>
-                        <Input label="Ad" size="lg" value={form.name} onChange={(e) => {setForm({ ...form, name: e.target.value })}}  />
+                        <Input label="Ad" size="lg" name="name" value={form.name} onChange={(e) => { setForm({ ...form, name: e.target.value }) }} />
                         <Typography className="-mb-2" variant="h6">
                             {/* Email */}
                         </Typography>
-                        <Input label="Email" type="email" size="lg" value={form.email} onChange={(e) => {setForm({ ...form, email: e.target.value })}} />
+                        <Input label="Email" type="email" size="lg" value={form.email} onChange={(e) => { setForm({ ...form, email: e.target.value }) }} />
                         <Typography className="-mb-2" variant="h6">
                             {/* Şifrə */}
                         </Typography>
-                        <Input type="password" label="Şifrə" size="lg" value={form.password} onChange={(e) => {setForm({ ...form, password: e.target.value })}}  />
-                        <Input type="password" label="Şifrə təkrarı" size="lg" value={form.confirmPassword} onChange={(e) => {setForm({ ...form, confirmPassword: e.target.value })}} />
+                        <Input type="password" label="Şifrə" size="lg" value={form.password} onChange={(e) => { setForm({ ...form, password: e.target.value }) }} />
+                        {/* <Input type="password" label="Şifrə təkrarı" size="lg" value={form.confirmPassword} onChange={(e) => { setForm({ ...form, confirmPassword: e.target.value }) }} /> */}
                         <div className="-ml-2.5 -mt-3">
                             <Checkbox label="Yadda saxla" />
                         </div>

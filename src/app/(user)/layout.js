@@ -11,6 +11,9 @@ import jwt from 'jsonwebtoken';
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import AutoBrand from "@/src/database/sequelize/models/AutoBrand";
 import City from "@/src/database/sequelize/models/City";
+import { config } from "@/src/lib/config";
+import User from "@/src/database/sequelize/models/User";
+import { jsonify } from "@/src/lib/utils";
 
 
 
@@ -23,7 +26,6 @@ export const metadata = {
 
 async function Layout({ children }) {
   // const cache = new NodeCache({ stdTTL: 3600 });
-  // const cities = await prisma.city.findMany()
   // let brands = await prisma.autoBrand.findMany({
   //   orderBy: [
   //     {
@@ -35,16 +37,12 @@ async function Layout({ children }) {
   //   ],
   // });
   // console.log(brands)
-  let cookies_ = await cookies()
-  const token = cookies_.get('token')?.value
+  let cookiesStore = await cookies()
+  const token = cookiesStore.get('token')?.value
 
   let brands = await AutoBrand.findAll({})
-  let cities = await City.findAll()
+  brands = jsonify(brands)
 
-  brands = JSON.parse(JSON.stringify(brands))
-  cities = JSON.parse(JSON.stringify(cities))
-
-  const secret = process.env.JWT_SECRET || "your-secret-key";
   //  brands = brands.sort((a, b) => {
   //   if (a.groupName === 'popular' && b.groupName !== 'popular') return -1;
   //   if (a.groupName !== 'popular' && b.groupName === 'popular') return 1;
@@ -53,34 +51,27 @@ async function Layout({ children }) {
   // });
 
   let user;
-  // console.log({token})
   if (token) {
     try {
-      const decoded = jwt.verify(token, secret);
-      user = null
-      // user = decoded;
-      // user = await prisma.user.findUnique({
-      //   where: {
-      //     id: decoded.userId,
-      //   },
-      //   select: {
-      //     id: true,
-      //     name: true,
-      //     email: true
-      //   }
-      // });
+      const decoded = jwt.verify(token, config.JWTSecret);
+      user = decoded;
+      user = await User.findOne({
+        where: {
+          id: decoded.userId,
+        },
+        attributes: ['id', 'name', 'email']
+      })
+      jsonify(user)
     } catch (error) {
+      // console.log({ error })
+      // cookiesStore.delete('token')
       user = null;
     }
   }
-  // console.log(user)
-
-
-
 
 
   return (
-    <GlobalProvider data={{ cities, brands }}>
+    <GlobalProvider data={{ brands }}>
       <AuthProvider data={{ user }}>
         <AntdRegistry>
           <html>

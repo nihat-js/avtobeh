@@ -200,7 +200,7 @@ export default function Step1({ form, setForm, setActiveStep }) {
 			</div>
 
 
-			<div className="mt-6 flex items-center ">
+			<div className="mt-6 flex items-center mb-10">
 				<p className="text-sm text-gray-700 font-semibold mr-6">
 					Yürüyüş
 				</p>

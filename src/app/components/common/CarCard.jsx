@@ -124,15 +124,15 @@ export default function CarCard({ data }) {
 
           <div className="mt-2">
             {/* <p className="text-gray-600 text-sm" > Konum: {car.country} {car.city}  </p> */}
-            <p className="text-gray-600 text-sm text-center">
+            <div className="text-gray-600 text-sm text-center">
               <u className="cursor-default">{data.Auto.engineSize} L • </u>  
               <u> {data.Auto.transmissionType} • </u>  
               <u> {data.Auto.bodyStyle} • </u>  
               <p> {data.Auto.fuelType}  </p>
-            </p>
-            <p className="text-gray-600 text-sm text-center">
-              ${data?.Auto?.mileage}  ${data.Auto.mileageUnit} *  ${data.Auto?.horsePower} 
-            </p>
+            </div>
+            <div className="text-gray-600 text-sm text-center">
+              {data?.Auto?.mileage}  {data.Auto.mileageUnit} *  {data.Auto?.horsePower} 
+            </div>
           </div>
 
           <div className="mt-4 grid grid-cols-3 gap-2">

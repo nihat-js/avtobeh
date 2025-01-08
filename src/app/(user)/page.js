@@ -6,8 +6,8 @@ import Ad from "@/src/database/sequelize/models/Ad";
 import Auto from "@/src/database/sequelize/models/Auto";
 import Media from "@/src/database/sequelize/models/Media";
 import { autoBodyStyles, fuelTypes, mileageUnits, transmissionTypes } from "@/src/data/auto";
+import { jsonify } from "../../lib/utils";
 
-let jsonify = (data) => JSON.parse(JSON.stringify(data))
 
 
 export default async function Home() {
@@ -48,7 +48,7 @@ export default async function Home() {
       delete ad.Auto.bodyStyleId
       delete ad.Auto.fuelTypeId
     })
-    console.log({ ads })
+    // console.log({ ads })
 
   } catch (error) {
     console.error('Error fetching ads:', error);

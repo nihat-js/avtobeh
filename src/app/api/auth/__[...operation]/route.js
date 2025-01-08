@@ -32,51 +32,7 @@ export async function POST(request, { params }) {
     return NextResponse.json({ message: 'Not found' }, { status: 404 });
 }
 
-async function register(request) {
-    const { name, email, password } = await request.json();
 
-    const existingUser = await prisma.user.findUnique({
-        where: { email },
-    });
-    if (existingUser) {
-        return NextResponse.json(
-            { message: 'Email already in use' },
-            { status: 400 }
-        );
-    }
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = await prisma.user.create({
-        data: {
-            name,
-            email,
-            password: hashedPassword,
-        },
-    });
-
-
-    const jwtToken = jwt.sign(
-        { userId: newUser.id, email: newUser.email },
-        JWT_SECRET,
-        { expiresIn: '1h' }
-    );
-
-    cookies().set('token', jwtToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 60 * 60,
-    });
-
-    return NextResponse.json({
-        message: 'User created successfully',
-        status: 'ok',
-
-        user: {
-            id: newUser.id,
-            email: newUser.email,
-        },
-    });
-}
 
 async function status(request) {
 

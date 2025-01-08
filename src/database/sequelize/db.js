@@ -7,9 +7,14 @@ export const sequelize = new Sequelize('avtobeh_development', 'nihat', 'Salam316
   dialectModule: mysql2,
   benchmark: true,
   freezeTableName: true,
-  logging : false,
+  logging: false,
   dialectOptions: {
-    connectTimeout: 10000 
+    connectTimeout: 10000
+  },
+  pool: {
+    max: 5, // Adjust as necessary
+    min: 0,
+    idle: 10000 // Adjust as necessary
   }
 });
 
