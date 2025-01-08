@@ -83,7 +83,7 @@ const CarFilter = () => {
 
 
     return (
-        <div className="p-4 bg-neutral-50 rounded-2xl shadow-sm ">
+        <div className="p-4  bg-gray-100 rounded-2xl shadow-sm " >
 
 
 

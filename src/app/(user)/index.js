@@ -21,17 +21,17 @@ import Banner from '../components/common/Banner';
 import CarFilter from '../components/user/CarFilter';
 import CarCard from '../components/common/CarCard';
 import CategoryNavbar from '../components/user/CategoryNavbar';
-export function Client({ autos: autos_, }) {
+export function Client({ ads: ads_, }) {
 
-  const [autos, setAutos] = useState(autos_)
+  const [ads, setAds] = useState(ads_)
 
   useEffect(() => {
-    setAutos([
-      ...autos,
-      ...autos,
-      ...autos,
-      ...autos,
-      ...autos,
+    setAds([
+      ...ads,
+      ...ads,
+      ...ads,
+      ...ads,
+      ...ads,
     ])
   }, [])
 
@@ -39,8 +39,6 @@ export function Client({ autos: autos_, }) {
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
-
-
 
   return (
 
@@ -81,9 +79,9 @@ export function Client({ autos: autos_, }) {
         </section>
 
         <section className="container mx-auto px-4" >
-          <div className="grid sm:grid-cols-2 md:grid-cols-2  lg:grid-cols-4 gap-4">
-            {autos.map((auto, index) => (
-              <CarCard key={index} car={auto} />
+          <div className="grid grid-cols-2 lg:grid-cols-4  gap-4">
+            {ads.map((ad, index) => (
+              <CarCard key={index} data={ad} />
             ))}
           </div>
         </section>

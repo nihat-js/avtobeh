@@ -1,9 +1,11 @@
-import {  DataTypes } from 'sequelize';
+import { DataTypes } from 'sequelize';
 import { sequelize } from '../db.js';
+import Auto from './Auto.js';
+import Media from './Media.js';
 
 
 
-const Ad  = sequelize.define('Ad', {
+const Ad = sequelize.define('Ad', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -15,7 +17,7 @@ const Ad  = sequelize.define('Ad', {
     allowNull: true,
     defaultValue: null,
   },
-  categoryId : {
+  categoryId: {
     type: DataTypes.INTEGER,
   },
   slug: {
@@ -77,7 +79,7 @@ const Ad  = sequelize.define('Ad', {
     allowNull: true,
     defaultValue: null,
   },
-  contactName : {
+  contactName: {
     type: DataTypes.STRING(15),
     allowNull: true,
     defaultValue: null,
@@ -92,7 +94,7 @@ const Ad  = sequelize.define('Ad', {
     allowNull: true,
     defaultValue: null,
   },
-  description : {
+  description: {
     type: DataTypes.TEXT,
     allowNull: true,
     defaultValue: null,
@@ -101,6 +103,10 @@ const Ad  = sequelize.define('Ad', {
   tableName: 'Ad',
   timestamps: true,
 });
+
+
+Ad.hasOne(Auto, { foreignKey: 'adId', constraints : false });
+Ad.hasMany(Media, { foreignKey: 'adId', constraints : false });
 
 
 

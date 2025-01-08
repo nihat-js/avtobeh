@@ -13,23 +13,50 @@ import Image from "next/image";
 import { Client } from ".";
 // import Auto from "@/src/database/sequelize/models/Auto";
 import Ad from "@/src/database/sequelize/models/Ad";
+import Auto from "@/src/database/sequelize/models/Auto";
+import Media from "@/src/database/sequelize/models/Media";
+import { autoBodyStyles, fuelTypes, transmissionTypes } from "@/src/data/auto";
 
 
 
 export default async function Home() {
 
 
+  let ads;
+  try {
+    ads = await Ad.findAll({
+      raw: true,
+      nest: true,
+      where: {
+        categoryId: 1
+      },
+      include: [
+        {
+          model: Media,
+        },
+        {
+          model: Auto
+        }
+      ]
+    })
 
-  let autos = await Ad.findAll()
-  // })
-  // console.log(autos)
-  // autos = JSON.parse(JSON.stringify(autos))
+    ads = ads.forEach((ad) => {
+      ad.Auto.transmissionType = transmissionTypes.find((item) => item.id === ad.Auto.transmissionTypeId).name
+      ad.Auto.bodyStyle = autoBodyStyles.find((item) => item.id === ad.Auto.bodyStyleId).name
+      ad.Auto.fuelConsumptionId = fuelTypes.find((item) => item.id === ad.Auto.fuelConsumptionId).name
+      // ad.Auto.mileageUnitId = ad.Auto.mileageUnitId == 1 ? "km" : "mil"
+      // ad.Auto.engineSize = ad.Auto.engineSize + " L"
+      // ad.Auto.horsePower = ad.Auto.horsePower + "HP"
+    })
+    console.log(ads)
 
-
+  } catch (error) {
+    console.error('Error fetching ads:', error);
+  }
   return (
     <div>
 
-      <Client autos={autos} />
+      <Client ads={ads} />
     </div>
   );
 }

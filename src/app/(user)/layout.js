@@ -43,7 +43,7 @@ async function Layout({ children }) {
 
   brands = JSON.parse(JSON.stringify(brands))
   cities = JSON.parse(JSON.stringify(cities))
-  
+
   const secret = process.env.JWT_SECRET || "your-secret-key";
   //  brands = brands.sort((a, b) => {
   //   if (a.groupName === 'popular' && b.groupName !== 'popular') return -1;
@@ -84,8 +84,9 @@ async function Layout({ children }) {
       <AuthProvider data={{ user }}>
         <AntdRegistry>
           <html>
-            <body style={{
-              //  backgroundImage: "url('/backgrounds/1.png')", backgroundSize: "cover" 
+            <body className="" style={{
+              //  backgroundImage: "url('/backgrounds/2.avif')", backgroundSize: "cover" 
+              backgroundColor: "#f9f4f3"
             }}>
 
               <Snowfall />
@@ -100,7 +101,7 @@ async function Layout({ children }) {
           </html>
         </AntdRegistry>
       </AuthProvider>
-    </GlobalProvider>
+    </GlobalProvider >
   );
 };
 

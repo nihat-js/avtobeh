@@ -170,7 +170,7 @@ const Header = () => {
               <FaHeart strokeWidth={1} size={20} />
             </Link>
 
-            <Link href="/masin-sat" className='hover:text-red-600 hover:bg-red-100 p-2 rounded-md ' >
+            <Link href="/avtomobil-sat" className='hover:text-red-600 hover:bg-red-100 p-2 rounded-md ' >
               <Image src="/icons/plus-circle.svg" width={32} height={32} alt="Logo" />
             </Link>
 

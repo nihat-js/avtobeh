@@ -7,17 +7,17 @@ import { useState } from "react"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 // import {Tooltip} from "@nextui-org/tooltip";
 
-export default function CarCard({ car }) {
-
+export default function CarCard({ data }) {
+  console.log(data.Auto)
   const [activeImageIndex, setActiveImageIndex] = useState(0)
-  const [isFavorite, setIsFavorite] = useState(car.isFavorite)
+  const [isFavorite, setIsFavorite] = useState(data.isFavorite)
 
 
   function nextImage() {
-    setActiveImageIndex((prev) => (prev + 1) % car.images.length)
+    setActiveImageIndex((prev) => (prev + 1) % data.images.length)
   }
   function previousImage() {
-    setActiveImageIndex((prev) => (prev - 1 + car.images.length) % car.images.length)
+    setActiveImageIndex((prev) => (prev - 1 + data.images.length) % data.images.length)
   }
 
   function handleVINClick() {
@@ -29,59 +29,62 @@ export default function CarCard({ car }) {
     setIsFavorite((prev) => !prev)
   }
 
-  car.engineSize = "1.5"
-  car.fuelType = "Benzin"
-  car.transmissionType = "Avtomat"
-  car.mileage = "100.000"
+  // car.engineSize = "1.5"
+  // car.fuelType = "Benzin"
+  // car.transmissionType = "Avtomat"
+  // car.mileage = "100.000"
 
   return (
-    <div key={car.id} className="bg-white rounded-lg shadow-xl overflow-hidden cursor-pointer  hover:bg-neutral-100 relative  transition-all duration-300  ">
-      <Link href={`/masinlar/${car.slug}`} className="" >
+    <div key={data.id} className="bg-white rounded-lg shadow-xl overflow-hidden cursor-pointer  hover:bg-neutral-100 relative  transition-all duration-300  ">
+      <Link href={`/masinlar/${data.slug}`} className="" >
 
         <div>
-          <div>
+          <div className="relative" >
             <img
-              src={car.images?.length ? car.images[activeImageIndex]?.path : "https://placehold.co/600x400"}
-              alt={`${car.brand} ${car.model}`}
-              className=""
-              style={{ width: '100%', height: '250px', obectFit: 'cover' }}
+              src={data.images?.length ? data.images[activeImageIndex]?.path : "https://placehold.co/600x400"}
+              alt={`${data.Auto.brandName} ${data.Auto.modelName}`}
+              className="h-[150px] md:h-[250px]"
+              style={{ width: '100%', obectFit: 'cover' }}
               height={300}
             />
+            {
+              [1, 2, 3, 4].map(index => {
+                return <div key={index}
+                  style={{ right: `${(index + 1) * 15}px`, bottom: "10px" }}
+                  // onMouseEnter={}
+                  className="absolute  hover:bg-orange-600 hover:scale-110 transition-all duration-300  w-1 h-1 rounded-full  pointer p-2  bg-gray-300 cursor-pointer" >
+                </div>
+              })
+            }
+
+            <div className={`absolute right-2 top-2  rounded-full  pointer p-2 ${isFavorite ? 'bg-orange-600' : 'bg-white'}
+              cursor-pointer 4  hover:opacity-60  `} onClick={toggleFavorite} >
+              <div className="relative">
+                <Image src="/icons/heart-outlined.svg" alt="View" width={16} height={16} />
+              </div>
+            </div>
+
+            {/* <div className="absolute bottom-4 right-4 flex space-x-2">
+              <button className="text-white bg-black p-1 rounded-sm hover:bg-gray-700">
+                <FaChevronLeft size={12} onClick={previousImage} />
+              </button>
+              <p className="text-white font-bold text-md">
+                <span className="text-indigo-400"> {activeImageIndex + 1} </span> / {car.images?.length}
+              </p>
+              <button className="text-white bg-black p-1 rounded-sm hover:bg-gray-700">
+                <FaChevronRight size={12} onClick={nextImage} />
+              </button>
+            </div> */}
+            {/* 
+            <div
+              class="absolute transform rotate-45 bg-green-600 text-center text-white font-semibold py-1 right-[-20px] top-[20px] w-[100px]">
+              20% off
+            </div> */}
+
+
           </div>
 
-          {/* <Tooltip content="Təcili" placement="top">
-          <div className="absolute top-2 left-2   p-2 w-10 h-10 rounded-full hover:bg-slate-100  text-white text-xs font-bold">
-            <Image src="/icons/urgent.svg" alt="Urgent" width={24} height={24} />
-          </div>
-        </Tooltip> */}
-
-
-          {/* Favorite  */}
-          <div className={`absolute right-2 top-2  rounded-full  pointer p-2 ${isFavorite ? 'bg-orange-600' : 'bg-white'}
-        cursor-pointer 4  hover:opacity-60  `} onClick={toggleFavorite} >
-            <p className="text-sm">
-              <Image src="/icons/heart-outlined.svg" alt="View" width={16} height={16} />
-
-            </p>
-          </div>
-
-          {/* Navigation Icons */}
-          {/* <div className="absolute bottom-4 right-4 flex space-x-2">
-
-            <button className="text-white bg-black p-1 rounded-sm hover:bg-gray-700">
-              <FaChevronLeft size={12} onClick={previousImage} />
-            </button>
-            <p className="text-white font-bold text-md">
-              <span className="text-indigo-400"> {activeImageIndex + 1} </span> / {car.images?.length}
-            </p>
-
-
-            <button className="text-white bg-black p-1 rounded-sm hover:bg-gray-700">
-              <FaChevronRight size={12} onClick={nextImage} />
-            </button>
-          </div> */}
-
-          <div class="flex items-center justify-center col-span-2">
+          {/* <div class="flex items-center justify-center col-span-2">
             <div class="flex items-center justify-between w-full text-gray-600 dark:text-gray-400 bg-gray-100 rounded-lg dark:bg-gray-600 max-w-[128px] mx-2">
               <button type="button" class="inline-flex items-center justify-center h-8 px-1 w-6 bg-gray-100 rounded-s-lg dark:bg-gray-600 hover:bg-gray-200
                dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-800">
@@ -99,14 +102,14 @@ export default function CarCard({ car }) {
                 <span class="sr-only">Next page</span>
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Car Details */}
         <div className="py-2 px-4 ">
           <div className="flex flex-col justify-between items-center">
             <h2 className=" text-gray-600 text-sm flex gap-2">
-              {car.brandName} {car.modelName}  {car.year}
+              {data.Auto.brandName}  {data.Auto.modelName}    {data.Auto.year}
               {/* <Image src="/icons/verified.svg" alt="Verified" width={16} height={16} /> */}
               {/* <Tooltip content="VIN kod" placement="top"> */}
               {/* <Image className='hover:bg-slate-100 p-2 cursor-default' src="/icons/search-colored.svg" alt="VIN kod"
@@ -115,19 +118,21 @@ export default function CarCard({ car }) {
                 width={32} height={32} /> */}
               {/* </Tooltip> */}
             </h2>
-            <p className="text-gray-600 text-2xl mt-2"><span className="text-indigo-600 font-bold">{car.price} {car.currency} ₼  </span></p>
+            <p className="text-gray-600 text-2xl mt-2"><span className="text-indigo-600 font-bold">{data.price} {data.currency} ₼  </span></p>
           </div>
 
 
           <div className="mt-2">
             {/* <p className="text-gray-600 text-sm" > Konum: {car.country} {car.city}  </p> */}
             <p className="text-gray-600 text-sm text-center">
-              <u className="cursor-default">{car.engineSize} L </u>  •
-              <u> {car.transmissionType} </u>  •
-              <u> {car.fuelType} </u>
+              <u className="cursor-default">{data.Auto.engineSize} L </u>  
+              {/* <u> {data.Auto.transmissionType} </u>  •
+              <u> {data.Auto.bodyStyle} </u>  •
+              <u> {data.Auto.fuelConsumption} </u> */}
+              <p> {data.Auto.fuelConsumption} </p>
             </p>
             <p className="text-gray-600 text-sm text-center">
-              100,000km * 140 HP
+              ${data?.Auto?.mileage} km  *  ${data.Auto?.horsePower} HP
             </p>
           </div>
 
@@ -147,8 +152,8 @@ export default function CarCard({ car }) {
 
 
         </div>
-      </Link>
-    </div>
+      </Link >
+    </div >
 
 
   )

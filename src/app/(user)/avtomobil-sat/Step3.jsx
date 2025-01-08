@@ -9,7 +9,13 @@ import ImagePreview from "./components/ImagePreview";
 import axios from "axios";
 import Draggable from "react-draggable";
 import { DndContext } from "@dnd-kit/core";
+import { useEffect } from "react";
 export default function Step3({ form, setForm, handleChange, }) {
+
+
+    useEffect(() => {
+        console.log({ form })
+    }, [form])
 
     async function handleSubmit() {
         let response = await axios.post("/api/create-ad", form)
