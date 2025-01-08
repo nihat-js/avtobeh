@@ -20,7 +20,7 @@ export default async function Home() {
 
 
 
-  let autos = await Ad.findAll({where : { category } })
+  let autos = await Ad.findAll()
   // })
   // console.log(autos)
   // autos = JSON.parse(JSON.stringify(autos))
