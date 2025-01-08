@@ -25,37 +25,37 @@ import Step3 from "./Step3";
 import { Steps } from "antd";
 
 const testPayload = {
-  "brandId" : 414,
-  "modelId" : 925,
-  "bodyStyleId" :1, 
-  "mileage" : 21,
-  "mileageUnitId" : 1,
-  "colorId" : 1,
-  "price" : 13000,
-  "currencyId" :1, 
-  
-  "fuelConsumptionId" : 1,
-  "wheelDriveTypeId" :1,
-  "transmissionTypeId" : 1,
-  
-  "engineSize" : 1500,
-  "horsePower" : 170,
-  "seatsCount" : 5,
-  "cylindersCount" : 4,
-  
-  "barter" : 0,
-  "hasCasco" : 1,
-  
+  "brandId": 414,
+  "modelId": 925,
+  "bodyStyleId": 1,
+  "mileage": 21,
+  "mileageUnitId": 1,
+  "colorId": 1,
+  "price": 13000,
+  "currencyId": 1,
 
-  "year" : 2017,
-  "cityId" : 2,
-  "phoneNumber" : 1231,
-  "images" : ["3fe52306ef1721a64ea7a688ee58fef5.jpeg"],
-  
-  "contactName" : "Nihat",
-  "contactEmail" : "abdullazadenihat@gmail.com",
-  "contactPhoneNumber" : "+994507514178",
-  "isWhatsappActive" : 1
+  "fuelTypeId": 1,
+  "wheelDriveTypeId": 1,
+  "transmissionTypeId": 1,
+
+  "engineSize": 1500,
+  "horsePower": 170,
+  "seatsCount": 5,
+  "cylindersCount": 4,
+
+  "barter": 0,
+  "hasCasco": 1,
+
+
+  "year": 2017,
+  "cityId": 2,
+  "phoneNumber": 1231,
+  "images": ["3fe52306ef1721a64ea7a688ee58fef5.jpeg"],
+
+  "contactName": "Nihat",
+  "contactEmail": "abdullazadenihat@gmail.com",
+  "contactPhoneNumber": "+994507514178",
+  "isWhatsappActive": 1
 }
 
 
@@ -64,41 +64,39 @@ export default function Index() {
 
 
   const [form, setForm] = useState({
-    brandId : null,
-    modelId : null,
-    bodyStyleId :null, 
-    mileage : null,
-    mileageUnitId : null,
-    colorId : null,
-    price : null,
-    currencyId :null, 
-    
-    
-    fuelConsumptionId : null,
-    wheelDriveTypeId :null,
-    transmissionTypeId : null,
-    
-    engineSize : null,
-    horsePower : null,
-    seatsCount : null,
-    cylindersCount : null,
-    
-    barter : 0,
-    hasCasco : 1,
-    
-    year : null,
-    cityId : null,
-    phoneNumber : null,
-    images : [],
-    
-    contactName : "",
-    contactEmail : "",
-    contactPhoneNumber : "",
-    isWhatsappActive : 0,
-  });
-  const [models, setModels] = useState([]);
+    brandId: null,
+    modelId: null,
+    bodyStyleId: null,
+    mileage: null,
+    mileageUnitId: null,
+    colorId: null,
+    price: null,
+    currencyId: null,
 
-  const [activeStep, setActiveStep] = useState(2)
+
+    fuelTypeId: null,
+    wheelDriveTypeId: null,
+    transmissionTypeId: null,
+
+    engineSize: null,
+    horsePower: null,
+    seatsCount: null,
+    cylindersCount: null,
+
+    barter: 0,
+    hasCasco: 1,
+
+    year: null,
+    cityId: null,
+    phoneNumber: null,
+    images: [],
+
+    contactName: "",
+    contactEmail: "",
+    contactPhoneNumber: "",
+    isWhatsappActive: 0,
+  });
+  const [activeStep, setActiveStep] = useState(0)
 
 
   // async function handleTailwindElementChange(name, value) {
@@ -112,41 +110,21 @@ export default function Index() {
   };
 
 
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission logic here
-    // console.log(fo?rmData);
-  };
-
-
-
   return (
-    <div className="max-w-4xl mx-auto p-8 bg-gray-50 shadow-lg rounded-xl">
-      <h1 className="text-4xl font-extrabold text-center text-orange-600 mb-6">Maşınınızı Satın</h1>
+    <div className="max-w-4xl mx-auto p-8 bg-gray-50 shadow-lg rounded-xl min-h-[85vh]">
+      <h1 className="text-4xl font-extrabold text-center text-orange-600">Avtomobilinizi Satın</h1>
+      <div className="">
 
-      <form onSubmit={handleSubmit} className="">
-
-        <div>
+        <div className="mt-16">
           <Steps
             direction="horizontal"
             current={activeStep}
             items={[
-              {
-                title: 'Əsas məlumatlar',
-                // description,
-              },
-              {
-                title: 'Digər məlumatlar',
-                // description,
-              },
-              {
-                title: 'Əlaqə məlumatları',
-                // description,
-              },
+              { title: 'Əsas məlumatlar' },
+              { title: 'Digər məlumatlar' },
+              { title: 'Əlaqə məlumatları' },
             ]}
           />
-
         </div>
 
         <div className="mt-16">
@@ -161,18 +139,14 @@ export default function Index() {
               <Step2 setActiveStep={setActiveStep} form={form} setForm={setForm} />
             </>
           }
-
           {
             activeStep == 2 && <>
               <Step3 setActiveStep={setActiveStep} form={form} setForm={setForm}
-                handleSubmit={handleSubmit}
                 handleChange={handleChange} />
             </>
           }
         </div>
-
-
-      </form>
+      </div>
     </div>
   );
 }

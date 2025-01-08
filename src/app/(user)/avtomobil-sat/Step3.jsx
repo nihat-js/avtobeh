@@ -10,7 +10,8 @@ import axios from "axios";
 import Draggable from "react-draggable";
 import { DndContext } from "@dnd-kit/core";
 import { useEffect } from "react";
-export default function Step3({ form, setForm, handleChange, }) {
+import { Button } from "@material-tailwind/react";
+export default function Step3({ form, setForm, handleChange, activeStep, setActiveStep }) {
 
 
     useEffect(() => {
@@ -19,9 +20,9 @@ export default function Step3({ form, setForm, handleChange, }) {
 
     async function handleSubmit() {
         let response = await axios.post("/api/create-ad", form)
-        if (response.data.error){
+        if (response.data.error) {
             alert(response.data.error)
-        }else {
+        } else {
             alert(response.data.message)
         }
 
@@ -94,7 +95,10 @@ export default function Step3({ form, setForm, handleChange, }) {
             <input type="file" id="images" className="hidden" onChange={uploadImage} />
 
 
+            <Button onClick={() => setActiveStep(1)}>Geri</Button> <br />
             <div className="flex flex-row flex-wrap gap-2">
+
+
                 {
                     autoFeatures.map(f => (
                         <Checkbox key={f.id} name="carFeature" value={f.id} form={form} handleChange={handleChange} >
@@ -124,12 +128,12 @@ export default function Step3({ form, setForm, handleChange, }) {
 
             <div className="grid grid-cols-5 gap-2 mt-10 mb-8 ">
                 {/* <Draggable> */}
-                    {
-                        form.images.map((image, index) => (
-                            <ImagePreview key={index} image={"/temporary-uploads/" + image}
-                                removeImage={() => removeImage(image)} rotateImage={() => rotateImage(image)} />
-                        ))
-                    }
+                {
+                    form.images.map((image, index) => (
+                        <ImagePreview key={index} image={"/temporary-uploads/" + image}
+                            removeImage={() => removeImage(image)} rotateImage={() => rotateImage(image)} />
+                    ))
+                }
                 {/* </Draggable> */}
                 <div
                     className="p-10 border-2 border-dashed border-indigo-500 flex justify-center items-center cursor-pointer rounded-lg transition-transform duration-300 ease-in-out hover:bg-slate-300 hover:scale-105"

@@ -1,21 +1,11 @@
 "use server"
 
-// import Announcement from "@/components/user/Announcement";
-// import Layout from "@/components/Layout";
-// import FeaturedBrands from "@/components/user/welcome/FeaturedBrands";
-// import BeCareful from "@/components/user/welcome/BeCareful";
 import Image from "next/image";
-// import Link from "next/link";
-// import CarCard from "@/components/common/CarCard";
-// import Banner from "@/components/common/Banner";
-// import CarFilter from "@/components/user/CarFilter";
-// import FilterHeader from "./_ev/FilterHeader";
 import { Client } from ".";
-// import Auto from "@/src/database/sequelize/models/Auto";
 import Ad from "@/src/database/sequelize/models/Ad";
 import Auto from "@/src/database/sequelize/models/Auto";
 import Media from "@/src/database/sequelize/models/Media";
-import { autoBodyStyles, fuelTypes, transmissionTypes } from "@/src/data/auto";
+import { autoBodyStyles, fuelTypes,  mileageUnits, transmissionTypes } from "@/src/data/auto";
 
 
 
@@ -40,15 +30,19 @@ export default async function Home() {
       ]
     })
 
-    ads = ads.forEach((ad) => {
+    ads.forEach((ad) => {
       ad.Auto.transmissionType = transmissionTypes.find((item) => item.id === ad.Auto.transmissionTypeId).name
       ad.Auto.bodyStyle = autoBodyStyles.find((item) => item.id === ad.Auto.bodyStyleId).name
-      ad.Auto.fuelConsumptionId = fuelTypes.find((item) => item.id === ad.Auto.fuelConsumptionId).name
-      // ad.Auto.mileageUnitId = ad.Auto.mileageUnitId == 1 ? "km" : "mil"
+      ad.Auto.fuelType = fuelTypes.find((item) => item.id === ad.Auto.fuelTypeId).name
+      ad.Auto.mileageUnit = mileageUnits.find((item) => item.id === ad.Auto.mileageUnitId).name
       // ad.Auto.engineSize = ad.Auto.engineSize + " L"
       // ad.Auto.horsePower = ad.Auto.horsePower + "HP"
+
+      delete ad.Auto.transmissionTypeId
+      delete ad.Auto.bodyStyleId
+      delete ad.Auto.fuelTypeId
     })
-    console.log(ads)
+    // console.log({ads})
 
   } catch (error) {
     console.error('Error fetching ads:', error);

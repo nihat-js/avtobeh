@@ -8,7 +8,7 @@
   "price" : 13000,
   "currencyId" :1, 
   
-  "fuelConsumptionId" : 1,
+  "fuelTypeId" : 1,
   "wheelDriveTypeId" :1,
   "transmissionTypeId" : 1,
   

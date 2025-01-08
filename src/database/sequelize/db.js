@@ -7,6 +7,7 @@ export const sequelize = new Sequelize('avtobeh_development', 'nihat', 'Salam316
   dialectModule: mysql2,
   benchmark: true,
   freezeTableName: true,
+  logging : false,
   dialectOptions: {
     connectTimeout: 10000 
   }

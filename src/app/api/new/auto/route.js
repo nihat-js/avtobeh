@@ -44,7 +44,7 @@ export async function POST(req) {
         price: ["required", "integer", { min: 0 }, { max: 10000000 }],
         currencyId: ["required", "integer", { in: currencies.map(item => item.id) }],
 
-        fuelConsumptionId: ["required", "integer", { in: fuelTypes.map(item => item.id) }],
+        fuelTypeId: ["required", "integer", { in: fuelTypes.map(item => item.id) }],
         wheelDriveTypeId: ["required", "integer", { in: wheelDriveTypes.map(item => item.id) }],
         transmissionTypeId: ["required", "integer", { in: transmissionTypes.map(item => item.id) }],
         engineSize: ["required", "integer", { min: 0 }, { max: 15000 }],
@@ -156,7 +156,7 @@ export async function POST(req) {
             mileage: data.mileage,
             mileageUnitId: data.mileageUnitId,
             colorId: data.colorId,
-            fuelConsumptionId: data.fuelConsumptionId,
+            fuelTypeId: data.fuelTypeId,
             wheelDriveTypeId: data.wheelDriveTypeId,
             transmissionTypeId: data.transmissionTypeId,
             engineSize: data.engineSize,

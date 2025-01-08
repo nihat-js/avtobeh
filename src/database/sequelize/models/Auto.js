@@ -62,7 +62,7 @@ const Auto = sequelize.define('Auto', {
     allowNull: true,
     defaultValue: null,
   },
-  fuelConsumptionId: {
+  fuelTypeId: {
     type: DataTypes.INTEGER,
     allowNull: true,
     defaultValue: null,

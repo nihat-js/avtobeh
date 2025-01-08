@@ -48,8 +48,16 @@ export function Client({ ads: ads_, }) {
 
 
       <div className="container mx-auto" style={{ maxWidth: "1000px" }}>
+        <CategoryNavbar />
 
-        <CategoryNavbar/>
+        <div>
+          <div className='relative mt-10 bg-blue-500 rounded-md hover:bg-blue-600 cursor-pointer h-48  w-48 flex justify-center items-center'>
+            <Image src="/images/wheel.png" width={100} height={100} />
+            <p className='absolute top-2 left-2    text-white text-xl font-bold' > Təkər satışı </p>
+          </div>
+
+        </div>
+
 
         {/* <Announcement /> */}
         <section className='bg-slate-100  mb-5'>
@@ -114,13 +122,13 @@ export function Client({ ads: ads_, }) {
     </section> */}
 
       {/* Featured Cars Section */}
-      <section className="py-16 bg-gray-50">
+      {/* <section className="py-16 bg-gray-50">
         <h2 className="text-3xl font-semibold text-center text-gray-800 mb-8">
           Featured Cars
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 container mx-auto">
-          {/* Example Car Card */}
-          {/* {[1, 2, 3].map((item) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 container mx-auto"> */}
+      {/* Example Car Card */}
+      {/* {[1, 2, 3].map((item) => (
           <div
             key={item}
             className="bg-white shadow-lg rounded-lg overflow-hidden transform transition-all hover:scale-105"
@@ -144,8 +152,8 @@ export function Client({ ads: ads_, }) {
             </div>
           </div>
         ))} */}
-        </div>
-      </section>
+      {/* </div>
+      </section> */}
 
       {/* Why Choose Us Section */}
       {/* <section className="py-16 bg-red-100">

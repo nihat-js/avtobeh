@@ -27,7 +27,7 @@ export const fuelTypes = [
     { id : 6, name: "Gas", nameRu: "Газ" },
 ]
 
-export const mileageTypes = [
+export const mileageUnits = [
     { id : 1, name: "Kilometr", nameRu: "Километр" },
     { id : 2, name: "Mile", nameRu: "Миля" },
 ]
@@ -62,7 +62,7 @@ export const autoBodyStyles = [
 ]
 
 export const autoEngineSizes = new Array(100).fill(1).map((item, index) => {
-    return parseFloat(((index + 1) * .1).toFixed(1))
+    return parseFloat(((index + 1) * 100).toFixed(1))
 })
 
 export const autoFeatures = [

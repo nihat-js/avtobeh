@@ -1,4 +1,4 @@
-import { autoBodyStyles, autoEngineSizes, fuelTypes, transmissionType, wheelDriveType, wheelDriveTypes, years } from "@/src/data/auto"
+import { autoBodyStyles, autoEngineSizes, fuelTypes, mileageUnits, transmissionType, transmissionTypes, wheelDriveType, wheelDriveTypes, years } from "@/src/data/auto"
 import { useGlobalContext } from "@/src/lib/GlobalContext"
 import { Button } from "@material-tailwind/react"
 import { Option, Select } from "@material-tailwind/react"
@@ -7,26 +7,26 @@ import { InputNumber, Select as Select2 } from "antd"
 import axios from "axios"
 import Image from "next/image"
 
-export default function Step1({ form, setForm, setActiveStep}) {
+export default function Step1({ form, setForm, setActiveStep }) {
 
 	const [models, setModels] = useState([])
 	const { brands } = useGlobalContext()
 
 	async function onBrandChange(value) {
-		// console.log({ value })
-		// setComponentsState({ ...componentsState, model: "loading" })
-		let res = await axios.post(`/api/car-models/${value}`)
-		setForm({ ...form, brand: value })
+		if (!value) {
+			setForm({ ...form, brandId: null })
+		}
+		let res = await axios.post(`/api/auto-models/${value}`)
+		setForm({ ...form, brandId: value })
 		setModels(res.data.data)
-		// setComponentsState({ ...componentsState, model: true })
-		// validateEnabled()
-		// console.log({ form })
 	}
 
 	async function goNextStep() {
-		console.log({form})
+		console.log({ form })
+		return setActiveStep(1)
 		if (
-			form.brand && form.model && form.year && form.bodyType && form.engineSize && form.transmissionType && form.wheelDriveType) {
+			form.brandId && form.modelId && form.year && form.bodyStyleId && form.engineSize && form.transmissionTypeId && form.wheelDriveTypeId
+			&& form.mileage && form.mileageUnitId) {
 			setActiveStep(1)
 		} else {
 			alert("Məlumatların tam olması lazımdır")
@@ -40,6 +40,7 @@ export default function Step1({ form, setForm, setActiveStep}) {
 			{/* <h4 className="text-2xl font-semibold text-gray-800 mb-4"> Ümumi məlumatlar </h4> */}
 			<div className="grid sm:grid-cols-3 md:grid-cols-3 gap-6">
 				<Select2
+					value={form.brandId}
 					showSearch
 					placeholder="Marka "
 					size="middle"
@@ -79,9 +80,15 @@ export default function Step1({ form, setForm, setActiveStep}) {
 				/>
 
 				<Select2 size="middle" placeholder="Model  *"
+				value={form.modelId}
 					disabled={models.length == 0}
+					allowClear
+					showSearch
+					filterOption={(input, option) =>
+						(typeof option?.label === 'string' && option?.label.toLowerCase().includes(input.toLowerCase()))
+					}
 					// loading={componentsState.model == "loading"}
-					onChange={(value) => { setForm({ ...form, model: value }) }}
+					onChange={(value) => { setForm({ ...form, modelId: value }) }}
 					suffixIcon={
 						<Image src="/icons/arrow-down-up.svg" width={12} height={12} alt="ox" />
 					}
@@ -91,14 +98,19 @@ export default function Step1({ form, setForm, setActiveStep}) {
 					}))}
 				/>
 
-				<InputNumber placeholder="İli * (məsələn: 2020)" onChange={(value) => { setForm({ ...form, year: value }) }}
+				<InputNumber value={form.year} placeholder="İli * (məsələn: 2020)" onChange={(value) => { setForm({ ...form, year: value }) }}
 					style={{ width: '100%' }}
 					min={1960} max={2025} />
 				<Select2 size="middle" placeholder="BAN (Kuza növü) *"
-					suffixIcon={
-						<Image src="/icons/arrow-down-up.svg" width={12} height={12} alt="ox" />
+					showSearch
+					filterOption={(input, option) =>
+						(typeof option?.label === 'string' && option?.label.toLowerCase().includes(input.toLowerCase()))
 					}
-					onChange={(value) => { setForm({ ...form, bodyType: value }) }}
+					suffixIcon={
+						// <Image src="/icons/arrow-down-up.svg" width={12} height={12} alt="ox" />
+						null
+					}
+					onChange={(value) => { setForm({ ...form, bodyStyleId: value }) }}
 					options={
 						autoBodyStyles.map(type => ({
 							label: type.name,
@@ -107,7 +119,7 @@ export default function Step1({ form, setForm, setActiveStep}) {
 					}
 				/>
 
-				<Select2 size="middle" placeholder="Mühərrik həcmi *"
+				<Select2 size="middle" placeholder="Mühərrik həcmi *" value={form.engineSize}
 					onChange={(value) => { setForm({ ...form, engineSize: value }) }}
 					options={
 						autoEngineSizes.map(c => ({
@@ -117,15 +129,20 @@ export default function Step1({ form, setForm, setActiveStep}) {
 					}
 				/>
 				<Select2
+					showSearch
 					size="middle" placeholder="Sürətlər qutusu"
-					onChange={(value) => { setForm({ ...form, transmissionType: value }) }}
+					filterOption={(input, option) =>
+						(typeof option?.label === 'string' && option?.label.toLowerCase().includes(input.toLowerCase()))
+					}
+					onChange={(value) => { setForm({ ...form, transmissionTypeId: value }) }}
 					className="w-full"
 
-					suffixIcon={
-						<Image src="/icons/arrow-down-up.svg" width={12} height={12} alt="ox" />
-					}
+					// suffixIcon={
+					// 	<Image src="/icons/arrow-down-up.svg" width={12} height={12} alt="ox" />
+					// }
+					suffixIcon={null}
 					options={
-						transmissionType.map(t => ({
+						transmissionTypes.map(t => ({
 							label: t.name,
 							value: t.id
 						}))
@@ -134,10 +151,16 @@ export default function Step1({ form, setForm, setActiveStep}) {
 
 
 				<Select2 size="middle" placeholder="Yanacaq tipi"
-					suffixIcon={
-						<Image src="/icons/arrow-down-up.svg" width={12} height={12} alt="ox" />
-					}
-					onChange={(value) => { setForm({ ...form, fuelType: value }) }}
+				value={form.fuelTypeId}
+				showSearch
+				filterOption={(input, option) =>
+					(typeof option?.label === 'string' && option?.label.toLowerCase().includes(input.toLowerCase()))
+				}
+					// suffixIcon={
+					// 	<Image src="/icons/arrow-down-up.svg" width={12} height={12} alt="ox" />
+					// }
+					suffixIcon={null}
+					onChange={(value) => { setForm({ ...form, fuelTypeId: value }) }}
 					options={
 						fuelTypes.map(f => ({
 							label: f.name,
@@ -146,20 +169,45 @@ export default function Step1({ form, setForm, setActiveStep}) {
 					}
 				/>
 				<Select2 size="middle" placeholder="Ötürücü"
-					suffixIcon={
-						<Image src="/icons/arrow-down-up.svg" width={12} height={12} alt="ox" />
-					}
-					onChange={(value) => { setForm({ ...form, wheelDriveType: value }) }}
+					suffixIcon={null}
+					// suffixIcon={
+					// 	<Image src="/icons/arrow-down-up.svg" width={12} height={12} alt="ox" />
+					// }
+					value={form.wheelDriveTypeId}
+					onChange={(value) => { setForm({ ...form, wheelDriveTypeId: value }) }}
 					options={wheelDriveTypes.map(w => ({
 						value: w.id,
 						label: w.name,
 					}))}
 				/>
 
+
 			</div>
 
 
-			<div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 mt-4">
+			<div className="mt-6 flex items-center ">
+				<p className="text-sm text-gray-700 font-semibold mr-6">
+					Yürüyüş
+				</p>
+				<InputNumber placeholder="Yürüyüş " value={form.mileage} onChange={(value) => { setForm({ ...form, mileage: value }) }}
+					// style={{ width: '100%' }}
+					min={0} />
+				<Select2 size="middle"
+					value={form.mileageUnitId}
+					className="rounded-full"
+					// suffixIcon={
+					// 	<Image src="/icons/arrow-down-up.svg" width={12} height={12} alt="ox" />
+					// }
+					onChange={(value) => { setForm({ ...form, mileageUnitId: value }) }}
+					options={mileageUnits.map(m => ({
+						label: m.name,
+						value: m.id,
+					}))}
+				/>
+			</div>
+
+
+			{/* <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 mt-4"> */}
 				<div className="flex gap-2 items-center">
 					{/* <button className="bg-blue-500 text-white font-semibold py-2 px-4 rounded transition-colors duration-300 hover:bg-green-500">
 						Next
@@ -197,7 +245,7 @@ export default function Step1({ form, setForm, setActiveStep}) {
 					</Button> */}
 				</div>
 
-			</div>
+			{/* </div> */}
 		</section >
 	)
 }
