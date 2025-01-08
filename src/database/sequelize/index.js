@@ -5,7 +5,7 @@ import { colors } from "../../data/auto.js";
 // import User from "./models/User.js";
 import AutoBrand from "./models/AutoBrand.js";
 import AutoModel from "./models/AutoModel.js";
-import AutoSale from "./models/AuotSale.js";
+import AutoSale from "./models/Auto.js";
 import AutoBodyStyle from "./models/AutoBodyStyle.js";
 import City from "./models/City.js";
 // import User from "./models/user.js";
@@ -51,7 +51,7 @@ async function run(){
   // let x= await AutoSale.findAll()
   // let x=AutoBodyStyle.findAll()
   let x = City.findAll()
-  console.log(JSON.stringify(x))
+  // console.log(JSON.stringify(x))
 
   // console.log(JSON.stringify(x))
 

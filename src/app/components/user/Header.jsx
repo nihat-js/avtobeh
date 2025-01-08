@@ -32,8 +32,8 @@ const Header = () => {
     let data = await fetch("/api/auth/logout", {
       method: "POST",
     });
-    console.log("noldu")
-    setUser(null)
+    // console.log("noldu")
+    // setUser(null)
 
     // window.location.href = "/";
   }

@@ -12,7 +12,7 @@ import Image from "next/image";
 // import CarFilter from "@/components/user/CarFilter";
 // import FilterHeader from "./_ev/FilterHeader";
 import { Client } from ".";
-import AutoSale from "@/src/database/sequelize/models/AuotSale";
+import AutoSale from "@/src/database/sequelize/models/Auto";
 
 
 
@@ -33,7 +33,7 @@ export default async function Home() {
     //   AutoImage: true
     // }
   })
-  console.log(autos)
+  // console.log(autos)
   autos = JSON.parse(JSON.stringify(autos))
 
 

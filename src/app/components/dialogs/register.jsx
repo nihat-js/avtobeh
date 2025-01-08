@@ -24,7 +24,7 @@ export default function Register({ state, setState , toggleLoginRegisterState}) 
         e.preventDefault()
    
         let response = await axios.post("/api/auth/register",form)
-        console.log(response.data)
+        // console.log(response.data)
     }
 
 

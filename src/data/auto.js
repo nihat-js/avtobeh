@@ -3,6 +3,21 @@ export const years = new Array(40).fill(1).map((item, index) => {
 })
 
 
+export const advertismentPlans = [
+    {"id" : 1, name : "pulsuz"},
+    {"id" : 2, name : "elite"},
+    {"id" : 3, name : "qızıl"},
+]
+
+export const advertisementTypes = [
+    { "id" : 1, name : "AutoSale"},
+    { "id" : 2, name : "AutoExchange"},
+    { "id" : 3, name : "AutoRent"},
+    { "id" : 4, name : "AutoService"},
+    { "id" : 5, name : "AutoParts"},
+    { "id" : 6, name : "AutoUsed"},
+]
+
 export const fuelTypes = [
     { id : 1, name: "Benzin", nameRu: "Бензин" },
     { id : 2, name: "Dizel", nameRu: "Дизель" },
@@ -12,25 +27,38 @@ export const fuelTypes = [
     { id : 6, name: "Gas", nameRu: "Газ" },
 ]
 
+export const mileageTypes = [
+    { id : 1, name: "Kilometr", nameRu: "Километр" },
+    { id : 2, name: "Mile", nameRu: "Миля" },
+]
+
+
+export const currencies = [
+    { id : 1, name: "AZN", nameRu: "AZN" },
+    { id : 2, name: "USD", nameRu: "USD" },
+    { id : 3, name: "EUR", nameRu: "EUR" },
+    { id : 4, name: "RUB", nameRu: "RUB" },
+]
+
 export const autoBodyStyles = [
-    { id: "1", name: "Sedan", nameRu: "Седан" },
-    { id: "2", name: "Hetçbek", nameRu: "Хетчбек" },
-    { id: "3", name: "Minivan", nameRu: "Минивэн" },
-    { id: "4", name: "Universal", nameRu: "Универсал" },
-    { id: "5", name: "Offrouder / SUV", nameRu: "Оффроудер / SUV" },
-    { id: "6", name: "Limuzin", nameRu: "Лимузин" },
-    { id: "7", name: "Kabriolet", nameRu: "Кабриолет" },
-    { id: "8", name: "Kupe", nameRu: "Купе" },
-    { id: "9", name: "Roadster", nameRu: "Роудстер" },
-    { id: "10", name: "Furqon", nameRu: "Фургон" },
-    { id: "11", name: "Pikap", nameRu: "Пикап" },
-    { id: "12", name: "Avtobus", nameRu: "Автобус" },
-    { id: "13", name: "Dartqı", nameRu: "Дартка" },
-    { id: "14", name: "Mikroavtobus", nameRu: "Микроавтобус" },
-    { id: "15", name: "Motosiklet", nameRu: "Мотосиклет" },
-    { id: "16", name: "Qolfkar", nameRu: "Колфкар" },
-    { id: "17", name: "Van", nameRu: "Вэн" },
-    { id: "18", name: "Yük maşını", nameRu: "Юк машин" },
+    { id: 1, name: "Sedan", nameRu: "Седан" },
+    { id: 2, name: "Hetçbek", nameRu: "Хетчбек" },
+    { id: 3, name: "Minivan", nameRu: "Минивэн" },
+    { id: 4, name: "Universal", nameRu: "Универсал" },
+    { id: 5, name: "Offrouder / SUV", nameRu: "Оффроудер / SUV" },
+    { id: 6, name: "Limuzin", nameRu: "Лимузин" },
+    { id: 7, name: "Kabriolet", nameRu: "Кабриолет" },
+    { id: 8, name: "Kupe", nameRu: "Купе" },
+    { id: 9, name: "Roadster", nameRu: "Роудстер" },
+    { id: 10, name: "Furqon", nameRu: "Фургон" },
+    { id: 11, name: "Pikap", nameRu: "Пикап" },
+    { id: 12, name: "Avtobus", nameRu: "Автобус" },
+    { id: 13, name: "Dartqı", nameRu: "Дартка" },
+    { id: 14, name: "Mikroavtobus", nameRu: "Микроавтобус" },
+    { id: 15, name: "Motosiklet", nameRu: "Мотосиклет" },
+    { id: 16, name: "Qolfkar", nameRu: "Колфкар" },
+    { id: 17, name: "Van", nameRu: "Вэн" },
+    { id: 18, name: "Yük maşını", nameRu: "Юк машин" },
 ]
 
 export const autoEngineSizes = new Array(100).fill(1).map((item, index) => {
@@ -72,7 +100,7 @@ export const colors = [
 
 export const cylindersCount = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 24, 32, 48, 64]
 export const seatsCount = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-export const transmissionType = [
+export const transmissionTypes = [
     { id: 1, name: "Avtomat" },
     { id: 2, name: "Mexanika" },
     { id: 3, name: "Robot" },

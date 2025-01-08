@@ -8,7 +8,7 @@ import prisma from '@/prisma';
 
 export async function login({ email, password }) {
   try {
-    console.log(email, password)
+    // console.log(email, password)
     if (!email || !password) {
       return { error: "Both email and password are required." };
     }

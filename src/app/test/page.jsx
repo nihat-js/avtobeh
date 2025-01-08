@@ -3,7 +3,7 @@ import React from 'react';
 import { Select, Slider } from 'antd';
 import "../../styles/globals.css"
 const handleChange = (value) => {
-    console.log(`selected ${value}`);
+    // console.log(`selected ${value}`);
 };
 
 export default function Home() {

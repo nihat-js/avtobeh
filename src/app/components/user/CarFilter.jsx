@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { FiFilter } from "react-icons/fi"; // Importing filter icon from react-icons
 import CustomSelect from "../atoms/CustomSelect";
-import { carFeatures, cylindersCount, engineSize, transmissionType, vehicleTypes, years } from "@/src/data/auto";
+import { carFeatures, cylindersCount, engineSize, transmissionTypes, vehicleTypes, years } from "@/src/data/auto";
 // import Colors from "./CarFilter/Colors";
 import Price from "./CarFilter/Price";
 import Condition from "./CarFilter/Condition";
@@ -225,7 +225,7 @@ const CarFilter = () => {
                         className="w-1/4"
                         allowClear
                         options={
-                            transmissionType.map(t => ({
+                            transmissionTypes.map(t => ({
                                 label: t.name,
                                 value: t.value
                             }))

@@ -6,8 +6,12 @@ export const sequelize = new Sequelize('avtobeh_development', 'nihat', 'Salam316
   dialect: 'mysql',
   dialectModule: mysql2,
   benchmark: true,
-  freezeTableName: true
+  freezeTableName: true,
+  dialectOptions: {
+    connectTimeout: 10000 
+  }
 });
+
 
 
 

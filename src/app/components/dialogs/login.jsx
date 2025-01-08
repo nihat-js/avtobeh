@@ -24,7 +24,7 @@ export default function Login({ state, setState, toggleLoginRegisterState }) {
     async function submit(e) {
         e.preventDefault()
         let response = await axios.post("/api/auth/login", form)
-        console.log(response.data)
+        // console.log(response.data)
         if (response.data.status == "ok") {
             setUser(response.data.data)
             setState(false)
