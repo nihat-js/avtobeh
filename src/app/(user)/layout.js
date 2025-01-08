@@ -55,13 +55,14 @@ async function Layout({ children }) {
     try {
       const decoded = jwt.verify(token, config.JWTSecret);
       user = decoded;
+      // console.log({ decoded })
       user = await User.findOne({
         where: {
-          id: decoded.userId,
+          id: decoded.id,
         },
         attributes: ['id', 'name', 'email']
       })
-      jsonify(user)
+      user = jsonify(user)
     } catch (error) {
       // console.log({ error })
       // cookiesStore.delete('token')

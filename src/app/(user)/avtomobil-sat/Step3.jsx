@@ -18,7 +18,7 @@ export default function Step3({ form, setForm, handleChange, activeStep, setActi
     const router = useRouter()
 
     useEffect(() => {
-        console.log({ form })
+        // console.log({ form })
     }, [form])
 
     async function handleSubmit() {
@@ -85,7 +85,7 @@ export default function Step3({ form, setForm, handleChange, activeStep, setActi
         </Select>
     );
     const selectAfter = (
-        <Select defaultValue="USD" style={{ width: 60 }} value={form.currencyId} onChange={(value) => setForm({ ...form, currencyId: value })} >
+        <Select defaultValue="USD" style={{ width: 90 }} value={form.currencyId} onChange={(value) => setForm({ ...form, currencyId: value })} >
             {
                 currencies.map(currency => (
                     <Option key={currency.id} value={currency.id}>{currency.name}</Option>
@@ -185,7 +185,7 @@ export default function Step3({ form, setForm, handleChange, activeStep, setActi
 
             <div className="flex items-center mb-6" >
                 <span className="text-gray-500 font-semibold mr-4 "> Şəhər </span>
-                <Select defaultValue="add" style={{ width: 200 }} value={form.city} onChange={(value) => setForm({ ...form, cityId: value })}
+                <Select style={{ width: 200 }} value={form.city} onChange={(value) => setForm({ ...form, cityId: value })}
                     options={cities.map(city => ({
                         value: city.id,
                         label: city.name
