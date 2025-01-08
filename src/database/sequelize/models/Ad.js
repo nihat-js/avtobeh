@@ -2,6 +2,7 @@ import { DataTypes } from 'sequelize';
 import { sequelize } from '../db.js';
 import Auto from './Auto.js';
 import Media from './Media.js';
+import Like from './Like.js';
 
 
 
@@ -107,6 +108,7 @@ const Ad = sequelize.define('Ad', {
 
 Ad.hasOne(Auto, { foreignKey: 'adId', constraints : false });
 Ad.hasMany(Media, { foreignKey: 'adId', constraints : false });
+Ad.hasMany(Like, { foreignKey: 'adId' })
 
 
 

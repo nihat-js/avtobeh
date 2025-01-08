@@ -7,6 +7,7 @@ import Auto from "@/src/database/sequelize/models/Auto";
 import Media from "@/src/database/sequelize/models/Media";
 import { autoBodyStyles, fuelTypes, mileageUnits, transmissionTypes } from "@/src/data/auto";
 import { jsonify } from "../../lib/utils";
+import Like from "@/src/database/sequelize/models/Like";
 
 
 
@@ -28,10 +29,26 @@ export default async function Home() {
         {
           required: false,
           model: Auto
-        }
+        },
+        // {
+        //   model: Like,
+        //   required: false,
+        //   where: {
+        //     userId: 1
+        //   }
+        // }
       ]
     })
     ads = jsonify(ads)
+
+    let likes = await Like.findAll({
+      where: {
+        adId: ads.map((item) => item.id)
+      },
+      attributes: ['adId', 'userId'],
+      raw: true
+    })
+
 
     ads.forEach((ad) => {
       ad.Auto.transmissionType = transmissionTypes.find((item) => item.id === ad.Auto.transmissionTypeId).name
@@ -41,6 +58,7 @@ export default async function Home() {
       ad.Media = ad.Media?.map((item) => {
         return item.path
       })
+      ad.isLiked = likes.filter((like) => like.adId === ad.id).length
       // ad.Auto.engineSize = ad.Auto.engineSize + " L"
       // ad.Auto.horsePower = ad.Auto.horsePower + "HP"
 
@@ -48,7 +66,7 @@ export default async function Home() {
       delete ad.Auto.bodyStyleId
       delete ad.Auto.fuelTypeId
     })
-    // console.log({ ads })
+    console.log({ ads })
 
   } catch (error) {
     console.error('Error fetching ads:', error);

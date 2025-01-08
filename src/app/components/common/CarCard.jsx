@@ -10,7 +10,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 export default function CarCard({ data }) {
   // console.log(data.Auto)
   const [activeImageIndex, setActiveImageIndex] = useState(0)
-  const [isFavorite, setIsFavorite] = useState(data.isFavorite)
+  const [isFavorite, setIsFavorite] = useState(data.isLiked)
 
 
   function nextImage() {
