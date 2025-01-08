@@ -11,7 +11,7 @@ import Draggable from "react-draggable";
 import { DndContext } from "@dnd-kit/core";
 import { useEffect } from "react";
 import { Button } from "@material-tailwind/react";
-import { Router, useRouter } from "next/router";
+import {  useRouter } from "next/navigation";
 import { cities } from "@/src/data/cities";
 export default function Step3({ form, setForm, handleChange, activeStep, setActiveStep }) {
 

@@ -4,6 +4,7 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';  // Use crypto to generate random strings
+import sharp from 'sharp';
 
 // Helper function to generate a random string for the filename
 const generateRandomFilename = () => {
@@ -19,20 +20,37 @@ export async function POST(req) {
   }
 
   const randomFilename = generateRandomFilename() + path.extname(imageFile.name); // Keep the original extension
-
   const uploadDir = path.join(process.cwd(), 'public/temporary-uploads');
-
-  // Create the directory if it doesn't exist
   if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
   }
 
-  // Define the target path with the random filename
+
   const targetPath = path.join(uploadDir, randomFilename);
 
-  // Use fs.promises to handle file saving asynchronously
-  const buffer = await imageFile.arrayBuffer();  // Convert file to buffer
-  fs.writeFileSync(targetPath, Buffer.from(buffer)); // Write the buffer to disk
+  const buffer = await imageFile.arrayBuffer();
+  const watermarkText = 'AVTOBEH.COM';
+  const transparency = 0.15;
+
+  const { width, height } = await sharp(buffer).metadata();
+
+  const svgWatermark = `
+  <svg width="${width}" height="${height}">
+    <style>
+      .heavy { font: bold ${Math.min(width / 10, 60)}px sans-serif; fill: white; }
+      .light { opacity: ${transparency}; }
+    </style>
+    <text x="50%" y="50%" class="heavy light" text-anchor="middle" dominant-baseline="middle">
+      ${watermarkText}
+    </text>
+  </svg>
+  `;
+  const watermarkBuffer = Buffer.from(svgWatermark);
+  const processedImage = await sharp(buffer)
+    .composite([{ input: watermarkBuffer, gravity: 'center' }])
+    .toBuffer();
+
+  fs.writeFileSync(targetPath, Buffer.from(processedImage)); // Write the buffer to disk
 
   // Construct the URL for the uploaded image
   // const imageUrl = `/temporary-uploads/${randomFilename}`;

@@ -41,7 +41,7 @@ export default function CarCard({ data }) {
         <div>
           <div className="relative" >
             <img
-              src={ "/uploads/autos/"+data.Media[0]}
+              src={ data.Media?.length > 0 ?  "/uploads/autos/"+data.Media[0] : "/placeholder.jpg" }
               alt={`${data.Auto.brandName} ${data.Auto.modelName}`}
               className="h-[150px] md:h-[250px]"
               style={{ width: '100%', obectFit: 'cover' }}
