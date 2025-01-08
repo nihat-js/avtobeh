@@ -41,7 +41,7 @@ export default function CarCard({ data }) {
         <div>
           <div className="relative" >
             <img
-              src={data.images?.length ? data.images[activeImageIndex]?.path : "https://placehold.co/600x400"}
+              src={ "/uploads/autos/"+data.Media[0]}
               alt={`${data.Auto.brandName} ${data.Auto.modelName}`}
               className="h-[150px] md:h-[250px]"
               style={{ width: '100%', obectFit: 'cover' }}

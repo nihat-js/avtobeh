@@ -51,8 +51,8 @@ export function Client({ ads: ads_, }) {
         <CategoryNavbar />
 
         <div>
-          <div className='relative mt-10 bg-blue-500 rounded-md hover:bg-blue-600 cursor-pointer h-48  w-48 flex justify-center items-center'>
-            <Image src="/images/wheel.png" width={100} height={100} />
+          <div className='relative mt-10 bg-blue-500 rounded-md hover:bg-blue-600 cursor-pointer h-40  w-40 flex justify-center items-center'>
+            <img src="/images/wheel.png" style={{ objectFit: "cover" }}  height={30} />
             <p className='absolute top-2 left-2    text-white text-xl font-bold' > Təkər satışı </p>
           </div>
 

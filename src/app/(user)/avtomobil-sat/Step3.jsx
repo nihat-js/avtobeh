@@ -2,7 +2,7 @@
 // import { Textarea } from "@material-tailwind/react";
 import Image from "next/image";
 import { Checkbox, Input, InputNumber } from "antd";
-import { autoFeatures } from "../../../data/auto";
+import { autoFeatures, currencies } from "../../../data/auto";
 import { Select } from "antd"
 import runes from "runes2";
 import ImagePreview from "./components/ImagePreview";
@@ -11,19 +11,24 @@ import Draggable from "react-draggable";
 import { DndContext } from "@dnd-kit/core";
 import { useEffect } from "react";
 import { Button } from "@material-tailwind/react";
+import { Router, useRouter } from "next/router";
+import { cities } from "@/src/data/cities";
 export default function Step3({ form, setForm, handleChange, activeStep, setActiveStep }) {
 
+    const router = useRouter()
 
     useEffect(() => {
         console.log({ form })
     }, [form])
 
     async function handleSubmit() {
-        let response = await axios.post("/api/create-ad", form)
+        let response = await axios.post("/api/new/auto", form)
         if (response.data.error) {
             alert(response.data.error)
         } else {
             alert(response.data.message)
+            // forward to home
+            router.push("/")
         }
 
         console.log(response.data)
@@ -49,12 +54,12 @@ export default function Step3({ form, setForm, handleChange, activeStep, setActi
     };
 
     async function removeImage(imageUrl) {
+        let images = form.images.filter(image => image != imageUrl)
+        setForm({ ...form, images: images })
         let response = await axios.post("/api/remove-image", { imageURL: imageUrl.replace("/temporary-uploads/", "") });
         // console.log(response.data)
-        if (response.data["status"] == "ok") {
-            images = form.images.filter(image => image != imageUrl)
-            setForm({ ...form, images: images })
-        }
+        // if (response.data["status"] == "ok") {
+        // }
     }
 
     async function rotateImage(imageUrl) {
@@ -80,11 +85,12 @@ export default function Step3({ form, setForm, handleChange, activeStep, setActi
         </Select>
     );
     const selectAfter = (
-        <Select defaultValue="USD" style={{ width: 60 }}>
-            <Option value="USD">$</Option>
-            <Option value="EUR">€</Option>
-            <Option value="GBP">£</Option>
-            <Option value="CNY">¥</Option>
+        <Select defaultValue="USD" style={{ width: 60 }} value={form.currencyId} onChange={(value) => setForm({ ...form, currencyId: value })} >
+            {
+                currencies.map(currency => (
+                    <Option key={currency.id} value={currency.id}>{currency.name}</Option>
+                ))
+            }
         </Select>
     );
 
@@ -120,7 +126,7 @@ export default function Step3({ form, setForm, handleChange, activeStep, setActi
                         exceedFormatter: (txt, { max }) => runes(txt).slice(0, max).join(''),
 
                     }}
-                    onChange={(value) => setForm({ ...form, description: value })}
+                    onChange={(e) => setForm({ ...form, description: e.target.value })}
                     rows="4"
                     placeholder="Sərfiyyat, Təkərlərin vəziyyəti, Salonun veziyyeti, xüsusiyyətlər :"
                 />
@@ -142,18 +148,56 @@ export default function Step3({ form, setForm, handleChange, activeStep, setActi
                     <span className="text-4xl">➕</span>
                 </div>
             </div>
-            <div className="flex gap-2 mb-4" >
-                <span className="text-gray-600"> Telefon nömrəsi </span>
+
+            <div className="flex items-center mb-6" >
+                <span className="text-gray-500 font-semibold mr-4"> Ad </span>
                 <Input
+                    value={form.contactName}
+                    onChange={(e) => setForm({ ...form, contactName:e.target.value })}
+                    style={{ width: '200px' }}
+                    // placeholder=""
+                    // maxLength={9}
+                    // type="number"
+                />
+            </div>
+
+            <div className="flex items-center mb-6" >
+                <span className="text-gray-500 font-semibold mr-4"> Email </span>
+                <Input className=""
+                    style={{ width: '200px' }}
+                    value={form.contactEmail}
+                    onChange={(e) => setForm({ ...form, contactEmail: e.target.value })}
+                // placeholder=""
+                />
+            </div>
+
+            <div className="flex items-center mb-6" >
+                <span className="text-gray-500 font-semibold mr-4"> Telefon nömrəsi </span>
+                <Input
+                    value={form.contactPhoneNumber}
+                    onChange={(e) => setForm({ ...form, contactPhoneNumber: e.target.value })}
                     style={{ width: '200px' }}
                     // placeholder=""
                     maxLength={9}
                     type="number"
                 />
             </div>
-            <div className="flex gap-2 mb-8">
-                <span className="text-gray-600"> Qiymət </span>
-                <InputNumber className="w-30" addonAfter={selectAfter} defaultValue={100} />
+
+            <div className="flex items-center mb-6" >
+                <span className="text-gray-500 font-semibold mr-4 "> Şəhər </span>
+                <Select defaultValue="add" style={{ width: 200 }} value={form.city} onChange={(value) => setForm({ ...form, cityId: value })}
+                    options={cities.map(city => ({
+                        value: city.id,
+                        label: city.name
+                    }))}
+                />
+            </div>
+
+            <div className="flex items-center mb-6">
+                <span className="text-gray-500 font-semibold  mr-4"> Qiymət </span>
+                <InputNumber className="w-30" addonAfter={selectAfter} defaultValue={100} value={form.price}
+                    onChange={(value) => setForm({ ...form, price: value })}
+                />
             </div>
             <div>
                 <button

@@ -1,4 +1,4 @@
-[
+export const cities = [
     { "id": 1, "name": "Ağcabədi" },
     { "id": 2, "name": "Ağdam" },
     { "id": 3, "name": "Ağdaş" },

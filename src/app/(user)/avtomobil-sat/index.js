@@ -3,22 +3,7 @@
 import axios from "axios";
 import Image from "next/image";
 import { useRef, useState } from "react";
-// import VIN from "./components/VIN";
-// import Category from "./components/Category";
-// import Year from "./components/Year";
-// import Mileage from "./components/Mileage";
-// import Price from "./components/Price";
-// import Brand from "./components/Brand";
-// import Model from "./components/Model";
-// import { fuelTypes } from "@/lib/data";
-// import CustomSelect from "@/app/components/atoms/CustomSelect";
-// import { Option, Select } from "@material-tailwind/react";
-// import { carColors, carFeatures, cylindersCount, seatsCount, transmissionType, autoBodyStyles, years } from "@/src/data/auto";
-// import { Input } from "@material-tailwind/react";
-// import { Radio } from "@material-tailwind/react";
-// import { Checkbox } from "@material-tailwind/react";
-// import { Typography } from "@material-tailwind/react";
-// import { Textarea } from "@material-tailwind/react";
+
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
@@ -68,10 +53,10 @@ export default function Index() {
     modelId: null,
     bodyStyleId: null,
     mileage: null,
-    mileageUnitId: null,
+    mileageUnitId: 1,
     colorId: null,
     price: null,
-    currencyId: null,
+    currencyId: 1,
 
 
     fuelTypeId: null,

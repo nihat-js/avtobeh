@@ -16,8 +16,8 @@ export default function Step1({ form, setForm, setActiveStep }) {
 		if (!value) {
 			setForm({ ...form, brandId: null })
 		}
-		let res = await axios.post(`/api/auto-models/${value}`)
 		setForm({ ...form, brandId: value })
+		let res = await axios.post(`/api/auto-models/${value}`)
 		setModels(res.data.data)
 	}
 
@@ -32,6 +32,20 @@ export default function Step1({ form, setForm, setActiveStep }) {
 			alert("Məlumatların tam olması lazımdır")
 		}
 	}
+
+	const mileageAddonAfter = <Select2 size="middle"
+		value={form.mileageUnitId}
+		style={{ width: "100px" }}
+		className="rounded-full"
+		// suffixIcon={
+		// 	<Image src="/icons/arrow-down-up.svg" width={12} height={12} alt="ox" />
+		// }
+		onChange={(value) => { setForm({ ...form, mileageUnitId: value }) }}
+		options={mileageUnits.map(m => ({
+			label: m.name,
+			value: m.id,
+		}))}
+	/>
 
 
 	return (
@@ -80,7 +94,7 @@ export default function Step1({ form, setForm, setActiveStep }) {
 				/>
 
 				<Select2 size="middle" placeholder="Model  *"
-				value={form.modelId}
+					value={form.modelId}
 					disabled={models.length == 0}
 					allowClear
 					showSearch
@@ -110,6 +124,7 @@ export default function Step1({ form, setForm, setActiveStep }) {
 						// <Image src="/icons/arrow-down-up.svg" width={12} height={12} alt="ox" />
 						null
 					}
+					value={form.bodyStyleId}
 					onChange={(value) => { setForm({ ...form, bodyStyleId: value }) }}
 					options={
 						autoBodyStyles.map(type => ({
@@ -135,8 +150,8 @@ export default function Step1({ form, setForm, setActiveStep }) {
 						(typeof option?.label === 'string' && option?.label.toLowerCase().includes(input.toLowerCase()))
 					}
 					onChange={(value) => { setForm({ ...form, transmissionTypeId: value }) }}
+					value={form.transmissionTypeId}
 					className="w-full"
-
 					// suffixIcon={
 					// 	<Image src="/icons/arrow-down-up.svg" width={12} height={12} alt="ox" />
 					// }
@@ -151,11 +166,11 @@ export default function Step1({ form, setForm, setActiveStep }) {
 
 
 				<Select2 size="middle" placeholder="Yanacaq tipi"
-				value={form.fuelTypeId}
-				showSearch
-				filterOption={(input, option) =>
-					(typeof option?.label === 'string' && option?.label.toLowerCase().includes(input.toLowerCase()))
-				}
+					value={form.fuelTypeId}
+					showSearch
+					filterOption={(input, option) =>
+						(typeof option?.label === 'string' && option?.label.toLowerCase().includes(input.toLowerCase()))
+					}
 					// suffixIcon={
 					// 	<Image src="/icons/arrow-down-up.svg" width={12} height={12} alt="ox" />
 					// }
@@ -191,59 +206,49 @@ export default function Step1({ form, setForm, setActiveStep }) {
 				</p>
 				<InputNumber placeholder="Yürüyüş " value={form.mileage} onChange={(value) => { setForm({ ...form, mileage: value }) }}
 					// style={{ width: '100%' }}
+					addonAfter={mileageAddonAfter}
 					min={0} />
-				<Select2 size="middle"
-					value={form.mileageUnitId}
-					className="rounded-full"
-					// suffixIcon={
-					// 	<Image src="/icons/arrow-down-up.svg" width={12} height={12} alt="ox" />
-					// }
-					onChange={(value) => { setForm({ ...form, mileageUnitId: value }) }}
-					options={mileageUnits.map(m => ({
-						label: m.name,
-						value: m.id,
-					}))}
-				/>
+
 			</div>
 
 
 			{/* <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 mt-4"> */}
-				<div className="flex gap-2 items-center">
-					{/* <button className="bg-blue-500 text-white font-semibold py-2 px-4 rounded transition-colors duration-300 hover:bg-green-500">
+			<div className="flex gap-2 items-center">
+				{/* <button className="bg-blue-500 text-white font-semibold py-2 px-4 rounded transition-colors duration-300 hover:bg-green-500">
 						Next
 					</button> */}
-					<div className="w-full flex justify-between mt-8 gap-5">
-						<button disabled
-							className="group relative overflow-hidden rounded-md bg-secondary px-4 py-2 text-xs font-medium text-green-600 transition-all duration-150 hover:border-green-500 active:scale-95 w-full">
-							<span className="absolute bottom-0 left-0 z-0 h-0 w-full bg-gradient-to-t from-green-700 to-green-500 transition-all duration-500 group-hover:h-full"></span>
-							<span className="relative z-10 transition-all duration-500 group-hover:text-white w-full flex justify-center">
-								<div className="flex flex-col items-center">
-									<p>Geri</p>
-								</div>
-							</span>
-						</button>
+				<div className="w-full flex justify-between mt-8 gap-5">
+					<button disabled
+						className="group relative overflow-hidden rounded-md bg-secondary px-4 py-2 text-xs font-medium text-green-600 transition-all duration-150 hover:border-green-500 active:scale-95 w-full">
+						<span className="absolute bottom-0 left-0 z-0 h-0 w-full bg-gradient-to-t from-green-700 to-green-500 transition-all duration-500 group-hover:h-full"></span>
+						<span className="relative z-10 transition-all duration-500 group-hover:text-white w-full flex justify-center">
+							<div className="flex flex-col items-center">
+								<p>Geri</p>
+							</div>
+						</span>
+					</button>
 
-						<button className="group relative overflow-hidden rounded-md bg-secondary px-4 py-2 text-xs font-medium text-blue-600 transition-all duration-150 hover:border-blue-500 active:scale-95 w-full"
-							onClick={goNextStep}
-						>
-							<span className="absolute bottom-0 left-0 z-0 h-0 w-full bg-gradient-to-t from-blue-700 to-blue-500 transition-all duration-500 group-hover:h-full"></span>
-							<span className="relative z-10 transition-all duration-500 group-hover:text-white w-full flex justify-center">
-								<div className="flex flex-col items-center">
-									<p>İrəli</p>
-								</div>
-							</span>
-						</button>
-					</div>
+					<button className="group relative overflow-hidden rounded-md bg-secondary px-4 py-2 text-xs font-medium text-blue-600 transition-all duration-150 hover:border-blue-500 active:scale-95 w-full"
+						onClick={goNextStep}
+					>
+						<span className="absolute bottom-0 left-0 z-0 h-0 w-full bg-gradient-to-t from-blue-700 to-blue-500 transition-all duration-500 group-hover:h-full"></span>
+						<span className="relative z-10 transition-all duration-500 group-hover:text-white w-full flex justify-center">
+							<div className="flex flex-col items-center">
+								<p>İrəli</p>
+							</div>
+						</span>
+					</button>
+				</div>
 
 
 
-					{/* <Button color="red" disabled={true}>
+				{/* <Button color="red" disabled={true}>
 						Geri
 					</Button>
 					<Button onClick={goNextStep} >
 						İrəli
 					</Button> */}
-				</div>
+			</div>
 
 			{/* </div> */}
 		</section >

@@ -1,5 +1,5 @@
 // import { sequelize } from "@/node-api/sequelize";
-import { autoBodyStyles, colors, currencies, fuelTypes, mileageTypes, transmissionTypes, wheelDriveTypes } from "@/src/data/auto";
+import { autoBodyStyles, colors, currencies, fuelTypes, mileageUnits, transmissionTypes, wheelDriveTypes } from "@/src/data/auto";
 import { sequelize } from "@/src/database/sequelize/db";
 import Advertisement from "@/src/database/sequelize/models/Ad";
 import Auto from "@/src/database/sequelize/models/Auto";
@@ -39,7 +39,7 @@ export async function POST(req) {
         year: ["required", "integer", { min: 1900 }, { max: new Date().getFullYear() }],
 
         mileage: ["required", "integer", { min: 0 }, { max: 99999999 }],
-        mileageUnitId: ["required", "integer", { in: mileageTypes.map(item => item.id) }],
+        mileageUnitId: ["required", "integer", { in: mileageUnits.map(item => item.id) }],
         colorId: ["required", "integer", { in: colors.map(item => item.id) }],
         price: ["required", "integer", { min: 0 }, { max: 10000000 }],
         currencyId: ["required", "integer", { in: currencies.map(item => item.id) }],
@@ -106,6 +106,7 @@ export async function POST(req) {
     try {
         let ad = await Ad.create({
             userId: 1,
+            categoryId : 1,
             price: data.price,
             currencyId: data.currencyId,
             viewsCount: 0,

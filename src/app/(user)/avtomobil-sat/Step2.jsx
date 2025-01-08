@@ -27,6 +27,7 @@ export default function Step2({ form, handleChange, setForm, setActiveStep, }) {
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
                 <Select2 size="md" placeholder="Rəng *"
                     onChange={(value) => { setForm({ ...form, colorId: value }) }}
+                    value={form.colorId}
                     suffixIcon={
                         <Image src="/icons/arrow-down-up.svg" width={12} height={12} alt="ox" />
                     }
@@ -38,7 +39,9 @@ export default function Step2({ form, handleChange, setForm, setActiveStep, }) {
                     }
                 />
 
-                <Input placeholder="At gücü (HP)" type="number" name="horsePower" onChange={(e) => { setForm({ ...form, horsePower: parseInt(e.target.value) }) }} />
+                <Input placeholder="At gücü (HP)" type="number" 
+                value={form.horsePower}
+                name="horsePower" onChange={(e) => { setForm({ ...form, horsePower: parseInt(e.target.value) }) }} />
             </div>
 
             <div className="mt-6 flex items-center ">
@@ -46,6 +49,7 @@ export default function Step2({ form, handleChange, setForm, setActiveStep, }) {
                     Silindr sayı
                 </p>
                 <Select2 size="md" placeholder="Silindr sayı"
+                    value={form.cylindersCount}
                     onChange={(value) => { setForm({ ...form, cylindersCount: value }) }}
                     showSearch
                     filterOption={(input, option) =>
@@ -68,8 +72,8 @@ export default function Step2({ form, handleChange, setForm, setActiveStep, }) {
                 <p className="text-sm text-gray-700 font-semibold mr-6">
                     VIN Kod
                 </p>
-                <Input style={{ width: "150px" }} placeholder="İstəyə uyğun" type="text" name="vin"
-                    onChange={(value) => { setForm({ ...form, VIN: value }) }} />
+                <Input style={{ width: "150px" }} placeholder="İstəyə uyğun" type="text" value={form.VIN}
+                    onChange={(e) => { setForm({ ...form, VIN: e.target.value }) }} />
             </div>
 
             <div className="mt-6 flex items-center ">
@@ -78,6 +82,7 @@ export default function Step2({ form, handleChange, setForm, setActiveStep, }) {
                 </p>
                 <Select2 size="md"
                     // placeholder="Oturacaq sayı"
+                    value={form.seatsCount}
                     style={{ width: "100px" }}
                     suffixIcon={null}
                     showSearch
