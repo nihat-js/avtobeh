@@ -12,7 +12,7 @@ import Image from "next/image";
 // import CarFilter from "@/components/user/CarFilter";
 // import FilterHeader from "./_ev/FilterHeader";
 import { Client } from ".";
-import AutoSale from "@/src/database/sequelize/models/Auto";
+import Auto from "@/src/database/sequelize/models/Auto";
 
 
 
@@ -28,7 +28,7 @@ export default async function Home() {
   //   }
   // })
 
-  let autos = await AutoSale.findAll({
+  let autos = await Auto.findAll({
     // include: {
     //   AutoImage: true
     // }

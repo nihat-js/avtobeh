@@ -83,7 +83,7 @@ const CarFilter = () => {
 
 
     return (
-        <div className="p-4 bg-neutral-50 rounded-lg shadow-md">
+        <div className="p-4 bg-neutral-50 rounded-2xl shadow-sm ">
 
 
 
@@ -103,7 +103,7 @@ const CarFilter = () => {
                     <Select2
                         showSearch
                         placeholder="Marka"
-                        size="large"
+                        size="md"
                         className="w-1/3 bg-slate-50"
                         allowClear={true}
                         // mode="multiple"
@@ -140,7 +140,7 @@ const CarFilter = () => {
 
                     <Select2 showSearch
                         placeholder="Model"
-                        size="large"
+                        size="middle"
                         className="w-1/3 bg-transparent"
                         // mode="multiple"
                         // filterOption={(input, option) =>
@@ -190,7 +190,7 @@ const CarFilter = () => {
 
                     <Select2 placeholder="Şəhər"
                         showSearch={true}
-                        size="large"
+                        size="middle"
                         className="bg-transparent"
                         allowClear
                         // mode="multiple"

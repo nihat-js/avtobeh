@@ -20,6 +20,7 @@ import Link from 'next/link';
 import Banner from '../components/common/Banner';
 import CarFilter from '../components/user/CarFilter';
 import CarCard from '../components/common/CarCard';
+import CategoryNavbar from '../components/user/CategoryNavbar';
 export function Client({ autos: autos_, }) {
 
   const [autos, setAutos] = useState(autos_)
@@ -50,9 +51,11 @@ export function Client({ autos: autos_, }) {
 
       <div className="container mx-auto" style={{ maxWidth: "1000px" }}>
 
+        <CategoryNavbar/>
+
         {/* <Announcement /> */}
         <section className='bg-slate-100  mb-5'>
-          <FilterHeader filterType={filterType} setFilterType={setFilterType} />
+          {/* <FilterHeader filterType={filterType} setFilterType={setFilterType} /> */}
         </section>
 
 
