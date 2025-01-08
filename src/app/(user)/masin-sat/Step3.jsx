@@ -13,6 +13,12 @@ export default function Step3({ form, setForm, handleChange, }) {
 
     async function handleSubmit() {
         let response = await axios.post("/api/create-ad", form)
+        if (response.data.error){
+            alert(response.data.error)
+        }else {
+            alert(response.data.message)
+        }
+
         console.log(response.data)
     }
 
@@ -111,14 +117,14 @@ export default function Step3({ form, setForm, handleChange, }) {
             </div>
 
             <div className="grid grid-cols-5 gap-2 mt-10 mb-8 ">
-                <Draggable>
+                {/* <Draggable> */}
                     {
                         form.images.map((image, index) => (
                             <ImagePreview key={index} image={"/temporary-uploads/" + image}
                                 removeImage={() => removeImage(image)} rotateImage={() => rotateImage(image)} />
                         ))
                     }
-                </Draggable>
+                {/* </Draggable> */}
                 <div
                     className="p-10 border-2 border-dashed border-indigo-500 flex justify-center items-center cursor-pointer rounded-lg transition-transform duration-300 ease-in-out hover:bg-slate-300 hover:scale-105"
                     onClick={onClickAddImage}

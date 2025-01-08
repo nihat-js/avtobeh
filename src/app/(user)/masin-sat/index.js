@@ -24,6 +24,39 @@ import Step2 from "./Step2";
 import Step3 from "./Step3";
 import { Steps } from "antd";
 
+const testPayload = {
+  "brandId" : 414,
+  "modelId" : 925,
+  "bodyStyleId" :1, 
+  "mileage" : 21,
+  "mileageUnitId" : 1,
+  "colorId" : 1,
+  "price" : 13000,
+  "currencyId" :1, 
+  
+  "fuelConsumptionId" : 1,
+  "wheelDriveTypeId" :1,
+  "transmissionTypeId" : 1,
+  
+  "engineSize" : 1500,
+  "horsePower" : 170,
+  "seatsCount" : 5,
+  "cylindersCount" : 4,
+  
+  "barter" : 0,
+  "hasCasco" : 1,
+  
+
+  "year" : 2017,
+  "cityId" : 2,
+  "phoneNumber" : 1231,
+  "images" : ["3fe52306ef1721a64ea7a688ee58fef5.jpeg"],
+  
+  "contactName" : "Nihat",
+  "contactEmail" : "abdullazadenihat@gmail.com",
+  "contactPhoneNumber" : "+994507514178",
+  "isWhatsappActive" : 1
+}
 
 
 export default function Index() {
@@ -31,34 +64,37 @@ export default function Index() {
 
 
   const [form, setForm] = useState({
-    wheelDriveType: "",
-    bodyType: "",
-    brand: "",
-    model: "",
-    year: "",
-    price: "",
-    horsePower: "",
-    transmissionType: "",
-    engineSize: "",
-    cylindersCount: "",
-    seatsCount: "",
-    features: [],
-    color: "",
-    interiorColor: "",
-    interiorMaterial: "",
-    interiorTrim: "",
-    interiorTrimColor: "",
-    city: "",
-    phone: "",
-    name: "",
-    email: "",
-
-    category: "",
-    vin: "",
-    mileage: "",
-    description: "",
-    fuelType: "",
-    images: [],
+    brandId : null,
+    modelId : null,
+    bodyStyleId :null, 
+    mileage : null,
+    mileageUnitId : null,
+    colorId : null,
+    price : null,
+    currencyId :null, 
+    
+    
+    fuelConsumptionId : null,
+    wheelDriveTypeId :null,
+    transmissionTypeId : null,
+    
+    engineSize : null,
+    horsePower : null,
+    seatsCount : null,
+    cylindersCount : null,
+    
+    barter : 0,
+    hasCasco : 1,
+    
+    year : null,
+    cityId : null,
+    phoneNumber : null,
+    images : [],
+    
+    contactName : "",
+    contactEmail : "",
+    contactPhoneNumber : "",
+    isWhatsappActive : 0,
   });
   const [models, setModels] = useState([]);
 

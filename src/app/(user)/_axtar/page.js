@@ -5,11 +5,16 @@ import Link from 'next/link';
 import CustomButton from '@/components/atoms/PrimaryButton';
 import Image from 'next/image';
 import CarCard from '@/components/common/CarCard';
-import prisma from '@/prisma';
+import Ad from '@/src/database/sequelize/models/Ad';
+
 
 const Browse = async () => {
 
   let cars = await prisma.car.findMany();
+
+  let autos = await Ad.findAll({where : { categoryId : 1 } })
+  // })
+  // console.log(autos)
 
   return (
     <div className="flex flex-col md:flex-row gap-6">

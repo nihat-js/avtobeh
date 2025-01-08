@@ -15,6 +15,9 @@ const Ad  = sequelize.define('Ad', {
     allowNull: true,
     defaultValue: null,
   },
+  categoryId : {
+    type: DataTypes.INTEGER,
+  },
   slug: {
     type: DataTypes.STRING(100),
     allowNull: false,
@@ -40,6 +43,11 @@ const Ad  = sequelize.define('Ad', {
     defaultValue: null,
   },
   viewsCount: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    defaultValue: 0,
+  },
+  likesCount: {
     type: DataTypes.INTEGER,
     allowNull: true,
     defaultValue: 0,
