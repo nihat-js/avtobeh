@@ -11,24 +11,25 @@ export const sequelize = new Sequelize(
     port: config.databasePort,
     dialect: 'mysql',
     dialectModule: mysql2,
-    benchmark: true,
+    benchmark: false,
     freezeTableName: true,
     logging: false,
-    dialectOptions: {
-      connectTimeout: 10000
-    },
-    pool: {
-      max: 5, // Adjust as necessary
-      min: 0,
-      idle: 10000 // Adjust as necessary
-    }
+    // dialectOptions: {
+      // connectTimeout: 10000
+    // },
+    // pool: {
+    //   max: 10, 
+    //   min: 0,
+    //   acquire: 30000,
+    //   idle: 10000,
+    // }
   });
 
 
 
 
-// sequelize.authenticate().then(() => {
-//   console.log('Connection has been established successfully.');
-// }).catch((error) => {
-//   console.error('Unable to connect to the database:', error);
-// });
+sequelize.authenticate().then(() => {
+  console.log('Connection has been established successfully.');
+}).catch((error) => {
+  console.error('Unable to connect to the database:', error);
+});

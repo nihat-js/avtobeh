@@ -78,7 +78,7 @@ async function Layout({ children }) {
           <html>
             <body className="" style={{
               //  backgroundImage: "url('/backgrounds/2.avif')", backgroundSize: "cover" 
-              backgroundColor: "#f9f4f3"
+              backgroundColor: "#f0f4f8"  // Cool blue-gray shade
             }}>
 
               <Snowfall />

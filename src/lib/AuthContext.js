@@ -1,7 +1,6 @@
 "use client"
 import { createContext, ReactNode, useContext, useState, useEffect } from "react";
 export const AuthProvider = ({ children,data }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const [user, setUser] = useState(data.user);
 
@@ -14,27 +13,39 @@ export const AuthProvider = ({ children,data }) => {
     // }
   }, []);
 
-  function login(){
-
+  async function login(data){
+      let response = await axios.post("/api/auth/login", data)
+      if (!response.data.error) {
+          setUser(response.data.data)
+          return true
+      } else {
+          alert(response.data["message"])
+          return false
+      }
   }
-  function logout(){
-    
+  async function register(data){
+    let response = await axios.post("/api/auth/register", data)
+    if (!response.data.error) {
+        setUser(response.data.data)
+        return true
+    } else {
+        alert(response.data["message"])
+        return false
+    }
   }
 
-//   const login = (user: User) => {
-//     setUser(user);
-//     setIsAuthenticated(true);
-//     localStorage.setItem("user", JSON.stringify(user)); // Store user info
-//   };
+  async function logout(){
+    let response = await axios.post("/api/auth/logout")
+    if (!response.data.error) {
+        setUser(null)
+    } else {
+        alert(response.data["message"])
+    }
+  }
 
-//   const logout = () => {
-//     setUser(null);
-//     setIsAuthenticated(false);
-//     localStorage.removeItem("user");
-//   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user,setUser, login, logout }}>
+    <AuthContext.Provider value={{ user,setUser, register,login,logout }}>
       {children}
     </AuthContext.Provider>
   );

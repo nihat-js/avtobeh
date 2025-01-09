@@ -10,7 +10,6 @@ import LicensePlateFilter from '../components/filter/LicensePlateFilter';
 import { CardBody, CardFooter, Tab, TabPanel, TabsBody, TabsHeader } from '@material-tailwind/react';
 import { Card } from '@material-tailwind/react';
 import { Typography } from '@material-tailwind/react';
-import { Button } from '@material-tailwind/react';
 import { Dialog } from '@material-tailwind/react';
 import { Input } from '@material-tailwind/react';
 import { Checkbox } from '@material-tailwind/react';
@@ -21,10 +20,14 @@ import Banner from '../components/common/Banner';
 import CarFilter from '../components/user/CarFilter';
 import CarCard from '../components/common/CarCard';
 import CategoryNavbar from '../components/user/CategoryNavbar';
+import { Button } from 'antd';
+import { SearchIcon } from 'lucide-react';
+import { useGlobalContext } from '@/src/lib/GlobalContext';
+import { autoBodyStyles, colors } from '@/src/data/auto';
 export function Client({ ads: ads_, }) {
 
   const [ads, setAds] = useState(ads_)
-
+  
   useEffect(() => {
     setAds([
       ...ads,
@@ -40,6 +43,92 @@ export function Client({ ads: ads_, }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
 
+  const [search, setSearch] = useState('')
+  const [isSearching, setIsSearching] = useState(false)
+  const [searchResults, setSearchResults] = useState([])
+  const [selectedIndex, setSelectedIndex] = useState(-1)
+
+  const { brands } = useGlobalContext()
+  const searchOnChange = (e) => {
+    let lastWord = e.target.value.split(' ').pop()
+    setSearch(e.target.value)
+    setSelectedIndex(-1) // Reset selection when typing
+    
+    if (lastWord.length < 1) {
+      setIsSearching(false)
+      setSearchResults([])
+      return
+    }
+    
+    setIsSearching(true)
+    
+    // Search in all categories
+    let brandResults = brands.map(brand => ({
+      ...brand,
+      type: 'brand',
+      displayName: brand.name,
+      name: brand.name // Ensure name property exists
+    }))
+    
+    let colorResults = colors.map(color => ({
+      name: color.name,
+      type: 'color',
+      displayName: color.name
+    }))
+    
+    let bodyResults = autoBodyStyles.map(style => ({
+      name: style.name,
+      type: 'bodyStyle',
+      displayName: style.name
+    }))
+
+    // Combine and filter all results
+    let combinedResults = [...brandResults, ...colorResults, ...bodyResults]
+      .filter(item => 
+        (item.name || '').toString().toLowerCase().includes(lastWord.toLowerCase())
+      )
+      .slice(0, 10)
+
+    setSearchResults(combinedResults)
+  }
+
+  const handleSelectBrand = (item) => {
+    // Update search input with selected item
+    const words = search.split(' ')
+    words[words.length - 1] = item.displayName
+    setSearch(words.join(' ') + ' ')
+    
+    setIsSearching(false)
+    setSearchResults([])
+  }
+
+  const handleKeyDown = (e) => {
+    if (!isSearching || searchResults.length === 0) return
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault()
+        setSelectedIndex(prev => 
+          prev < searchResults.length - 1 ? prev + 1 : prev
+        )
+        break
+      case 'ArrowUp':
+        e.preventDefault()
+        setSelectedIndex(prev => prev > 0 ? prev - 1 : prev)
+        break
+      case 'Enter':
+        e.preventDefault()
+        if (selectedIndex >= 0) {
+          handleSelectBrand(searchResults[selectedIndex])
+        }
+        break
+      case 'Escape':
+        setIsSearching(false)
+        setSelectedIndex(-1)
+        break
+    }
+  }
+  
   return (
 
 
@@ -50,13 +139,53 @@ export function Client({ ads: ads_, }) {
       <div className="container mx-auto" style={{ maxWidth: "1000px" }}>
         <CategoryNavbar />
 
-        <div>
+        <div className='flex justify-center items-center gap-3 mt-10 p-5 relative  from-blue-gray-100 to-blue-gray-300 bg-gradient-to-r rounded-md  '>
+          <input
+            type="text"
+            placeholder='Marka, Rəng, Kuza, Yanacaq ...'
+            onChange={searchOnChange}
+            onKeyDown={handleKeyDown}
+            value={search}
+            className="rounded-md border-sunshineYellow border-2 focus:border-none active:border-none p-2 w-[80%]"
+          />
+          <button className="bg-sunshineYellow rounded-full px-6 py-2 flex gap-2 items-center">
+            <SearchIcon className="w-5 h-5 mr-2" /> Axtar
+          </button>
+
+          {isSearching && searchResults.length > 0 && (
+            <div className='absolute top-full left-0 w-[80%] mt-1 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50'>
+              <p className='text-gray-600 text-sm font-medium px-4 pb-2 border-b'>Axtarış nəticəsi</p>
+              <div className='max-h-[300px] overflow-y-auto'>
+                {searchResults.map((item, index) => (
+                  <div
+                    key={index}
+                    onClick={() => handleSelectBrand(item)}
+                    className={`block px-4 py-2 transition-colors cursor-pointer ${
+                      selectedIndex === index 
+                        ? 'bg-blue-50 text-blue-700' 
+                        : 'hover:bg-gray-50'
+                    }`}
+                  >
+                    <span className='text-base'>{item.displayName}</span>
+                    <span className='text-xs text-gray-500 ml-2'>
+                      {item.type === 'brand' ? 'Marka' : 
+                       item.type === 'color' ? 'Rəng' : 
+                       'Kuzov'}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* <div>
           <div className='relative mt-10 bg-blue-500 rounded-md hover:bg-blue-600 cursor-pointer h-40  w-40 flex justify-center items-center'>
-            <img src="/images/wheel.png" style={{ objectFit: "cover" }}  height={30} />
+            <img src="/images/wheel.png" style={{ objectFit: "cover" }} height={30} />
             <p className='absolute top-2 left-2    text-white text-xl font-bold' > Təkər satışı </p>
           </div>
 
-        </div>
+        </div> */}
 
 
         {/* <Announcement /> */}

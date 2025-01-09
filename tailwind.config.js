@@ -31,6 +31,15 @@ module.exports = withMT({
 				mutedAccent: '#F2A29B', // Muted Red-Orange
 				lightOrange: '#FFB87C', // Light Orange (for hover)
 				offWhite: '#FAF4EC', // Off-White (general backgrounds)
+
+
+				///////////
+
+				vibrantRed: '#F23545',      // Vibrant Red
+				deepTeal: '#395873',        // Deep Teal
+				steelBlue: '#6D8BA6',       // Steel Blue
+				mutedGray: '#A3B4BF',       // Muted Gray
+				sunshineYellow: '#F2D64B',   // Sunshine Yellow
 			}
 		}
 	},

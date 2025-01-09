@@ -29,9 +29,11 @@ const Header = () => {
 
 
   async function logout() {
-    let data = await fetch("/api/auth/logout", {
-      method: "POST",
-    });
+    setUser(null)
+    // let data = await fetch("/api/auth/logout", {
+    //   method: "POST",
+    // });
+    // alert(data)
     // console.log("noldu")
     // setUser(null)
 
