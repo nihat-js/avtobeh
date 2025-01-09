@@ -1,6 +1,9 @@
 
-async function AuthMiddleware(req, res, next) {
-  const token = req.cookies.get('token');
+export async function AuthMiddleware(req, res, next) {
+  let cookiesStore = await req.cookies;
+  const token = cookiesStore.get('token');
+
+
   if (!token) {
     return res.status(401).json({ message: 'Unauthorized' });
   }
@@ -10,7 +13,7 @@ async function AuthMiddleware(req, res, next) {
       return res.status(401).json({ message: 'Unauthorized' });
     }
     req.user = decoded;
+    next();
   });
 
-  next();
 }

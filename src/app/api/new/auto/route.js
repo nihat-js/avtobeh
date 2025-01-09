@@ -12,6 +12,8 @@ import path from "path";
 import Ad from "@/src/database/sequelize/models/Ad";
 import crypto from 'crypto';
 import Media from "@/src/database/sequelize/models/Media";
+import { config } from "@/src/lib/config";
+import jwt from "jsonwebtoken"
 
 // import { z } from 'zod';
 
@@ -30,6 +32,11 @@ function generateObfuscatedFolderName(adId) {
 
 export async function POST(req) {
     const data = await req.json();
+
+    let cookies = await req.cookies;
+    if (!cookies.get('token') || (await jwt.verify(cookies.get('token').value, config.JWTSecret) === null)) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
 
 
     let result = await safeParse(data, {
@@ -106,7 +113,7 @@ export async function POST(req) {
     try {
         let ad = await Ad.create({
             userId: 1,
-            categoryId : 1,
+            categoryId: 1,
             price: data.price,
             currencyId: data.currencyId,
             viewsCount: 0,
