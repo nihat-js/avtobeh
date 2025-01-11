@@ -66,7 +66,7 @@ export default async function Home() {
       delete ad.Auto.bodyStyleId
       delete ad.Auto.fuelTypeId
     })
-    console.log({ ads })
+    // console.log({ ads })
 
   } catch (error) {
     console.error('Error fetching ads:', error);

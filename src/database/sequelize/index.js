@@ -35,12 +35,10 @@ async function run(){
   // let x = await (await AutoBrand.findAndCountAll()).count
   // let x = await AutoBrand.findByPk(395)
 
-  // console.log(JSON.stringify(x))
 
   // let x = await AutoModel.findAll({ where: { brandId: 395 } })
   // console.log(JSON.stringify(x))
   // let u = await User.findAll({})
-  // console.log(u)
   // let x = await AutoBrand.findByPk(395, {
   //   include: {
   //     model: AutoModel,

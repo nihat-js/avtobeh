@@ -12,15 +12,10 @@ export const useGlobalContext = () => {
 // Create the provider component
 export const GlobalProvider = ({ children, data }) => {
 
-
-
-
   const [brands, setBrands] = useState(data.brands);
-  const [models, setModels] = useState(data.models);
-  const [cities, setCities] = useState(data.cities);
 
   return (
-    <GlobalContext.Provider value={{ brands, setBrands, models, setModels, cities, setCities }}>
+    <GlobalContext.Provider value={{ brands, setBrands,  }}>
       {children}
     </GlobalContext.Provider>
   );

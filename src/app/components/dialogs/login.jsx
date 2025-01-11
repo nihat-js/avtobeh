@@ -19,7 +19,7 @@ export default function Login({ state, setState, toggleLoginRegisterState }) {
         setState(prev => !prev)
     }
 
-    const { setUser } = useAuth()
+    const { setUser, signInWithGoogle, isAuthLoading } = useAuth()
 
     async function submit(e) {
         e.preventDefault()
@@ -68,10 +68,29 @@ export default function Login({ state, setState, toggleLoginRegisterState }) {
                             <Checkbox label="Yadda saxla" />
                         </div>
                     </CardBody>
+
                     <CardFooter className="pt-0">
                         <Button variant="gradient" onClick={submit} fullWidth>
                             Daxil ol
                         </Button>
+                        <div>
+                            <Button
+                                disabled={isAuthLoading}
+                                onClick={signInWithGoogle}
+                                variant="outlined"
+                                size="lg"
+                                className="flex h-12 border-blue-gray-200 items-center justify-center gap-2 mt-5"
+                                fullWidth
+                            >
+                                <img
+                                    src={`https://www.material-tailwind.com/logos/logo-google.png`}
+                                    alt="google"
+                                    className="h-6 w-6"
+                                />{" "}
+                                Google ilə daxil olun
+                            </Button>
+                        </div>
+
                         <Typography variant="small" className="mt-4 flex justify-center">
                             Hesabınız yoxdur ?
                             <Typography

@@ -1,43 +1,56 @@
 "use client"
-import React from 'react';
-import { Select, Slider } from 'antd';
-import "../../styles/globals.css"
-const handleChange = (value) => {
-    // console.log(`selected ${value}`);
+
+import { useState } from 'react';
+import { auth, GoogleAuthProvider, signInWithPopup, getIdToken } from '@/src/lib/firebase'; // Firebase auth module
+import axios from 'axios'; // For making HTTP requests to your API
+
+const Login = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  // Google sign-in
+  const signInWithGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    
+    try {
+      setLoading(true);
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      // Get the ID token for authentication on the server
+      const idToken = await getIdToken(user);
+
+      // Send user data to the server to be saved in the database
+      const userData = {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        idToken, // We will send the ID token to verify the user's authenticity on the server
+      };
+
+      // Call your API to save the user to your MySQL database via Sequelize
+      await axios.post('/api/auth/save-user', userData);
+
+      console.log('User signed in with Google:', user);
+    } catch (err) {
+      setError('Failed to sign in with Google');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div>
+      <h2>Login or Sign Up</h2>
+      <button onClick={signInWithGoogle} disabled={loading}>
+        {loading ? 'Signing in with Google...' : 'Sign in with Google'}
+      </button>
+
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+    </div>
+  );
 };
 
-export default function Home() {
-    return (
-        <main className='container mx-auto mt-20' style={{maxWidth : "1000px"}}>
-            <Select
-                defaultValue="lucy"
-                showSearch={true}
-                style={{ width: 200 }}
-                onChange={handleChange}
-                // suffixIcon={
-                //     <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><title>Artboard 2</title><path d="M460.8 307.2v153.6H307.2V307.2h153.6zm-153.6 384h153.6V537.6H307.2v153.6zm230.4-230.4h153.6V307.2H537.6v153.6zm153.6 76.8H537.6v153.6h153.6V537.6z" fill="#000000" fill-rule="evenodd"></path></g></svg>
-                // }
-                options={[
-                    {
-                        label: <span>manager</span>,
-                        title: 'manager',
-                        options: [
-                            { label: <span>Jack</span>, value: 'Jack' },
-                            { label: <span>Lucy</span>, value: 'Lucy' },
-                        ],
-                    },
-                    {
-                        label: <span>engineer</span>,
-                        title: 'engineer',
-                        options: [
-                            { label: <span>Chloe</span>, value: 'Chloe' },
-                            { label: <span>Lucas</span>, value: 'Lucas' },
-                        ],
-                    },
-                ]}
-            />
-            <Slider range   defaultValue={[20, 50]} disabled={false} />
-        </main>
-    )
-}
-
+export default Login;

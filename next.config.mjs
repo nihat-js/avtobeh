@@ -8,9 +8,10 @@ const nextConfig = {
       }
     ]
   },
-  // aliases: {
-  //   '@': './src',
-  // },
+  aliases: {
+    '@': '/',
+    "@/src": "/src"
+  },
   reactStrictMode: true,
 
   // middleware: {

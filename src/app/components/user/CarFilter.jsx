@@ -10,13 +10,15 @@ import Condition from "./CarFilter/Condition";
 import { Option, Select } from "@material-tailwind/react";
 import { useGlobalContext } from "@/src/lib/GlobalContext";
 import { ButtonGroup } from "@material-tailwind/react";
-import { Button } from "@material-tailwind/react";
 // import { colors, fuelTypes } from "@/lib/data";
 
 import { Select as Select2, OptGroup, InputNumber, Slider } from "antd";
+import { ChevronDown, ChevronUp } from "lucide-react";
+// import { Button } from "@/components/ui/button";
 // import MultiRangeSlider from "../common/MultiRangeSlider/MultiRangeSlider";
 
 const CarFilter = () => {
+    const [showAdvanced, setShowAdvanced] = useState(false);
     const [filters, setFilters] = useState({
         brand: "",
         model: "",
@@ -157,7 +159,7 @@ const CarFilter = () => {
                         <Option value="3">Model 3</Option> */}
 
                     <div className="flex flex-row">
-                    
+
                         <InputNumber placeholder="İl(min)" min={1960} max={2025}
                             //   onChange={onChange} 
                             changeOnWheel />
@@ -180,13 +182,13 @@ const CarFilter = () => {
                 <div className="mt-6 flex items-center gap-2">
                     {/* <Slider step={100} marks={marks} defaultValue={[0, 10000]} max={10000} tooltip={{ open: true }} /> */}
                     <label className="block text-xs font-medium text-gray-700" htmlFor=""> Mühərrik həcmi L (min,max)</label>
-                    <InputNumber  min={0} max={10000}
+                    <InputNumber min={0} max={10000}
                         //   onChange={onChange} 
                         changeOnWheel />
-                    <InputNumber  min={0} max={10000} defaultValue={10000}
+                    <InputNumber min={0} max={10000} defaultValue={10000}
                         //   onChange={onChange} 
                         changeOnWheel />
-               
+
 
                     <Select2 placeholder="Şəhər"
                         showSearch={true}
@@ -245,10 +247,27 @@ const CarFilter = () => {
                 {/* <Price /> */}
                 {/* <Condition /> */}
                 <div>
+                    <button
+                        variant="outline"
+                        onClick={() => setShowAdvanced(!showAdvanced)}
+                        className="w-full"
+                    >
+                        {showAdvanced ? (
+                            <>
+                                <ChevronUp className="mr-2 h-4 w-4" /> Gizlə
+                            </>
+                        ) : (
+                            <>
+                                <ChevronDown className="mr-2 h-4 w-4" /> Göstər
+                            </>
+                        )}
+                    </button>
+
+
 
                 </div>
 
-                <label className="text-gray-600 mb-2 text-sm "  htmlFor="">Seçimlər</label>
+                <label className="text-gray-600 mb-2 text-sm " htmlFor="">Seçimlər</label>
                 <div className="flex flex-row flex-wrap gap-3 my-5 ">
                     {
                         [].map((feature, index) => (

@@ -28,17 +28,8 @@ const Header = () => {
   const [openMenu, setOpenMenu] = useState(false);
 
 
-  async function logout() {
-    setUser(null)
-    // let data = await fetch("/api/auth/logout", {
-    //   method: "POST",
-    // });
-    // alert(data)
-    // console.log("noldu")
-    // setUser(null)
+  const { user, setUser, signInWithGoogle, isLoading, error, logout } = useAuth()
 
-    // window.location.href = "/";
-  }
 
   function toggleLoginModalState() {
     setLoginModalState(prev => !prev)
@@ -62,7 +53,6 @@ const Header = () => {
     { label: 'Onlayn servis', href: '/onlayn-servis', description: 'Onlayn servis' },
     { label: 'Sen de xaricden sifaris et', href: '/sen-de-xaricden-sifaris-et', description: 'Sen de xaricden sifaris et' },
   ]
-  const { user,setUser } = useAuth()
 
 
   const links = [
@@ -98,7 +88,7 @@ const Header = () => {
 
         <Link href="/" className="text-2xl font-bold ">
           <div className=" ">
-            <Image src="/icons/logo.png" width={100} height={50} alt="Logo"  />
+            <Image src="/icons/logo.png" width={100} height={50} alt="Logo" />
             {/* <Link href="/">AvtoBeh</Link> */}
           </div>
         </Link>
@@ -288,7 +278,7 @@ const Header = () => {
                     </Typography>
                   </MenuItem>
                   <hr className="my-2 border-blue-gray-50" />
-                  <MenuItem className="flex items-center gap-2 ">
+                  <MenuItem className="flex items-center gap-2" onClick={logout} >
                     <svg
                       width="16"
                       height="14"
@@ -303,7 +293,7 @@ const Header = () => {
                         fill="#90A4AE"
                       />
                     </svg>
-                    <Typography onClick={logout} variant="small" className="font-medium">
+                    <Typography variant="small" className="font-medium">
                       Çıxış
                     </Typography>
                   </MenuItem>
