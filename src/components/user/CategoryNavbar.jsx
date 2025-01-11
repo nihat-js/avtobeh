@@ -5,14 +5,17 @@ export default function Navbar2() {
   const [filterType, setFilterType] = useState('all');
   
   const NavWrapper = styled.div`
-    background: #1a1b21;
+    // background: #1a1b21;
     padding: 24px 0;
-    box-shadow: 
-      0 5px 25px rgba(0, 0, 0, 0.2),
-      0 3px 12px rgba(99, 102, 241, 0.1);
-    border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+    // box-shadow: 
+    //   0 5px 25px rgba(0, 0, 0, 0.2),
+      // 0 3px 12px rgba(99, 102, 241, 0.1);
+    // border-bottom: 1px solid rgba(99, 102, 241, 0.1);
     backdrop-filter: blur(12px);
     position: sticky;
+    scroll-behavior: smooth;
+    overflow-x: scroll;
+    overflow-y: auto;
     top: 0;
     z-index: 40;
     width: 100%;
@@ -83,7 +86,8 @@ export default function Navbar2() {
       }
     ` : `
       background: rgba(255, 255, 255, 0.05);
-      color: #e2e8f0;
+      // color: #e2e8f0;
+      color : #000;
       backdrop-filter: blur(8px);
       
       &:hover {

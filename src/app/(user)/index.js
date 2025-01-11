@@ -24,6 +24,7 @@ import { autoBodyStyles, colors } from '@/src/data/auto';
 import styled from 'styled-components';
 import Select from 'react-select';
 import AutoFilter from '@/src/components/filter/AutoFilter'
+import { CarFront, Square } from 'lucide-react';
 
 
 
@@ -138,30 +139,49 @@ export function Client({ ads: ads_, }) {
     <main>
 
       <div className="container mx-auto" style={{ maxWidth: "1000px" }}>
+
+        <div className="mb-6">
+          <Tabs value={filterType} className="w-full">
+            <TabsHeader className="bg-gray-100 p-1">
+              <Tab
+                value="car"
+                onClick={() => setFilterType('car')}
+                className={`flex items-center gap-2 ${filterType === 'car' ? 'text-blue-500' : ''
+                  }`}
+              >
+                <CarFront className="h-4 w-4" />
+                Avtomobillər
+              </Tab>
+              <Tab
+                value="plate"
+                onClick={() => setFilterType('plate')}
+                className={`flex items-center gap-2 ${filterType === 'plate' ? 'text-blue-500' : ''
+                  }`}
+              >
+                <Square className="h-4 w-4" />
+                Nömrələr
+              </Tab>
+            </TabsHeader>
+          </Tabs>
+        </div>
+
         <CategoryNavbar />
 
-        <section className='bg-slate-100  mb-5'>
-          <AutoFilter />
+
+        <section className='bg-slate-100 mb-5'>
+          {filterType === 'car' ? (
+            <AutoFilter />
+          ) : (
+            <LicensePlateFilter />
+          )}
         </section>
 
 
+        <div>
 
 
- 
+        </div>
 
-
-
-
-
-        {/* <section className='mt-2'>
-          <Image src="/icons/car.svg" width={40} height={40} alt="Car" />
-          <Image src="/icons/rent.svg" width={40} height={40} alt="License Plate" />
-          <Image src="/icons/license-plate.svg" width={40} height={40} alt="License Plate" />
-        </section> */}
-
-        <section className="mb-6 mx-auto" style={{ maxWidth: "1000px" }}>
-
-        </section>
 
         <section className="container mx-auto px-4" >
           <div className="grid grid-cols-2 lg:grid-cols-4  gap-4">
