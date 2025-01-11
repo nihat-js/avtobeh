@@ -1,9 +1,9 @@
-import Snowfall from "@/src/app/components/common/Snowfall";
+// import Snowfall from "@/src/app/components/common/Snowfall";
 import "../../styles/globals.css"
 
 
-import Footer from '@/src/app/components/user/Footer';
-import Header from '@/src/app/components/user/Header.jsx';
+import Footer from '@/src/components/user/Footer';
+import Header from '@/src/components/user/Header.jsx';
 import { GlobalProvider } from "@/src/lib/GlobalContext";
 import { AuthProvider } from "@/src/lib/AuthContext";
 import { cookies } from "next/headers";
@@ -76,15 +76,14 @@ async function Layout({ children }) {
       <AuthProvider data={{ user }}>
         <AntdRegistry>
           <html>
-            <body className="" style={{
-              //  backgroundImage: "url('/backgrounds/2.avif')", backgroundSize: "cover" 
-              backgroundColor: "#f0f4f8"  // Cool blue-gray shade
+            <body className="bg-white" style={{
+              backgroundColor: "#ffffff"  // Pure white background
             }}>
 
-              <Snowfall />
+              {/* <Snowfall /> */}
               <div>
                 <Header user={user} />
-                <div className='bg-slate-100'>
+                <div className='bg-gray-50'>
                   <main className="flex-1 container mx-auto py-6 px-4 ">{children}</main>
                 </div>
                 <Footer />

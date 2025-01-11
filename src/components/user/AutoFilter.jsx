@@ -4,9 +4,6 @@ import { useState } from "react";
 import { FiFilter } from "react-icons/fi"; // Importing filter icon from react-icons
 import CustomSelect from "../atoms/CustomSelect";
 import { carFeatures, cylindersCount, engineSize, transmissionTypes, vehicleTypes, years } from "@/src/data/auto";
-// import Colors from "./CarFilter/Colors";
-import Price from "./CarFilter/Price";
-import Condition from "./CarFilter/Condition";
 import { Option, Select } from "@material-tailwind/react";
 import { useGlobalContext } from "@/src/lib/GlobalContext";
 import { ButtonGroup } from "@material-tailwind/react";
@@ -17,7 +14,7 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 // import { Button } from "@/components/ui/button";
 // import MultiRangeSlider from "../common/MultiRangeSlider/MultiRangeSlider";
 
-const CarFilter = () => {
+const AutoFilter = () => {
     const [showAdvanced, setShowAdvanced] = useState(false);
     const [filters, setFilters] = useState({
         brand: "",
@@ -85,7 +82,7 @@ const CarFilter = () => {
 
 
     return (
-        <div className="p-4  bg-gray-100 rounded-2xl shadow-sm " >
+        <div className="p-4 rounded-2xl shadow-sm " >
 
 
 
@@ -297,4 +294,4 @@ const CarFilter = () => {
     );
 };
 
-export default CarFilter;
+export default AutoFilter;

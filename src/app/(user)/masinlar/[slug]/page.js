@@ -1,10 +1,20 @@
 "use server"
-import Client from "./client";
+import Ad from "@/src/database/sequelize/models/Ad";
+import Index from "./index";
+import Auto from "@/src/database/sequelize/models/Auto";
 
 
-export default async function CarDetails() {
+export default async function CarDetails({params}) {
 
-  // const car = await prisma.car.findUnique({ where: { id: 1 } });
+  let slug = await params.slug
+
+  let auto = await Ad.findOne({ where: { slug: slug },
+    include : [
+      {
+        model : Auto,
+      }
+    ]
+  })
 
   function goBack() {
     return window.history.back();
@@ -12,7 +22,7 @@ export default async function CarDetails() {
 
   return (
     <div>
-      {/* <Client car={car} /> */}
+      <Index  />
     </div>
   );
 };
