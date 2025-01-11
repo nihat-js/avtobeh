@@ -25,12 +25,12 @@ function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/avtomobil-axtar" className="text-gray-400 hover:text-blue-400 transition">
+                  <Link href="/axtar?category=1" className="text-gray-400 hover:text-blue-400 transition">
                     Avtomobil Axtar
                   </Link>
                 </li>
                 <li>
-                  <Link href="/nomre-axtar" className="text-gray-400 hover:text-blue-400 transition">
+                  <Link href="/axtar?category=2" className="text-gray-400 hover:text-blue-400 transition">
                     Nomre Axtar
                   </Link>
                 </li>
@@ -72,15 +72,17 @@ function Footer() {
             <div>
               <h3 className="text-lg font-semibold mb-4">Şəhərlər üzrə axtarış</h3>
               <ul className="space-y-2">
-                {
-                  // cities.map((city, index) => (
-                  //   <li key={index}>
-                  //     <Link href={`/search?city=${city.name}`} className="text-gray-400 hover:text-blue-400 transition">
-                  //       {city}
-                  //     </Link>
-                  //   </li>
-                  // ))
-                }
+                <div className='flex flex-wrap gap-2'>
+                  {
+                    cities.map((city, index) => (
+                      <li key={index}>
+                        <Link href={`/axtar?city=${city.id}`} className="text-gray-400 hover:text-blue-400 transition">
+                          {city.name}
+                        </Link>
+                      </li>
+                    ))
+                  }
+                </div>
               </ul>
             </div>
 
