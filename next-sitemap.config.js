@@ -1,7 +1,20 @@
-module.exports = {
-  siteUrl: 'https://avtobeh.com', // Replace with your website's URL
-  generateRobotsTxt: true, // (Optional) Generate a robots.txt file
-  changefreq: 'daily', // (Optional) Set the change frequency
-  priority: 0.7, // (Optional) Set the priority for URLs
-  sitemapSize: 7000, // (Optional) Limit the number of URLs per sitemap file
+export default {
+  siteUrl: 'https://avtobeh.com',
+  generateRobotsTxt: true,
+  changefreq: 'daily',
+  priority: 0.7,
+  sitemapSize: 7000,
+  generateIndexSitemap: true,
+  exclude: [],
+  additionalPaths: async (config) => {
+    return []
+  },
+  transform: async (config, path) => {
+    return {
+      loc: path,
+      changefreq: config.changefreq,
+      priority: config.priority,
+      lastmod: new Date().toISOString(),
+    }
+  },
 };

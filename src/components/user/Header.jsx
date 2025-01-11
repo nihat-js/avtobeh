@@ -69,11 +69,12 @@ const Header = () => {
   ]
 
 
-  function isLoginRequired(e) {
-    if (true) {
+  function wrapGoToLiked(e) {
+    if (!user) {
       e.preventDefault();
       return toggleLoginModalState()
     }
+    window.location.href = "/beyendiklerim"
   }
 
 
@@ -158,7 +159,7 @@ const Header = () => {
             <Link href="/muqayise" className='hover:text-red-600 hover:bg-red-100 p-2 rounded-md ' >
               <FaBalanceScale strokeWidth={1} size={20} />
             </Link>
-            <Link onClick={isLoginRequired} href="/beyendiklerim" className='hover:text-red-600 hover:bg-red-100 p-2 rounded-md ' >
+            <Link onClick={wrapGoToLiked} href="/beyendiklerim" className='hover:text-red-600 hover:bg-red-100 p-2 rounded-md ' >
               <FaHeart strokeWidth={1} size={20} />
             </Link>
 

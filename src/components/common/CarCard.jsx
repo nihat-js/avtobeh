@@ -39,26 +39,48 @@ export default function CarCard({ data }) {
       <Link href={`/masinlar/${data.slug}`} className="" >
 
         <div>
-          <div className="relative" >
+          <div className="relative group" >
             <img
-              src={ data.Media?.length > 0 ?  "/uploads/autos/"+data.Media[0] : "/placeholder.jpg" }
+              src={data.Media?.length > 0 ? "/uploads/autos/" + data.Media[activeImageIndex] : "/placeholder.jpg"}
               alt={`${data.Auto.brandName} ${data.Auto.modelName}`}
-              className="h-[150px] md:h-[250px]"
-              style={{ width: '100%', obectFit: 'cover' }}
-              height={300}
+              className="h-[150px] md:h-[250px] w-full object-cover transition-all duration-300"
             />
-            {
-              [1, 2, 3, 4].map(index => {
-                return <div key={index}
-                  style={{ right: `${(index + 1) * 15}px`, bottom: "10px" }}
-                  // onMouseEnter={}
-                  className="absolute  hover:bg-orange-600 hover:scale-110 transition-all duration-300  w-1 h-1 rounded-full  pointer p-2  bg-gray-300 cursor-pointer" >
+            
+            {/* Numbered buttons - only visible on hover */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+              {data.Media?.slice(0, 4).map((_, index) => (
+                <div
+                  key={index}
+                  onMouseEnter={() => setActiveImageIndex(index)}
+                  onClick={(e) => { e.preventDefault(); setActiveImageIndex(index); }}
+                  className="w-7 h-7 flex items-center justify-center rounded-full 
+                    bg-gradient-to-br from-indigo-500 to-purple-600 
+                    hover:from-indigo-600 hover:to-purple-700
+                    shadow-lg hover:shadow-indigo-500/30
+                    text-white text-sm font-medium cursor-pointer 
+                    transition-all duration-300 transform hover:scale-105"
+                >
+                  {index + 1}
                 </div>
-              })
-            }
+              ))}
+              {data.Media?.length > 4 && (
+                <Link
+                  href={`/masinlar/${data.slug}`}
+                  className="w-7 h-7 flex items-center justify-center rounded-full 
+                    bg-gradient-to-br from-orange-400 to-pink-600
+                    hover:from-orange-500 hover:to-pink-700
+                    shadow-lg hover:shadow-orange-500/30
+                    text-white text-sm font-medium cursor-pointer 
+                    transition-all duration-300 transform hover:scale-105"
+                >
+                  ...
+                </Link>
+              )}
+            </div>
 
-            <div className={`absolute right-2 top-2  rounded-full  pointer p-2 ${isFavorite ? 'bg-orange-600' : 'bg-white'}
-              cursor-pointer 4  hover:opacity-60  `} onClick={toggleFavorite} >
+            {/* Favorite button */}
+            <div className={`absolute right-2 top-2 rounded-full p-2 ${isFavorite ? 'bg-orange-600' : 'bg-white'}
+              cursor-pointer hover:opacity-60`} onClick={(e) => { e.preventDefault(); toggleFavorite(); }}>
               <div className="relative">
                 <Image src="/icons/heart-outlined.svg" alt="View" width={16} height={16} />
               </div>
