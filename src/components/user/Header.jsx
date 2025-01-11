@@ -85,7 +85,7 @@ const Header = () => {
       <Register state={registerModalState} setState={setRegisterModalState} toggleLoginRegisterState={toggleLoginRegisterState} />
       <Login state={loginModalState} setState={setLoginModalState} toggleLoginRegisterState={toggleLoginRegisterState} />
 
-      <div className="mx-auto flex items-center justify-between py-2" style={{ maxWidth: "1000px" }}>
+      <div className="mx-auto flex items-center justify-between py-2 px-4" style={{ maxWidth: "1000px" }}>
 
         <Link href="/" className="text-2xl font-bold ">
           <div className=" ">
@@ -94,8 +94,8 @@ const Header = () => {
           </div>
         </Link>
 
-        {/* Navigation (Desktop) */}
-        <nav className="hidden md:flex ">
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center">
 
           <Menu allowHover>
             <MenuHandler>
@@ -310,25 +310,70 @@ const Header = () => {
 
 
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden">
-          <button onClick={toggleMobileMenu} className="text-white focus:outline-none">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3.75 5.25h16.5M3.75 12h16.5m-16.5 6.75h16.5"
-              />
+        {/* Mobile Navigation */}
+        <div className="md:hidden flex items-center gap-2">
+          <Link href="/muqayise" className='hover:text-red-600 hover:bg-red-100 p-2 rounded-md'>
+            <FaBalanceScale strokeWidth={1} size={20} />
+          </Link>
+          <Link onClick={wrapGoToLiked} href="/beyendiklerim" className='hover:text-red-600 hover:bg-red-100 p-2 rounded-md'>
+            <FaHeart strokeWidth={1} size={20} />
+          </Link>
+          <button onClick={toggleMobileMenu} className="p-2 hover:bg-red-100 rounded-md">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 5.25h16.5M3.75 12h16.5m-16.5 6.75h16.5" />
             </svg>
           </button>
         </div>
+
+        {/* Mobile Menu Overlay */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-50">
+            <div className="bg-white h-full w-64 p-4 absolute right-0">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="font-bold">Menu</h2>
+                <button onClick={toggleMobileMenu} className="p-2 hover:bg-red-100 rounded-md">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              
+              <div className="flex flex-col gap-2">
+                {services.map((service) => (
+                  <Link
+                    key={service.label}
+                    href={service.href}
+                    className="p-2 hover:bg-red-100 rounded-md"
+                    onClick={toggleMobileMenu}
+                  >
+                    {service.label}
+                  </Link>
+                ))}
+                
+                <Link href="/avtomobil-sat" className="p-2 hover:bg-red-100 rounded-md flex items-center gap-2">
+                  <Image src="/icons/plus-circle.svg" width={24} height={24} alt="Add" />
+                  <span>Avtomobil sat</span>
+                </Link>
+
+                {!user ? (
+                  <button
+                    onClick={() => {
+                      toggleMobileMenu();
+                      toggleLoginModalState();
+                    }}
+                    className="p-2 hover:bg-red-100 rounded-md text-left"
+                  >
+                    Daxil ol
+                  </button>
+                ) : (
+                  <Link href="/profil-melumatlarim" className="p-2 hover:bg-red-100 rounded-md" onClick={toggleMobileMenu}>
+                    Profil
+                  </Link>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
 

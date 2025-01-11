@@ -53,7 +53,7 @@ export default function CarCard({ data }) {
                   key={index}
                   onMouseEnter={() => setActiveImageIndex(index)}
                   onClick={(e) => { e.preventDefault(); setActiveImageIndex(index); }}
-                  className="w-7 h-7 flex items-center justify-center rounded-full 
+                  className="w-5 h-5 flex items-center justify-center rounded-full 
                     bg-gradient-to-br from-indigo-500 to-purple-600 
                     hover:from-indigo-600 hover:to-purple-700
                     shadow-lg hover:shadow-indigo-500/30

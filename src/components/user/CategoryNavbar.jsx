@@ -5,10 +5,7 @@ export default function Navbar2() {
   const [filterType, setFilterType] = useState('all');
   
   const NavWrapper = styled.div`
-    background: linear-gradient(180deg, 
-      rgba(37, 38, 44, 0.98),
-      rgba(26, 27, 33, 0.95)
-    );
+    background: #1a1b21;
     padding: 24px 0;
     box-shadow: 
       0 5px 25px rgba(0, 0, 0, 0.2),
@@ -17,7 +14,9 @@ export default function Navbar2() {
     backdrop-filter: blur(12px);
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 40;
+    width: 100%;
+    overflow: hidden;
   `;
 
   const NavContent = styled.div`
@@ -27,32 +26,43 @@ export default function Navbar2() {
     overflow-x: auto;
     scrollbar-width: none;
     padding: 0 32px;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    
     &::-webkit-scrollbar {
       display: none;
     }
     
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    
-    mask-image: linear-gradient(
-      to right,
-      transparent,
-      black 8%,
-      black 92%,
-      transparent
-    );
+    @media (max-width: 768px) {
+      padding: 0 16px;
+      gap: 8px;
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+      width: 100%;
+      overflow-x: auto;
+      mask-image: none;
+      -webkit-mask-image: none;
+      
+      /* Force horizontal scroll */
+      display: inline-flex;
+      flex-direction: row;
+      white-space: nowrap;
+    }
   `;
 
   const NavButton = styled.button`
     padding: 15px 30px;
     border-radius: 40px;
     white-space: nowrap;
+    display: inline-block;
+    min-width: fit-content;
+    width: auto;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     font-size: 15px;
     font-weight: 500;
     letter-spacing: 0.3px;
     border: 2px solid ${props => props.active ? '#6366f1' : 'rgba(99, 102, 241, 0.08)'};
-    position: relative;
+    // position: relative;
     overflow: hidden;
 
     ${props => props.active ? `
@@ -72,7 +82,7 @@ export default function Navbar2() {
         background: linear-gradient(135deg, #818cf8, #6366f1);
       }
     ` : `
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(255, 255, 255, 0.05);
       color: #e2e8f0;
       backdrop-filter: blur(8px);
       
@@ -130,6 +140,17 @@ export default function Navbar2() {
 
     &:hover:before {
       transform: translateX(100%);
+    }
+
+    @media (max-width: 768px) {
+      padding: 10px 16px;
+      font-size: 14px;
+      display: inline-block;
+      width: auto;
+      min-width: min-content;
+      white-space: nowrap;
+      flex-shrink: 0;
+      overflow: visible;
     }
   `;
 
