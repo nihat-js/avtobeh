@@ -21,11 +21,9 @@ export const AuthProvider = ({ children, data }) => {
   async function signInWithGoogle() {
     setIsLoading(true);
     const provider = new GoogleAuthProvider();
-
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-
       const idToken = await getIdToken(user);
       const userData = {
         // uid: user.uid,
@@ -37,20 +35,18 @@ export const AuthProvider = ({ children, data }) => {
       let response = await axios.post('/api/auth/save-user', userData);
       if (response.data.error) {
         setError(response.data.message);
-      } else {
-        setUser(response.data.data);
-        setIsLoading(false);
+        return false
       }
 
-
-      // Call your API to save the user to your MySQL database via Sequelize
-      // console.log('User signed in with Google:', user);
-
+      setUser(response.data.data);
+      setIsLoading(false);
+      console.log("bax qaytaracam trueee")
+      return true
     } catch (err) {
+      console.log("bax qaytaracam falseee")
       setError('Failed to sign in with Google');
       console.error(err);
-    } finally {
-      setIsLoading(false);
+      return false
     }
   };
 

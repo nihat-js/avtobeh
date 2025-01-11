@@ -19,7 +19,17 @@ export default function Login({ state, setState, toggleLoginRegisterState }) {
         setState(prev => !prev)
     }
 
-    const { setUser, signInWithGoogle, isAuthLoading } = useAuth()
+    async function wrapSignInWithGoogle() {
+        let response = await signInWithGoogle()
+        console.log("oo response", response)
+        if (response) {
+            setState(false)
+        } else {
+            alert("Xəta baş verdi")
+        }
+    }
+
+    const { user, setUser, signInWithGoogle, isAuthLoading } = useAuth()
 
     async function submit(e) {
         e.preventDefault()
@@ -76,7 +86,7 @@ export default function Login({ state, setState, toggleLoginRegisterState }) {
                         <div>
                             <Button
                                 disabled={isAuthLoading}
-                                onClick={signInWithGoogle}
+                                onClick={wrapSignInWithGoogle}
                                 variant="outlined"
                                 size="lg"
                                 className="flex h-12 border-blue-gray-200 items-center justify-center gap-2 mt-5"

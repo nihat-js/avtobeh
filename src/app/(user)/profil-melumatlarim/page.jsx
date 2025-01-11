@@ -1,368 +1,441 @@
 "use client"
-import React from "react";
 
-// @material-tailwind/react
-import {
-    Input,
-    Typography,
-    Select,
-    Option,
-    Popover,
-    PopoverHandler,
-    PopoverContent,
-} from "@material-tailwind/react";
+import styled from 'styled-components';
+import { useState } from 'react';
+import { FaEdit, FaTrash } from 'react-icons/fa';
+import { useAuth } from '@/src/lib/AuthContext';
 
-// day picker
-// import { format } from "date-fns";
-import { DayPicker } from "react-day-picker";
+const UserProfile = () => {
+  const { user } = useAuth();
+  const [userData, setUserData] = useState({
+    name: "Sarah Johnson",
+    email: "sarah.j@gmail.com",
+    avatar: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80",
+    joinDate: "March 15, 2023",
+    postsCount: 127,
+    balance: 1250.50,
+    loginProvider: "Google",
+    favoriteBrands: ["Nike", "Apple", "Samsung"],
+    membershipLevel: "Gold",
+    accountStatus: "Active",
+    recentTransactions: [
+      { date: "2024-03-15", amount: 150.00, type: "Credit", description: "Refund" },
+      { date: "2024-03-10", amount: -80.50, type: "Debit", description: "Purchase" },
+      { date: "2024-03-05", amount: -45.00, type: "Debit", description: "Service Fee" },
+    ]
+  });
 
-// @heroicons/react
-// import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import { FaChevronLeft } from "react-icons/fa";
-import { useState } from "react";
-import { Avatar } from "@material-tailwind/react";
-import { Button } from "@material-tailwind/react";
+  return (
+    <ProfileContainer>
+      <TopGrid>
+        <ProfileCard>
+          <AvatarSection>
+            <Avatar src={userData.avatar} alt="Profile picture" />
+            <ButtonGroup>
+              <ChangeAvatarButton>
+                <FaEdit /> Change Picture
+              </ChangeAvatarButton>
+              <RemoveAvatarButton>
+                <FaTrash /> Remove
+              </RemoveAvatarButton>
+            </ButtonGroup>
+          </AvatarSection>
+          
+          <UserInfo>
+            <NameSection>
+              <h1>{user.name}</h1>
+              <EditButton><FaEdit /></EditButton>
+            </NameSection>
+            <Status>{userData.accountStatus} • {userData.membershipLevel} Member</Status>
+            <AccountBadge>{userData.loginProvider}</AccountBadge>
+          </UserInfo>
+        </ProfileCard>
 
-function Account1() {
-    const [date, setDate] = useState();
+        <StatsCard>
+          <SectionTitle>Quick Overview</SectionTitle>
+          <StatsGrid>
+            <StatItem>
+              <StatValue>{userData.postsCount}</StatValue>
+              <StatLabel>Total Posts</StatLabel>
+            </StatItem>
+            <StatItem>
+              <StatValue>${userData.balance.toFixed(2)}</StatValue>
+              <StatLabel>Balance</StatLabel>
+            </StatItem>
+            <StatItem>
+              <StatValue>{userData.membershipLevel}</StatValue>
+              <StatLabel>Level</StatLabel>
+            </StatItem>
+            <StatItem>
+              <StatValue>{userData.favoriteBrands.length}</StatValue>
+              <StatLabel>Favorites</StatLabel>
+            </StatItem>
+          </StatsGrid>
+        </StatsCard>
+      </TopGrid>
 
-    return (
-        <section className="px-8 py-20 container mx-auto" style={{minHeight : "100vh"}}>
+      <ContentGrid>
+        <Section>
+          <SectionTitle>Account Details</SectionTitle>
+          <DetailItem>
+            <Label>Email:</Label>
+            <ValueGroup>
+              <Value>{user.email}</Value>
+              <EditButton><FaEdit /></EditButton>
+            </ValueGroup>
+          </DetailItem>
+          <DetailItem>
+            <Label>Member Since:</Label>
+            <Value>{userData.joinDate}</Value>
+          </DetailItem>
+        </Section>
 
-            <div className="flex flex-row items-center gap-5 mb-8 px-2">
-                <Avatar src="https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=76&q=80" size={32} />
-                <div className="flex flex-col">
-                    <Typography variant="h5" color="blue-gray"> Profil şəkli </Typography>
-                    <Typography
-                        variant="small"
-                        className="text-gray-600 font-normal mt-1"
-                    >
-                        Digər istifadəçilər səhifəsində göstərilən profil şəkli
-                    </Typography>
-                </div>
-                <Button className="" >
-                    Şəkil yüklə
-                </Button>
-                <Button color="deep-purple" variant="outlined" className="">
-                    Silmək
-                </Button>
-            </div>
+        <Section>
+          <SectionTitle>Activity Overview</SectionTitle>
+          <DetailItem>
+            <Label>Total Posts:</Label>
+            <Value>{userData.postsCount}</Value>
+          </DetailItem>
+          <DetailItem>
+            <Label>Account Balance:</Label>
+            <Value>${userData.balance.toFixed(2)}</Value>
+          </DetailItem>
+        </Section>
 
-            <Typography variant="h5" color="blue-gray">
-                Basic Information
-            </Typography>
-            <Typography
-                variant="small"
-                className="text-gray-600 font-normal mt-1"
-            >
-                Update your profile information below.
-            </Typography>
-            <div className="flex flex-col mt-8">
-                <div className="mb-6 flex flex-col items-end gap-4 md:flex-row">
-                    <div className="w-full">
-                        <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="mb-2 font-medium"
-                        >
-                            First Name
-                        </Typography>
-                        <Input
-                            size="lg"
-                            placeholder="Emma"
-                            labelProps={{
-                                className: "hidden",
-                            }}
-                            className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                        />
-                    </div>
-                    <div className="w-full">
-                        <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="mb-2 font-medium"
-                        >
-                            Last Name
-                        </Typography>
-                        <Input
-                            size="lg"
-                            placeholder="Roberts"
-                            labelProps={{
-                                className: "hidden",
-                            }}
-                            className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                        />
-                    </div>
-                </div>
-                <div className="mb-6 flex flex-col gap-4 md:flex-row">
-                    <div className="w-full">
-                        <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="mb-2 font-medium"
-                        >
-                            I&apos;m
-                        </Typography>
-                        <Select
-                            size="lg"
-                            labelProps={{
-                                className: "hidden",
-                            }}
-                            className="border-t-blue-gray-200 aria-[expanded=true]:border-t-primary"
-                        >
-                            <Option>Male</Option>
-                            <Option>Female</Option>
-                        </Select>
-                    </div>
-                    <div className="w-full">
-                        <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="mb-2 font-medium"
-                        >
-                            Birth Date
-                        </Typography>
-                        <Popover placement="bottom">
-                            {/* <PopoverHandler>
-                                <Input
-                                    size="lg"
-                                    onChange={() => null}
-                                    placeholder="Select a Date"
-                                    value={date ? format(date, "PPP") : ""}
-                                    labelProps={{
-                                        className: "hidden",
-                                    }}
-                                    className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                                />
-                            </PopoverHandler> */}
-                            <PopoverContent>
-                                <DayPicker
-                                    mode="single"
-                                    selected={date}
-                                    onSelect={setDate}
-                                    showOutsideDays
-                                    className="border-0"
-                                    classNames={{
-                                        caption:
-                                            "flex justify-center py-2 mb-4 relative items-center",
-                                        caption_label: "text-sm !font-medium text-gray-900",
-                                        nav: "flex items-center",
-                                        nav_button:
-                                            "h-6 w-6 bg-transparent hover:bg-blue-gray-50 p-1 rounded-md transition-colors duration-300",
-                                        nav_button_previous: "absolute left-1.5",
-                                        nav_button_next: "absolute right-1.5",
-                                        table: "w-full border-collapse",
-                                        head_row: "flex !font-medium text-gray-900",
-                                        head_cell: "m-0.5 w-9 !font-normal text-sm",
-                                        row: "flex w-full mt-2",
-                                        cell: "text-gray-600 rounded-md h-9 w-9 text-center text-sm p-0 m-0.5 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-gray-900/20 [&:has([aria-selected].day-outside)]:text-white [&:has([aria-selected])]:bg-gray-900/50 first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
-                                        day: "h-9 w-9 p-0 !font-normal",
-                                        day_range_end: "day-range-end",
-                                        day_selected:
-                                            "rounded-md bg-gray-900 text-white hover:bg-gray-900 hover:text-white focus:bg-gray-900 focus:text-white",
-                                        day_today: "rounded-md bg-gray-200 text-gray-900",
-                                        day_outside:
-                                            "day-outside text-gray-500 opacity-50 aria-selected:bg-gray-500 aria-selected:text-gray-900 aria-selected:bg-opacity-10",
-                                        day_disabled: "text-gray-500 opacity-50",
-                                        day_hidden: "invisible",
-                                    }}
-                                    components={{
-                                        IconLeft: ({ ...props }) => (
-                                            <FaChevronLeft
-                                                {...props}
-                                                className="h-4 w-4 stroke-2"
-                                            />
-                                        ),
-                                        IconRight: ({ ...props }) => (
-                                            <ChevronRightIcon
-                                                {...props}
-                                                className="h-4 w-4 stroke-2"
-                                            />
-                                        ),
-                                    }}
-                                />
-                            </PopoverContent>
-                        </Popover>
-                    </div>
-                    <div className="w-full">
-                        <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="mb-2 font-medium"
-                        >
-                            Day
-                        </Typography>
-                        <Select
-                            size="lg"
-                            labelProps={{
-                                className: "hidden",
-                            }}
-                            className="border-t-blue-gray-200 aria-[expanded=true]:border-t-primary"
-                        >
-                            <Option>1</Option>
-                            <Option>2</Option>
-                            <Option>3</Option>
-                            <Option>4</Option>
-                            <Option>5</Option>
-                            <Option>6</Option>
-                            <Option>7</Option>
-                            <Option>8</Option>
-                            <Option>9</Option>
-                            <Option>10</Option>
-                            <Option>11</Option>
-                            <Option>12</Option>
-                            <Option>13</Option>
-                            <Option>14</Option>
-                            <Option>15</Option>
-                            <Option>16</Option>
-                            <Option>17</Option>
-                            <Option>18</Option>
-                            <Option>19</Option>
-                            <Option>20</Option>
-                            <Option>21</Option>
-                            <Option>22</Option>
-                            <Option>23</Option>
-                            <Option>24</Option>
-                            <Option>25</Option>
-                            <Option>26</Option>
-                            <Option>27</Option>
-                            <Option>28</Option>
-                            <Option>29</Option>
-                            <Option>30</Option>
-                        </Select>
-                    </div>
-                    <div className="w-full">
-                        <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="mb-2 font-medium"
-                        >
-                            Year
-                        </Typography>
-                        <Select
-                            size="lg"
-                            labelProps={{
-                                className: "hidden",
-                            }}
-                            className="border-t-blue-gray-200 aria-[expanded=true]:border-t-primary"
-                        >
-                            <Option>2022</Option>
-                            <Option>2021</Option>
-                            <Option>2020</Option>
-                        </Select>
-                    </div>
-                </div>
-                <div className="mb-6 flex flex-col items-end gap-4 md:flex-row">
-                    <div className="w-full">
-                        <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="mb-2 font-medium"
-                        >
-                            Email
-                        </Typography>
-                        <Input
-                            size="lg"
-                            placeholder="emma@mail.com"
-                            labelProps={{
-                                className: "hidden",
-                            }}
-                            className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                        />
-                    </div>
-                    <div className="w-full">
-                        <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="mb-2 font-medium"
-                        >
-                            Confirm Email
-                        </Typography>
-                        <Input
-                            size="lg"
-                            placeholder="emma@mail.com"
-                            labelProps={{
-                                className: "hidden",
-                            }}
-                            className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                        />
-                    </div>
-                </div>
-                <div className="mb-6 flex flex-col items-end gap-4 md:flex-row">
-                    <div className="w-full">
-                        <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="mb-2 font-medium"
-                        >
-                            Location
-                        </Typography>
-                        <Input
-                            size="lg"
-                            placeholder="Florida, USA"
-                            labelProps={{
-                                className: "hidden",
-                            }}
-                            className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                        />
-                    </div>
-                    <div className="w-full">
-                        <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="mb-2 font-medium"
-                        >
-                            Phone Number
-                        </Typography>
-                        <Input
-                            size="lg"
-                            placeholder="+123 0123 456 789"
-                            labelProps={{
-                                className: "hidden",
-                            }}
-                            className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                        />
-                    </div>
-                </div>
-                <div className="flex flex-col items-end gap-4 md:flex-row">
-                    <div className="w-full">
-                        <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="mb-2 font-medium"
-                        >
-                            Language
-                        </Typography>
-                        <Input
-                            size="lg"
-                            placeholder="Language"
-                            labelProps={{
-                                className: "hidden",
-                            }}
-                            className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                        />
-                    </div>
-                    <div className="w-full">
-                        <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="mb-2 font-medium"
-                        >
-                            Skills
-                        </Typography>
-                        <Input
-                            size="lg"
-                            placeholder="Skills"
-                            labelProps={{
-                                className: "hidden",
-                            }}
-                            className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                        />
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
-}
+        <Section>
+          <SectionTitle>Change Password</SectionTitle>
+          <PasswordForm>
+            <Input type="password" placeholder="Current Password" />
+            <Input type="password" placeholder="New Password" />
+            <Input type="password" placeholder="Confirm New Password" />
+            <ChangePasswordButton>Update Password</ChangePasswordButton>
+          </PasswordForm>
+        </Section>
+      </ContentGrid>
 
-export default Account1;
+      <FullWidthSection>
+        <SectionTitle>Recent Transactions</SectionTitle>
+        <TransactionsList>
+          {userData.recentTransactions.map((transaction, index) => (
+            <TransactionItem key={index} type={transaction.type}>
+              <TransactionDate>{transaction.date}</TransactionDate>
+              <TransactionDesc>{transaction.description}</TransactionDesc>
+              <TransactionAmount type={transaction.type}>
+                {transaction.type === "Credit" ? "+" : "-"}${Math.abs(transaction.amount).toFixed(2)}
+              </TransactionAmount>
+            </TransactionItem>
+          ))}
+        </TransactionsList>
+      </FullWidthSection>
+    </ProfileContainer>
+  );
+};
+
+const ProfileContainer = styled.div`
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+`;
+
+const TopGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+`;
+
+const ProfileCard = styled.div`
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+`;
+
+const StatsCard = styled.div`
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+`;
+
+const StatsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 1rem;
+`;
+
+const StatItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1rem;
+  background: ${props => props.theme.colors?.background || '#f8f9fa'};
+  border-radius: 8px;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+`;
+
+const StatValue = styled.div`
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2196F3;
+  margin-bottom: 0.5rem;
+`;
+
+const StatLabel = styled.div`
+  font-size: 0.875rem;
+  color: #666;
+  font-weight: 500;
+`;
+
+const AvatarSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+`;
+
+const Avatar = styled.img`
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+`;
+
+const UserInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  h1 {
+    margin: 0;
+    color: #333;
+    font-size: 2rem;
+  }
+`;
+
+const Status = styled.span`
+  color: #666;
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+`;
+
+const ContentGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+`;
+
+const Section = styled.div`
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+`;
+
+const SectionTitle = styled.h2`
+  color: #333;
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #f0f0f0;
+`;
+
+const DetailItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 0.5rem 0;
+  
+  &:hover {
+    background: #f8f9fa;
+    border-radius: 6px;
+    padding: 0.5rem;
+    margin: 0 -0.5rem 1rem -0.5rem;
+  }
+`;
+
+const Label = styled.span`
+  color: #666;
+  font-weight: 500;
+`;
+
+const Value = styled.span`
+  color: #333;
+  font-weight: 600;
+`;
+
+const Button = styled.button`
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-1px);
+  }
+`;
+
+const ChangeAvatarButton = styled(Button)`
+  background: #f0f0f0;
+  color: #333;
+  
+  &:hover {
+    background: #e0e0e0;
+  }
+`;
+
+const ChangePasswordButton = styled(Button)`
+  background: #4CAF50;
+  color: white;
+  width: 100%;
+  margin-top: 1rem;
+  
+  &:hover {
+    background: #388E3C;
+  }
+`;
+
+const BrandsList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+`;
+
+const BrandItem = styled.span`
+  background: #f0f0f0;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  color: #333;
+`;
+
+const AccountBadge = styled.span`
+  background: #4CAF50;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  align-self: flex-start;
+`;
+
+const PasswordForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const Input = styled.input`
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  
+  &:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+`;
+
+const FullWidthSection = styled(Section)`
+  grid-column: 1 / -1;
+  margin-top: 2rem;
+`;
+
+const TransactionsList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const TransactionItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: ${props => props.type === 'Credit' ? '#f0f7f0' : '#fff'};
+  border-radius: 8px;
+  border: 1px solid #eee;
+`;
+
+const TransactionDate = styled.span`
+  color: #666;
+  font-size: 0.9rem;
+`;
+
+const TransactionDesc = styled.span`
+  color: #333;
+  font-weight: 500;
+`;
+
+const TransactionAmount = styled.span`
+  font-weight: 600;
+  color: ${props => props.type === 'Credit' ? '#4CAF50' : '#f44336'};
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+`;
+
+const RemoveAvatarButton = styled(Button)`
+  background: #dc3545;
+  color: white;
+  
+  &:hover {
+    background: #c82333;
+  }
+`;
+
+const EditButton = styled.button`
+  background: none;
+  border: none;
+  color: #6c757d;
+  cursor: pointer;
+  padding: 0.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  
+  &:hover {
+    color: #007bff;
+    background: #f8f9fa;
+  }
+`;
+
+const NameSection = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  
+  h1 {
+    margin: 0;
+  }
+`;
+
+const ValueGroup = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
+export default UserProfile;
