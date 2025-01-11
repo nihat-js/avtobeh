@@ -1,5 +1,5 @@
 import Ad from "@/src/database/sequelize/models/Ad";
-import CarCard from "../../components/common/CarCard";
+// import CarCard from "../../components/common/CarCard";
 import Media from "@/src/database/sequelize/models/Media";
 import { jsonify } from "@/src/lib/utils";
 import Auto from "@/src/database/sequelize/models/Auto";
@@ -29,9 +29,9 @@ export default async function Home() {
       <h1>Elanlarım</h1>
 
       {
-        data.map((ad) => (
-          <CarCard data={ad} />
-        ))
+        // data.map((ad) => (
+          // <CarCard data={ad} />
+        // ))
       }
 
     </div>
